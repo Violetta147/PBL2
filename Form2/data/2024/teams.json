@@ -1,0 +1,144 @@
+{
+    "teams": [
+        {
+            "team_id": 1,
+            "name": "Arsenal",
+            "abbreviation": "ARS",
+            "stadium": "Emirates Stadium",
+            "founded_year": 1886
+        },
+        {
+            "team_id": 14,
+            "name": "Manchester United",
+            "abbreviation": "MUN",
+            "stadium": "Old Trafford",
+            "founded_year": 1878
+        },
+        {
+            "team_id": 13,
+            "name": "Manchester City",
+            "abbreviation": "MNC",
+            "stadium": "Etihad",
+            "founded_year": 1880
+        },
+        {
+            "team_id": 19,
+            "name": "West Ham",
+            "abbreviation": "WHU",
+            "stadium": "London",
+            "founded_year": 1895
+        },
+        {
+            "team_id": 18,
+            "name": "Tottenham Hotspur",
+            "abbreviation": "TOT",
+            "stadium": "Tottenham Hotspur Stadium",
+            "founded_year": 1882
+        },
+        {
+            "team_id": 6,
+            "name": "Chelsea",
+            "abbreviation": "CHE",
+            "stadium": "Stamford Bridge",
+            "founded_year": 1905
+        },
+        {
+            "team_id": 12,
+            "name": "Liverpool",
+            "abbreviation": "LIV",
+            "stadium": "Anfield",
+            "founded_year": 1892
+        },
+        {
+            "team_id": 11,
+            "name": "Leicester City",
+            "abbreviation": "LEI",
+            "stadium": "King Power Stadium",
+            "founded_year": 1884
+        },
+        {
+            "team_id": 2,
+            "name": "Aston Villa",
+            "abbreviation": "AVL",
+            "stadium": "Villa Park",
+            "founded_year": 1874
+        },
+        {
+            "team_id": 8,
+            "name": "Everton",
+            "abbreviation": "EVE",
+            "stadium": "Goodison Park",
+            "founded_year": 1878
+        },
+        {
+            "team_id": 15,
+            "name": "Newcastle United",
+            "abbreviation": "NEW",
+            "stadium": "St James' Park",
+            "founded_year": 1892
+        },
+        {
+            "team_id": 7,
+            "name": "Crystal Palace",
+            "abbreviation": "CRY",
+            "stadium": "Selhurst Park",
+            "founded_year": 1905
+        },
+        {
+            "team_id": 17,
+            "name": "Southampton",
+            "abbreviation": "SOU",
+            "stadium": "St Mary's Stadium",
+            "founded_year": 1885
+        },
+        {
+            "team_id": 5,
+            "name": "Brighton & Hove Albion",
+            "abbreviation": "BHA",
+            "stadium": "Falmer Stadium",
+            "founded_year": 1901
+        },
+        {
+            "team_id": 3,
+            "name": "Bournemouth",
+            "abbreviation": "BOR",
+            "stadium": "Dean court",
+            "founded_year": 1899
+        },
+        {
+            "team_id": 9,
+            "name": "Fullham",
+            "abbreviation": "FUL",
+            "stadium": "Craven Cottage",
+            "founded_year": 1879
+        },
+        {
+            "team_id": 16,
+            "name": "Nottingham Forest",
+            "abbreviation": "NFO",
+            "stadium": "City Ground",
+            "founded_year": 1865
+        },
+        {
+            "team_id": 4,
+            "name": "Brentford",
+            "abbreviation": "BRE",
+            "stadium": "Brentford Community Stadium",
+            "founded_year": 1889
+        },
+        {
+            "team_id": 20,
+            "name": "Wolves",
+            "abbreviation": "WOL",
+            "stadium": "Molineux",
+            "founded_year": 1877
+        },
+        {
+            "team_id": 10,
+            "name": "Ipswich Town",
+            "abbreviation": "IPS",
+            "stadium": "Portman Road",
+            "founded_year": 1878
+        }
+    ]
+}
