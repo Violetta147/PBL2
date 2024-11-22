@@ -17,7 +17,8 @@ Form2::MyForm::MyForm(void)
 void Form2::MyForm::MyForm_Load(System::Object^ sender, System::EventArgs^ e)
 {
 	try
-	{
+	{	
+		Console::WriteLine("MyForm_Load");
 		tour = new Tournament(read_tournament("tournament.json")); // does this lead to wrong memory management?
 		tour->get_all_data();
 		MessageBox::Show("Tournament data loaded successfully", "Success", MessageBoxButtons::OK, MessageBoxIcon::Information);
@@ -30,7 +31,8 @@ void Form2::MyForm::MyForm_Load(System::Object^ sender, System::EventArgs^ e)
 }
 
 void Form2::MyForm::ConfigureMainMenuStrip()
-{
+{	
+	Console::WriteLine("ConfigureMainMenuStrip");
 	this->MAINBUTTON->AllowMerge = false;
 	this->MAINBUTTON->AutoSize = false;
 	this->MAINBUTTON->BackColor = System::Drawing::Color::Transparent;
@@ -64,7 +66,8 @@ void Form2::MyForm::ConfigureMainMenuStrip()
 }
 
 void Form2::MyForm::ConfigureMenuItem(ToolStripMenuItem^ item, String^ text, EventHandler^ click)
-{
+{	
+	Console::WriteLine("ConfigureMenuItem");
 	item->AutoSize = false;
 	item->BackColor = System::Drawing::Color::Transparent;
 	item->Font = (gcnew System::Drawing::Font(L"Arial Rounded MT Bold", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
@@ -78,7 +81,8 @@ void Form2::MyForm::ConfigureMenuItem(ToolStripMenuItem^ item, String^ text, Eve
 }
 
 void Form2::MyForm::ConfigureContainerPanel()
-{
+{	
+	Console::WriteLine("ConfigureContainerpanel");
 	this->ContainerPanel->AutoScroll = true; //...?
 	this->ContainerPanel->AutoSize = true;
 	this->ContainerPanel->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
@@ -137,6 +141,8 @@ void Form2::MyForm::InitializeComponent(void)
 void Form2::MyForm::OnResize(Object^ sender, EventArgs^ e)
 {	
 	Console::WriteLine("OnResize");
+	//this->SuspendLayout();
+	//this->MAINBUTTON->SuspendLayout();
 	// Container width (MenuStrip)
 	int containerWidth = this->ClientSize.Width; //is this correct
 	int numButtons = 6;
@@ -253,6 +259,10 @@ void Form2::MyForm::OnMenuStripPaint(Object^ sender, PaintEventArgs^ e)
 		g->DrawLine(pen, segmentStartX, lineY, segmentEndX, lineY);
 	}
 	Console::WriteLine("OnMenuStripPaint");
+	//this->MAINBUTTON->ResumeLayout(false);
+	//this->MAINBUTTON->PerformLayout();
+	//this->ResumeLayout(false);
+	//this->PerformLayout();
 	delete pen;
 }
 //before changing the color of the button, the previous button color must be reset

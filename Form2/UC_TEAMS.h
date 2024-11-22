@@ -65,19 +65,31 @@ namespace Form2 {
 		void UC_TEAMS_Load(Object^ sender, EventArgs^ e)
 		{	
 			Console::WriteLine("Load");
+			this->SuspendLayout();
+			this->tableLayoutPanel->SuspendLayout();
 			int teamCount = tour->get_team_count();
 			GenerateTeamButtons(teamCount);
+			this->tableLayoutPanel->ResumeLayout(false);
+			this->tableLayoutPanel->PerformLayout();
+			this->ResumeLayout(false);
+			this->PerformLayout();
 		}
 		void UC_TEAMS_Resize(Object^ sender, EventArgs^ e)
 		{	
+			this->SuspendLayout();
+			this->tableLayoutPanel->SuspendLayout();
 			Console::WriteLine("Resizing");
 			int teamCount = tour->get_team_count();
 			GenerateTeamButtons(teamCount);
+			this->tableLayoutPanel->ResumeLayout(false);
+			this->tableLayoutPanel->PerformLayout();
+			this->ResumeLayout(false);
+			this->PerformLayout();
 		}
 		void GenerateTeamButtons(int teamCount)
 		{	
 			this->tableLayoutPanel->Controls->Clear();
-			this->tableLayoutPanel->SuspendLayout();
+			//this->tableLayoutPanel->SuspendLayout();
 			int buttonsPerRow = std::fmax(minButtonsPerRow, std::fmin(maxButtonsPerRow, this->tableLayoutPanel->Width + buttonSpacing / buttonWidth + buttonSpacing));
 			int rows = (int)ceil((double)teamCount / buttonsPerRow);
 
@@ -110,8 +122,6 @@ namespace Form2 {
 			tableLayoutPanel->Dock = DockStyle::Fill;
 			tableLayoutPanel->AutoScroll = true;
 			this->Controls->Add(tableLayoutPanel);
-			this->tableLayoutPanel->ResumeLayout(false);
-			this->tableLayoutPanel->PerformLayout();
 		}
 		Image^ GetImageResource (String^ resourceName)
 		{
