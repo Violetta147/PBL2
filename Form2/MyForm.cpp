@@ -161,7 +161,7 @@ void Form2::MyForm::OnResize(Object^ sender, EventArgs^ e)
 	if (currentUC != nullptr)
 	{
 		vScrollBar1->Minimum = 0;
-		FlowLayoutPanel^ flowPanel = dynamic_cast<FlowLayoutPanel^>(currentUC->Controls["panel1"]->Controls["flowLayoutPanel1"]);
+		FlowLayoutPanel^ flowPanel = dynamic_cast<FlowLayoutPanel^>(currentUC->Controls["flowLayoutPanel1"]);
 		if (flowPanel != nullptr)
 		{
 			vScrollBar1->Maximum = flowPanel->VerticalScroll->Maximum;
@@ -363,7 +363,7 @@ System::Void Form2::MyForm::TEAMS_Click(System::Object^ sender, System::EventArg
 		this->MAINBUTTON->Invalidate(); //Trigger Paint event ~ repaint
 		// Add the user control to the panel
 		UC_TEAMS^ ucTeams = gcnew Form2::UC_TEAMS(tour);
-		FlowLayoutPanel^ flowPanel = dynamic_cast<FlowLayoutPanel^>(ucTeams->Controls["panel1"]->Controls["flowLayoutPanel1"]);
+		FlowLayoutPanel^ flowPanel = dynamic_cast<FlowLayoutPanel^>(ucTeams->Controls["flowLayoutPanel1"]);
 		if (flowPanel != nullptr)
 		{
 			flowPanel->Layout += gcnew System::Windows::Forms::LayoutEventHandler(this, &MyForm::OnFlowPanelLayout);
@@ -378,7 +378,7 @@ void Form2::MyForm::vScrollBar1_Scroll(System::Object^ sender, System::Windows::
 	Console::WriteLine("vScrollBar1_Scroll");
 	if (currentUC != nullptr)
 	{
-		FlowLayoutPanel^ flowPanel = dynamic_cast<FlowLayoutPanel^>(currentUC->Controls["panel1"]->Controls["flowLayoutPanel1"]);
+		FlowLayoutPanel^ flowPanel = dynamic_cast<FlowLayoutPanel^>(currentUC->Controls["flowLayoutPanel1"]);
 		if (flowPanel != nullptr)
 		{	
 			flowPanel->VerticalScroll->Value = vScrollBar1->Value;

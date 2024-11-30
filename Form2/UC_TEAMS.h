@@ -36,26 +36,16 @@ namespace Form2 {
 	private:
 		   System::ComponentModel::Container ^components;
 	       System::Windows::Forms::Panel^ SearchPanel;
-
+		   bool isDeleteMode = false;
 		   const int buttonWidth = 320;
 		   const int buttonHeight = 240;
 		   const int buttonMargin = 20;
-	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel1;
-	private: System::Windows::Forms::Panel^ panel1;
+
+
 	private: System::Windows::Forms::Label^ buttonMinus;
 
 	private: System::Windows::Forms::Label^ buttonPlus;
-
-
-
-
-
-
-
-
-
-
-
+	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel1;
 		   Tournament* tour;
 
 #pragma region Windows Form Designer generated code
@@ -66,9 +56,7 @@ namespace Form2 {
 			this->buttonMinus = (gcnew System::Windows::Forms::Label());
 			this->buttonPlus = (gcnew System::Windows::Forms::Label());
 			this->flowLayoutPanel1 = (gcnew System::Windows::Forms::FlowLayoutPanel());
-			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->SearchPanel->SuspendLayout();
-			this->panel1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// SearchPanel
@@ -96,6 +84,8 @@ namespace Form2 {
 			this->buttonMinus->Size = System::Drawing::Size(85, 78);
 			this->buttonMinus->TabIndex = 1;
 			this->buttonMinus->Click += gcnew System::EventHandler(this, &UC_TEAMS::buttonMinus_Click);
+			this->buttonMinus->MouseLeave += gcnew System::EventHandler(this, &UC_TEAMS::buttonMinus_MouseLeave);
+			this->buttonMinus->MouseHover += gcnew System::EventHandler(this, &UC_TEAMS::buttonMinus_MouseHover);
 			// 
 			// buttonPlus
 			// 
@@ -107,6 +97,8 @@ namespace Form2 {
 			this->buttonPlus->Size = System::Drawing::Size(88, 78);
 			this->buttonPlus->TabIndex = 0;
 			this->buttonPlus->Click += gcnew System::EventHandler(this, &UC_TEAMS::buttonPlus_Click);
+			this->buttonPlus->MouseLeave += gcnew System::EventHandler(this, &UC_TEAMS::buttonPlus_MouseLeave);
+			this->buttonPlus->MouseHover += gcnew System::EventHandler(this, &UC_TEAMS::buttonPlus_MouseHover);
 			// 
 			// flowLayoutPanel1
 			// 
@@ -114,24 +106,12 @@ namespace Form2 {
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->flowLayoutPanel1->AutoScroll = true;
-			this->flowLayoutPanel1->BackColor = System::Drawing::SystemColors::Desktop;
-			this->flowLayoutPanel1->Location = System::Drawing::Point(0, 0);
+			this->flowLayoutPanel1->BackColor = System::Drawing::Color::IndianRed;
+			this->flowLayoutPanel1->Location = System::Drawing::Point(0, 90);
 			this->flowLayoutPanel1->Margin = System::Windows::Forms::Padding(0);
 			this->flowLayoutPanel1->Name = L"flowLayoutPanel1";
-			this->flowLayoutPanel1->Size = System::Drawing::Size(1087, 468);
+			this->flowLayoutPanel1->Size = System::Drawing::Size(1260, 540);
 			this->flowLayoutPanel1->TabIndex = 1;
-			// 
-			// panel1
-			// 
-			this->panel1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
-				| System::Windows::Forms::AnchorStyles::Left)
-				| System::Windows::Forms::AnchorStyles::Right));
-			this->panel1->Controls->Add(this->flowLayoutPanel1);
-			this->panel1->Location = System::Drawing::Point(85, 106);
-			this->panel1->Margin = System::Windows::Forms::Padding(0);
-			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(1087, 524);
-			this->panel1->TabIndex = 2;
 			// 
 			// UC_TEAMS
 			// 
@@ -139,7 +119,8 @@ namespace Form2 {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			this->BackColor = System::Drawing::Color::Lime;
-			this->Controls->Add(this->panel1);
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
+			this->Controls->Add(this->flowLayoutPanel1);
 			this->Controls->Add(this->SearchPanel);
 			this->DoubleBuffered = true;
 			this->Location = System::Drawing::Point(0, 90);
@@ -147,7 +128,6 @@ namespace Form2 {
 			this->Name = L"UC_TEAMS";
 			this->Size = System::Drawing::Size(1260, 630);
 			this->SearchPanel->ResumeLayout(false);
-			this->panel1->ResumeLayout(false);
 			this->ResumeLayout(false);
 
 		}
@@ -169,9 +149,9 @@ namespace Form2 {
 				button->Margin = System::Windows::Forms::Padding(buttonMargin);
 				button->BackgroundImage = GetImageResource(button->Name + "_Default");
 				button->BackgroundImageLayout = ImageLayout::Stretch;
-				button->BackColor = System::Drawing::Color::Transparent;
 				button->MouseEnter += gcnew EventHandler(this, &UC_TEAMS::Button_MouseEnter);
 				button->MouseLeave += gcnew EventHandler(this, &UC_TEAMS::Button_MouseLeave);
+				button->MouseClick += gcnew MouseEventHandler(this, &UC_TEAMS::Button_MouseClick);
 				if (i == tour->get_team_count() - 1)
 				{	
 					this->flowLayoutPanel1->ResumeLayout(false);
@@ -187,21 +167,19 @@ namespace Form2 {
 		void UC_TEAMS_Load(Object^ sender, EventArgs^ e)
 		{	
 			this->flowLayoutPanel1->SuspendLayout();
-			this->panel1->SuspendLayout();
 			Console::WriteLine("Load");
 			Form^ mainForm = this->FindForm(); // or can use this->Parent
 			MenuStrip^ MAINBUTTON = dynamic_cast<MenuStrip^>(mainForm->Controls["MAINBUTTON"]);
 			VScrollBar^ vScrollBar1 = dynamic_cast<VScrollBar^>(mainForm->Controls["vScrollBar1"]);
 			this->Size = System::Drawing::Size(mainForm->ClientSize.Width - vScrollBar1->Width, mainForm->ClientSize.Height - MAINBUTTON->Height);
-			flowLayoutPanel1->Size = System::Drawing::Size(panel1->Width, panel1->Height);
-			panel1->Size = System::Drawing::Size(flowLayoutPanel1->Width - 20, flowLayoutPanel1->Height);
+			flowLayoutPanel1->Size = System::Drawing::Size(this->Size.Width + 20, this->Size.Height - SearchPanel->Height);
+			flowLayoutPanel1->Padding = System::Windows::Forms::Padding(buttonWidth / 3.5, 0, 0, 0);
+			//panel1->Size = System::Drawing::Size(flowLayoutPanel1->Width - 20, flowLayoutPanel1->Height);
 			flowLayoutPanel1->MouseWheel += gcnew System::Windows::Forms::MouseEventHandler(this, &Form2::UC_TEAMS::OnMouseWheel);
 			int teamCount = tour->get_team_count();
 			GenerateTeamButtons(teamCount);
 			this->flowLayoutPanel1->ResumeLayout(false);
-			this->panel1->ResumeLayout(false);
 			this->flowLayoutPanel1->PerformLayout();
-			this->panel1->PerformLayout();
 		}
 
 		void OnMouseWheel(Object^ sender, MouseEventArgs^ e)
@@ -239,7 +217,7 @@ namespace Form2 {
 			if (mainForm->WindowState == FormWindowState::Maximized || mainForm->Size.Width >= workingArea->Width)
 			{	
 				Console::WriteLine("Maximized");
-				flowLayoutPanel1->Padding = System::Windows::Forms::Padding(buttonWidth / 2.5, 0, buttonWidth / 2.5, 0); //...
+				flowLayoutPanel1->Padding = System::Windows::Forms::Padding(buttonWidth / 2, 0, buttonWidth / 2, 0); //...
 			}
 			this->flowLayoutPanel1->ResumeLayout(false);
 			this->ResumeLayout(false);
@@ -277,13 +255,52 @@ namespace Form2 {
 			button->BackgroundImage = GetImageResource(button->Name + "_Default");
 			button->ForeColor = System::Drawing::Color::FromArgb(0x37, 0x00, 0x3c);
 		}
+		void Button_MouseClick(Object^ sender, MouseEventArgs^ e)
+		{
+			if (isDeleteMode)
+			{
+				Button^ button = (Button^)sender;
+				String^ teamName = button->Name;
+				DialogResult result = MessageBox::Show("Are you sure you want to delete " + teamName + "?", "Delete Team", MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
+				if (result == System::Windows::Forms::DialogResult::Yes)
+				{
+
+				}
+			}
+		}
 #pragma endregion
 
 private: System::Void buttonPlus_Click(System::Object^ sender, System::EventArgs^ e) {
 
+
 }
 private: System::Void buttonMinus_Click(System::Object^ sender, System::EventArgs^ e) {
 
+	DialogResult result = MessageBox::Show("You are in DELETE MODE! Click on a team to delete it", "DELETE MODE", MessageBoxButtons::OKCancel, MessageBoxIcon::Warning);
+	if (result == System::Windows::Forms::DialogResult::OK)
+	{
+		isDeleteMode = true;
+	}
+	else
+	{
+		isDeleteMode = false;
+	}
+	if (isDeleteMode == true)
+	{
+	}
+}
+private: System::Void buttonPlus_MouseHover(System::Object^ sender, System::EventArgs^ e) {
+	buttonPlus->Size = System::Drawing::Size(95, 88);
+}
+private: System::Void buttonMinus_MouseHover(System::Object^ sender, System::EventArgs^ e) {
+	buttonMinus->Size = System::Drawing::Size(95, 88);
+}
+private: System::Void buttonPlus_MouseLeave(System::Object^ sender, System::EventArgs^ e) {
+
+	buttonPlus->Size = System::Drawing::Size(88, 78);
+}
+private: System::Void buttonMinus_MouseLeave(System::Object^ sender, System::EventArgs^ e) {
+	buttonMinus->Size = System::Drawing::Size(85, 78);
 }
 };
 }

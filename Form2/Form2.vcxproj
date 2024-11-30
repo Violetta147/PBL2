@@ -137,6 +137,7 @@
     <ClCompile Include="Src\Player.cpp" />
     <ClCompile Include="Src\Team.cpp" />
     <ClCompile Include="Src\Tournament.cpp" />
+    <ClCompile Include="TeamInformation.cpp" />
     <ClCompile Include="TransparentRenderer.cpp" />
     <ClCompile Include="UC_HOME.cpp" />
     <ClCompile Include="UC_MATCHES.cpp" />
@@ -163,6 +164,9 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Neon.h" />
+    <ClInclude Include="TeamInformation.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="TransparentRenderer.h" />
     <ClInclude Include="UC_HOME.h">
       <FileType>CppControl</FileType>
@@ -189,6 +193,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MyResource.resx" />
+    <EmbeddedResource Include="TeamInformation.resx">
+      <DependentUpon>TeamInformation.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UC_HOME.resx">
       <DependentUpon>UC_HOME.h</DependentUpon>
     </EmbeddedResource>

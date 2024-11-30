@@ -91,6 +91,5 @@ namespace Form2 {
 		   System::Void addUserControl(UserControl^ userControl);
 		   System::Void vScrollBar1_Scroll(System::Object^ sender, System::Windows::Forms::ScrollEventArgs^ e);
 		   System::Void OnFlowPanelLayout(Object^ sender, LayoutEventArgs^ e);
-		   //System::Void OnControlAdded(Object^ object, ControlEventArgs^ e);
 	};
 }

@@ -22,6 +22,7 @@
     <ClCompile Include="UC_RANKING.cpp" />
     <ClCompile Include="UC_STATS.cpp" />
     <ClCompile Include="UC_TEAMS.cpp" />
+    <ClCompile Include="TeamInformation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Coach.h" />
@@ -44,6 +45,7 @@
     <ClInclude Include="UC_RANKING.h" />
     <ClInclude Include="UC_STATS.h" />
     <ClInclude Include="UC_TEAMS.h" />
+    <ClInclude Include="TeamInformation.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\2024\coaches.json" />
