@@ -1,4 +1,6 @@
 #pragma once
+#include <Windows.h>
+#pragma comment(lib, "user32.lib")
 #include <cmath>
 #include "UC_HOME.h"
 #include "UC_TEAMS.h"
@@ -57,17 +59,21 @@ namespace Form2 {
 		ToolStripMenuItem^ PLAYERS;
 		ToolStripMenuItem^ hoveredItem = nullptr;
 		ToolStripMenuItem^ currentMenuItem = nullptr;
-		Panel^ ContainerPanel;
+		UserControl^ currentUC = nullptr;
 		int hoveredIndex = -1;
 		bool dragging = false;
 		Point offset;
-		Tournament* tour;
+		System::Drawing::Size originalSize;
+		int originalMarginRight;
+		VScrollBar^ vScrollBar1 = nullptr;
+
+		   Tournament* tour;
     
 		   void InitializeComponent(void);
 		   void MyForm_Load(Object^ sender, EventArgs^ e);
 		   void ConfigureMainMenuStrip();
 		   void ConfigureMenuItem(ToolStripMenuItem^ item, String^ text, EventHandler^ click);
-		   void ConfigureContainerPanel();
+		   void ConfigureScrollBar();
 		   void OnResize(Object^ sender, EventArgs^ e);
 		   System::Void OnMouseDown(Object^ sender, MouseEventArgs^ e);
 		   System::Void OnMouseMove(Object^ sender, MouseEventArgs^ e);
@@ -83,5 +89,8 @@ namespace Form2 {
 		   void OnMenuStripPaint(Object^ sender, PaintEventArgs^ e);
 		   void ResetButtonColors();
 		   System::Void addUserControl(UserControl^ userControl);
+		   System::Void vScrollBar1_Scroll(System::Object^ sender, System::Windows::Forms::ScrollEventArgs^ e);
+		   System::Void OnFlowPanelLayout(Object^ sender, LayoutEventArgs^ e);
+		   //System::Void OnControlAdded(Object^ object, ControlEventArgs^ e);
 	};
 }

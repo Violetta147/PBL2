@@ -147,7 +147,10 @@ class Tournament
         void generate_ranking();
         void updateRanking();
         void displayRanking() const;
-
+        std::vector<RankingEntry> getRanking()
+        {
+			return ranking;
+        }
         // Display
         void display() const;
 };

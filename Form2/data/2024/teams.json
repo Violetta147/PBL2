@@ -23,7 +23,7 @@
         },
         {
             "team_id": 19,
-            "name": "West Ham",
+            "name": "West Ham United",
             "abbreviation": "WHU",
             "stadium": "London",
             "founded_year": 1895
@@ -107,7 +107,7 @@
         },
         {
             "team_id": 9,
-            "name": "Fullham",
+            "name": "Fulham",
             "abbreviation": "FUL",
             "stadium": "Craven Cottage",
             "founded_year": 1879
@@ -128,7 +128,7 @@
         },
         {
             "team_id": 20,
-            "name": "Wolves",
+            "name": "Wolverhampton Wanderers",
             "abbreviation": "WOL",
             "stadium": "Molineux",
             "founded_year": 1877

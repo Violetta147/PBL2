@@ -5,13 +5,12 @@ using json = nlohmann::ordered_json;
 Form2::MyForm::MyForm(void)
 {	
 	InitializeComponent();
+	formSize = this->ClientSize;
+	ConfigureScrollBar();
 	ConfigureMainMenuStrip();
-	ConfigureContainerPanel();
+	originalSize = MAINBUTTON->Items[0]->Size;
+	originalMarginRight = MAINBUTTON->Items[0]->Margin.Right;
 	this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
-	this->MAINBUTTON->ResumeLayout(false);
-	this->MAINBUTTON->PerformLayout();
-	this->ResumeLayout(false);
-	this->PerformLayout();
 }
 
 void Form2::MyForm::MyForm_Load(System::Object^ sender, System::EventArgs^ e)
@@ -44,9 +43,11 @@ void Form2::MyForm::ConfigureMainMenuStrip()
 	});
 	this->MAINBUTTON->Location = System::Drawing::Point(0, 0);
 	this->MAINBUTTON->Name = L"MAINBUTTON";
-	this->MAINBUTTON->Padding = System::Windows::Forms::Padding(120, 2, 120, 2);
-	this->MAINBUTTON->Size = System::Drawing::Size(1200, 65);
-	this->MAINBUTTON->TabIndex = 0;
+	this->MAINBUTTON->GripStyle = System::Windows::Forms::ToolStripGripStyle::Hidden;
+	this->MAINBUTTON->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left | System::Windows::Forms::AnchorStyles::Right));
+	this->MAINBUTTON->Size = System::Drawing::Size(formSize.Width - vScrollBar1->Width, formSize.Height / 8);
+	this->MAINBUTTON->Padding = System::Windows::Forms::Padding((formSize.Width - vScrollBar1->Width)/8, this->MAINBUTTON->Height / 8, (formSize.Width - vScrollBar1->Width)/8, this->MAINBUTTON->Height / 8);
+	this->MAINBUTTON->TabIndex = 1;
 
 	//...
 	ConfigureMenuItem(HOME, L"HOME", gcnew System::EventHandler(this, &MyForm::HOME_Click));
@@ -63,6 +64,8 @@ void Form2::MyForm::ConfigureMainMenuStrip()
 		item->MouseLeave += gcnew System::EventHandler(this, &Form2::MyForm::OnMenuItemLeave);
 	}
 	this->MAINBUTTON->Paint += gcnew PaintEventHandler(this, &Form2::MyForm::OnMenuStripPaint); //draw whiteline
+	this->MAINBUTTON->ResumeLayout(false);
+	this->PerformLayout();
 }
 
 void Form2::MyForm::ConfigureMenuItem(ToolStripMenuItem^ item, String^ text, EventHandler^ click)
@@ -74,24 +77,10 @@ void Form2::MyForm::ConfigureMenuItem(ToolStripMenuItem^ item, String^ text, Eve
 		static_cast<System::Byte>(0)));
 	item->ForeColor = System::Drawing::Color::White;
 	item->Name = text;
-	item->Size = System::Drawing::Size(120, 24); //...?
+	item->Size = System::Drawing::Size((formSize.Width - vScrollBar1->Size.Width) / 8, 24);//...
 	item->Text = text;
 	item->TextAlign = ContentAlignment::MiddleCenter;
 	item->Click += click;
-}
-
-void Form2::MyForm::ConfigureContainerPanel()
-{	
-	Console::WriteLine("ConfigureContainerpanel");
-	this->ContainerPanel->AutoScroll = true; //...?
-	this->ContainerPanel->AutoSize = true;
-	this->ContainerPanel->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
-	this->ContainerPanel->BackColor = System::Drawing::Color::Transparent;
-	this->ContainerPanel->Dock = System::Windows::Forms::DockStyle::Fill;
-	this->ContainerPanel->Location = System::Drawing::Point(0, 65);
-	this->ContainerPanel->Name = L"ContainerPanel";
-	this->ContainerPanel->Size = System::Drawing::Size(1200, 635);
-	this->ContainerPanel->TabIndex = 1;
 }
 
 
@@ -103,6 +92,21 @@ Form2::MyForm::~MyForm()
 		delete components;
 	}
 }
+void Form2::MyForm::ConfigureScrollBar()
+{	
+	// 
+	// vScrollBar1
+	// 
+	this->vScrollBar1->Name = L"vScrollBar1";
+	this->vScrollBar1->Size = System::Drawing::Size(20, formSize.Height);
+	this->vScrollBar1->Location = System::Drawing::Point(formSize.Width - vScrollBar1->Width, 0);
+	this->vScrollBar1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right | System::Windows::Forms::AnchorStyles::Bottom));
+	this->vScrollBar1->Visible = true;
+	this->vScrollBar1->Enabled = true;
+	this->vScrollBar1->TabIndex = 0;
+	this->vScrollBar1->Scroll += gcnew System::Windows::Forms::ScrollEventHandler(this, &MyForm::vScrollBar1_Scroll);
+	this->vScrollBar1->ResumeLayout(false);
+}
 void Form2::MyForm::InitializeComponent(void)
 {
 	System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
@@ -113,21 +117,18 @@ void Form2::MyForm::InitializeComponent(void)
 	this->MATCHES = (gcnew System::Windows::Forms::ToolStripMenuItem());
 	this->STATS = (gcnew System::Windows::Forms::ToolStripMenuItem());
 	this->RANKING = (gcnew System::Windows::Forms::ToolStripMenuItem());
-	this->ContainerPanel = (gcnew System::Windows::Forms::Panel());
-	this->MAINBUTTON->SuspendLayout();
+	this->vScrollBar1 = (gcnew System::Windows::Forms::VScrollBar());
 	this->SuspendLayout();
 	// 
 	// MyForm
 	// 
-	this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+	this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 	this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-	this->ClientSize = System::Drawing::Size(1200, 700);
-	formSize = this->ClientSize;
 	this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 	this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-	this->Controls->Add(this->ContainerPanel);
+	this->ClientSize = System::Drawing::Size(1280, 720);
+	this->Controls->Add(this->vScrollBar1);
 	this->Controls->Add(this->MAINBUTTON);
-	this->ForeColor = System::Drawing::Color::Transparent;
 	this->MainMenuStrip = this->MAINBUTTON;
 	this->Name = L"MyForm";
 	this->ShowIcon = false;
@@ -135,44 +136,47 @@ void Form2::MyForm::InitializeComponent(void)
 	this->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::OnMouseDown);
 	this->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::OnMouseMove);
 	this->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::OnMouseUp);
-	this->Resize += gcnew System::EventHandler(this, &MyForm::OnResize); // need to check later the order of logic
+	this->Resize += gcnew System::EventHandler(this, &MyForm::OnResize);
+	this->ResumeLayout(false);
+	this->PerformLayout();
+
 }
 
 void Form2::MyForm::OnResize(Object^ sender, EventArgs^ e)
 {	
+	this->SuspendLayout();
 	Console::WriteLine("OnResize");
-	//this->SuspendLayout();
-	//this->MAINBUTTON->SuspendLayout();
-	// Container width (MenuStrip)
-	int containerWidth = this->ClientSize.Width; //is this correct
-	int numButtons = 6;
-	float padding = 10; // Padding between buttons (space between buttons)
+	float xRatio = static_cast<float>(this->ClientSize.Width) / formSize.Width;
 
-	// Subtract left and right margins for centering the buttons
-	float marginSpace = 40;  // Total margin space to be distributed on both sides of the buttons (can be adjusted)
-	float availableWidth = containerWidth - marginSpace;
-	float buttonWidth = (availableWidth - (numButtons - 1) * padding) / numButtons;
-
-	// Optionally, ensure the buttons are not too wide (set a max width if necessary)
-	buttonWidth = std::fmin(buttonWidth, 200);
-	float totalButtonWidth = (buttonWidth * numButtons) + (padding * (numButtons - 1));
-	float remainingWidth = containerWidth - totalButtonWidth;
-	// Distribute the remaining width as margins on both sides (left and right)
-	float leftMargin = remainingWidth / 2.0;
-	float rightMargin = remainingWidth / 2.0;
-
-	this->MAINBUTTON->Padding = System::Windows::Forms::Padding(leftMargin, 0, rightMargin, 0);
+	this->MAINBUTTON->Padding = System::Windows::Forms::Padding((this->ClientSize.Width - this->vScrollBar1->Width) / 8, 11.25, (this->ClientSize.Width - this->vScrollBar1->Width) / 8, 11.25);
 	for each (ToolStripMenuItem ^ item in this->MAINBUTTON->Items)
 	{
-		item->AutoSize = false;  
-		item->Width = buttonWidth; 
-		if (item != RANKING) // Center the text for the first and last buttons
+		item->Size = System::Drawing::Size(static_cast<int>(originalSize.Width * xRatio), item->Size.Height);
+		if (item != RANKING)
 		{
-			item->Margin = System::Windows::Forms::Padding(0, 0, padding, 0);
+			item->Margin = System::Windows::Forms::Padding(0, 0, originalMarginRight * xRatio, 0);
 		}
 		item->TextAlign = ContentAlignment::MiddleCenter; 
 	}
-	//how tf redraw how?
+	if (currentUC != nullptr)
+	{
+		vScrollBar1->Minimum = 0;
+		FlowLayoutPanel^ flowPanel = dynamic_cast<FlowLayoutPanel^>(currentUC->Controls["panel1"]->Controls["flowLayoutPanel1"]);
+		if (flowPanel != nullptr)
+		{
+			vScrollBar1->Maximum = flowPanel->VerticalScroll->Maximum;
+			vScrollBar1->Value = flowPanel->VerticalScroll->Value;
+			SCROLLINFO si = { 0 };
+			si.cbSize = sizeof(SCROLLINFO);
+			si.fMask = SIF_ALL;
+			if (::GetScrollInfo(static_cast<HWND>(flowPanel->Handle.ToPointer()), SB_VERT, &si))
+			{
+				vScrollBar1->LargeChange = si.nPage;
+				vScrollBar1->SmallChange = max(1, si.nPage / 20);
+			}
+		}
+	}
+	this->ResumeLayout(false);
 }
 
 void Form2::MyForm::OnMouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
@@ -228,7 +232,7 @@ void Form2::MyForm::OnMenuItemLeave(Object^ sender, EventArgs^ e)
 void Form2::MyForm::OnMenuStripPaint(Object^ sender, PaintEventArgs^ e)
 {	
 	//need more well calculated size of the greenlime line
-	Graphics^ g = e->Graphics;
+	Graphics^ g = e->Graphics;//...
 	Pen^ pen = gcnew Pen(Color::FromArgb(120, Color::White));
 	pen->Width = 2.0f;
 
@@ -254,18 +258,14 @@ void Form2::MyForm::OnMenuStripPaint(Object^ sender, PaintEventArgs^ e)
 		Console::WriteLine("currentMenuItem");
 		currentMenuItem->ForeColor = Color::LimeGreen;
 		System::Drawing::Rectangle itemBounds = currentMenuItem->Bounds;
-		int segmentStartX = itemBounds.Left + 10;
-		int segmentEndX = itemBounds.Right - 10;
+		int segmentStartX = itemBounds.Left - currentMenuItem->Padding.Right;
+		int segmentEndX = itemBounds.Right + currentMenuItem->Padding.Right;
 		g->DrawLine(pen, segmentStartX, lineY, segmentEndX, lineY);
 	}
 	Console::WriteLine("OnMenuStripPaint");
-	//this->MAINBUTTON->ResumeLayout(false);
-	//this->MAINBUTTON->PerformLayout();
-	//this->ResumeLayout(false);
-	//this->PerformLayout();
 	delete pen;
+	this->PerformLayout();
 }
-//before changing the color of the button, the previous button color must be reset
 void Form2::MyForm::ResetButtonColors()
 {
 	for each (ToolStripMenuItem ^ item in MAINBUTTON->Items)
@@ -284,19 +284,6 @@ System::Void Form2::MyForm::HOME_Click(System::Object^ sender, System::EventArgs
 		// Add the user control to the panel
 		UC_HOME^ ucHome = gcnew Form2::UC_HOME();
 		addUserControl(ucHome);
-	}
-}
-System::Void Form2::MyForm::TEAMS_Click(System::Object^ sender, System::EventArgs^ e)
-{
-	if (currentMenuItem != sender)
-	{
-		ResetButtonColors(); // if there is a previous button clicked, reset the color
-		currentMenuItem = dynamic_cast<ToolStripMenuItem^>(sender);
-		//draw the line under the current button
-		this->MAINBUTTON->Invalidate(); //Trigger Paint event ~ repaint
-		// Add the user control to the panel
-		UC_TEAMS^ ucTeams = gcnew Form2::UC_TEAMS(tour);
-		addUserControl(ucTeams);
 	}
 }
 System::Void Form2::MyForm::PLAYERS_Click(System::Object^ sender, System::EventArgs^ e)
@@ -347,15 +334,86 @@ System::Void Form2::MyForm::RANKING_Click(System::Object^ sender, System::EventA
 		//draw the line under the current button
 		this->MAINBUTTON->Invalidate(); //Trigger Paint event ~ repaint
 		// Add the user control to the panel
-		UC_RANKING^ ucRanking = gcnew Form2::UC_RANKING();
+		UC_RANKING^ ucRanking = gcnew Form2::UC_RANKING(tour);
 		addUserControl(ucRanking);
 	}
 }
-System::Void Form2::MyForm::addUserControl(UserControl^ userControl)
+System::Void Form2::MyForm::addUserControl(UserControl^ userControlNew)
 {
 	//why this doesn't check if that's the first time the userControl is added?
-	userControl->Dock = DockStyle::Fill;
-	this->ContainerPanel->Controls->Clear(); //can this be hidden?
-	this->ContainerPanel->Controls->Add(userControl);
-	userControl->BringToFront();
+	//clear the previous user control
+	if (currentUC != nullptr)
+	{
+		this->Controls->Remove(currentUC);
+		//optionally dispose the user control if no longer return back to the old state
+		//currentUC->Dispose(); 
+	}
+	currentUC = userControlNew;
+	this->Controls->Add(currentUC);
+	this->Controls->SetChildIndex(currentUC, 2);
+	currentUC->BringToFront();
+}
+System::Void Form2::MyForm::TEAMS_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	if (currentMenuItem != sender)
+	{	
+		ResetButtonColors(); // if there is a previous button clicked, reset the color
+		currentMenuItem = dynamic_cast<ToolStripMenuItem^>(sender);
+		//draw the line under the current button
+		this->MAINBUTTON->Invalidate(); //Trigger Paint event ~ repaint
+		// Add the user control to the panel
+		UC_TEAMS^ ucTeams = gcnew Form2::UC_TEAMS(tour);
+		FlowLayoutPanel^ flowPanel = dynamic_cast<FlowLayoutPanel^>(ucTeams->Controls["panel1"]->Controls["flowLayoutPanel1"]);
+		if (flowPanel != nullptr)
+		{
+			flowPanel->Layout += gcnew System::Windows::Forms::LayoutEventHandler(this, &MyForm::OnFlowPanelLayout);
+		}
+		ucTeams->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left | System::Windows::Forms::AnchorStyles::Right));
+		addUserControl(ucTeams);
+	}
+}
+
+void Form2::MyForm::vScrollBar1_Scroll(System::Object^ sender, System::Windows::Forms::ScrollEventArgs^ e)
+{	
+	Console::WriteLine("vScrollBar1_Scroll");
+	if (currentUC != nullptr)
+	{
+		FlowLayoutPanel^ flowPanel = dynamic_cast<FlowLayoutPanel^>(currentUC->Controls["panel1"]->Controls["flowLayoutPanel1"]);
+		if (flowPanel != nullptr)
+		{	
+			flowPanel->VerticalScroll->Value = vScrollBar1->Value;
+
+			Console::WriteLine(vScrollBar1->Value);
+			flowPanel->Invalidate();
+		}
+	}
+}
+
+void Form2::MyForm::OnFlowPanelLayout(Object^ sender, LayoutEventArgs^ e)
+{	
+	static int count = 0;
+	count++;
+	Console::WriteLine("OnFlowPanelLayout");
+	FlowLayoutPanel^ flowPanel = dynamic_cast<FlowLayoutPanel^>(sender);
+	//too many calls to if need update later but still fine
+	if (flowPanel != nullptr)
+	{
+		// Update scrollbar range after layout changes
+		vScrollBar1->Minimum = 0;
+		vScrollBar1->Maximum = flowPanel->VerticalScroll->Maximum;
+		vScrollBar1->Value = flowPanel->VerticalScroll->Value; //...
+	}
+	if (count == 4)
+	{	
+		SCROLLINFO si = { 0 };
+		si.cbSize = sizeof(SCROLLINFO);
+		si.fMask = SIF_ALL;
+
+		if (::GetScrollInfo(static_cast<HWND>(flowPanel->Handle.ToPointer()), SB_VERT, &si))
+		{
+			vScrollBar1->LargeChange = si.nPage;
+			Console::WriteLine(vScrollBar1->LargeChange);
+			vScrollBar1->SmallChange = max(1, si.nPage / 20); //another max:(
+		}
+	}
 }

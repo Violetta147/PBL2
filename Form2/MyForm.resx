@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="MAINBUTTON.TrayLocation" type="System.Drawing.Point, System.Drawing">
+  <metadata name="MAINBUTTON.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
-  </data>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         /9j/4AAQSkZJRgABAQEAAAAAAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkK
@@ -1541,126 +1541,5 @@
         GpfCLKooKS4Gmpcgo1KCrKEuKNAoNNS5BRqUSxRAGmpcgo1KCrKLKo0Bq5wNNS5AGpQVZdxZWks1oSUJ
         cNDUuRqDNmAjUrUvgVWvNZX/2Q==
 </value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="button1_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button1_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button2_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button2_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button3_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button3_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button4_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button4_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button5_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button5_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button6_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button6_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button7_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button7_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button8_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button8_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button9_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button9_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button10_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button10_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button11_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button11_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button12_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button12_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button13_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button13_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button14_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button14_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button15_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button15_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button16_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button16_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button17_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button17_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button18_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button18_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button19_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button19_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button20_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button20_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button1_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button1_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button2_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button2_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button3_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button3_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button4_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button4_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button5_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button5_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button6_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button6_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button7_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button7_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button8_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button8_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button9_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button9_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button10_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button10_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button11_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button11_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button12_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button12_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button13_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button13_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button14_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button14_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button15_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button15_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button16_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button16_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button17_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button17_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button18_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button18_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button19_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button19_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="button20_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\button20_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
