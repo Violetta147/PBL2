@@ -124,11 +124,17 @@
   <data name="Arsenal_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Arsenal_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Arsenal_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Arsenal_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Aston Villa_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Aston Villa_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Aston Villa_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Aston Villa_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Aston Villa_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Aston Villa_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Bournemouth_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Bournemouth_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -136,17 +142,26 @@
   <data name="Bournemouth_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Bournemouth_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Bournemouth_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Bournemouth_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Brentford_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Brentford_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Brentford_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Brentford_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Brighton &amp; Hove Albion_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Brighton &amp; Hove Albion_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Brentford_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Brentford_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Brighton &amp; Hove Albion_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Brighton &amp; Hove Albion_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Brighton and Hove Albion_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Brighton and Hove Albion_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Brighton and Hove Albion_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Brighton and Hove Albion_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Brighton and Hove Albion_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Brighton and Hove Albion_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Chelsea_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Chelsea_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -154,11 +169,17 @@
   <data name="Chelsea_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Chelsea_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Chelsea_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Chelsea_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Crystal Palace_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Crystal Palace_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Crystal Palace_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Crystal Palace_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Crystal Palace_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Crystal Palace_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Everton_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Everton_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -166,11 +187,17 @@
   <data name="Everton_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Everton_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Everton_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Everton_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Fulham_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Fulham_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Fulham_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Fulham_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Fulham_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Fulham_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Ipswich Town_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Ipswich Town_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -178,11 +205,17 @@
   <data name="Ipswich Town_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Ipswich Town_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Ipswich Town_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Ipswich Town_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Leicester City_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Leicester City_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Leicester City_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Leicester City_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Leicester City_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Leicester City_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Liverpool_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Liverpool_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -190,11 +223,17 @@
   <data name="Liverpool_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Liverpool_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Liverpool_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Liverpool_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Manchester City_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Manchester City_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Manchester City_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Manchester City_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Manchester City_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Manchester City_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Manchester United_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Manchester United_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -202,11 +241,17 @@
   <data name="Manchester United_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Manchester United_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Manchester United_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Manchester United_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Newcastle United_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Newcastle United_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Newcastle United_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Newcastle United_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Newcastle United_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Newcastle United_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Nottingham Forest_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Nottingham Forest_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -214,11 +259,17 @@
   <data name="Nottingham Forest_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Nottingham Forest_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Nottingham Forest_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Nottingham Forest_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Southampton_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Southampton_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Southampton_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Southampton_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Southampton_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Southampton_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Tottenham Hotspur_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Tottenham Hotspur_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -226,16 +277,25 @@
   <data name="Tottenham Hotspur_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Tottenham Hotspur_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Tottenham Hotspur_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Tottenham Hotspur_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="West Ham United_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\West Ham United_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="West Ham United_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\West Ham United_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="West Ham United_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\West Ham United_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Wolverhampton Wanderers_Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Wolverhampton Wanderers_Default.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Wolverhampton Wanderers_Hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Wolverhampton Wanderers_Hover.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Wolverhampton Wanderers_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Wolverhampton Wanderers_logo.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

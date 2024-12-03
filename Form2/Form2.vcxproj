@@ -115,6 +115,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Reference Include="CustomControls">
+      <HintPath>..\..\..\CustomControls\x64\Debug\CustomControls.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.DirectoryServices" />
@@ -123,7 +126,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CustomControl.cpp" />
     <ClCompile Include="file-handling\read.cpp" />
+    <ClCompile Include="ImageHelper.cpp" />
     <ClCompile Include="Loading.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyForm.cpp" />
@@ -147,6 +152,8 @@
     <ClCompile Include="UC_TEAMS.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CustomControl.h" />
+    <ClInclude Include="ImageHelper.h" />
     <ClInclude Include="include\Coach.h" />
     <ClInclude Include="include\datetime.h" />
     <ClInclude Include="include\Event.h" />
@@ -216,10 +223,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\2024\coaches.json" />
-    <None Include="data\2024\matches.json" />
-    <None Include="data\2024\players.json" />
-    <None Include="data\2024\teams.json" />
     <None Include="data\tournament.json" />
   </ItemGroup>
   <ItemGroup>

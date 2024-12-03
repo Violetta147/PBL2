@@ -1,6 +1,7 @@
 #pragma once
 #include "include/Tournament.h"
 #include "include/Team.h"
+#include "ImageHelper.h"
 using namespace System;
 using namespace System::ComponentModel;
 using namespace System::Collections;
@@ -40,13 +41,11 @@ namespace Form2 {
 		   const int buttonWidth = 320;
 		   const int buttonHeight = 240;
 		   const int buttonMargin = 20;
-
-
+		   
 	private: System::Windows::Forms::Label^ buttonMinus;
-
 	private: System::Windows::Forms::Label^ buttonPlus;
 	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel1;
-		   Tournament* tour;
+		     Tournament* tour;
 
 #pragma region Windows Form Designer generated code
 		void InitializeComponent(void)
@@ -76,7 +75,7 @@ namespace Form2 {
 			// 
 			// buttonMinus
 			// 
-			this->buttonMinus->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->buttonMinus->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->buttonMinus->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"buttonMinus.Image")));
 			this->buttonMinus->Location = System::Drawing::Point(141, 6);
 			this->buttonMinus->Margin = System::Windows::Forms::Padding(0);
@@ -84,12 +83,12 @@ namespace Form2 {
 			this->buttonMinus->Size = System::Drawing::Size(85, 78);
 			this->buttonMinus->TabIndex = 1;
 			this->buttonMinus->Click += gcnew System::EventHandler(this, &UC_TEAMS::buttonMinus_Click);
-			this->buttonMinus->MouseLeave += gcnew System::EventHandler(this, &UC_TEAMS::buttonMinus_MouseLeave);
 			this->buttonMinus->MouseHover += gcnew System::EventHandler(this, &UC_TEAMS::buttonMinus_MouseHover);
+			this->buttonMinus->MouseLeave += gcnew System::EventHandler(this, &UC_TEAMS::buttonMinus_MouseLeave);
 			// 
 			// buttonPlus
 			// 
-			this->buttonPlus->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->buttonPlus->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->buttonPlus->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"buttonPlus.Image")));
 			this->buttonPlus->Location = System::Drawing::Point(53, 6);
 			this->buttonPlus->Margin = System::Windows::Forms::Padding(0);
@@ -97,8 +96,8 @@ namespace Form2 {
 			this->buttonPlus->Size = System::Drawing::Size(88, 78);
 			this->buttonPlus->TabIndex = 0;
 			this->buttonPlus->Click += gcnew System::EventHandler(this, &UC_TEAMS::buttonPlus_Click);
-			this->buttonPlus->MouseLeave += gcnew System::EventHandler(this, &UC_TEAMS::buttonPlus_MouseLeave);
 			this->buttonPlus->MouseHover += gcnew System::EventHandler(this, &UC_TEAMS::buttonPlus_MouseHover);
+			this->buttonPlus->MouseLeave += gcnew System::EventHandler(this, &UC_TEAMS::buttonPlus_MouseLeave);
 			// 
 			// flowLayoutPanel1
 			// 
@@ -106,7 +105,7 @@ namespace Form2 {
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->flowLayoutPanel1->AutoScroll = true;
-			this->flowLayoutPanel1->BackColor = System::Drawing::Color::IndianRed;
+			this->flowLayoutPanel1->BackColor = System::Drawing::Color::SlateBlue;
 			this->flowLayoutPanel1->Location = System::Drawing::Point(0, 90);
 			this->flowLayoutPanel1->Margin = System::Windows::Forms::Padding(0);
 			this->flowLayoutPanel1->Name = L"flowLayoutPanel1";
@@ -131,6 +130,7 @@ namespace Form2 {
 			this->ResumeLayout(false);
 
 		}
+
 		void GenerateTeamButtons(int teamCount)
 		{	
 			flowLayoutPanel1->Controls->Clear();
@@ -147,7 +147,7 @@ namespace Form2 {
 				button->Padding = System::Windows::Forms::Padding(10, 0, 0, 30);
 				button->Size = System::Drawing::Size(buttonWidth, buttonHeight);
 				button->Margin = System::Windows::Forms::Padding(buttonMargin);
-				button->BackgroundImage = GetImageResource(button->Name + "_Default");
+				button->BackgroundImage = ImageHelper::GetImageResource(button->Name + "_Default");
 				button->BackgroundImageLayout = ImageLayout::Stretch;
 				button->MouseEnter += gcnew EventHandler(this, &UC_TEAMS::Button_MouseEnter);
 				button->MouseLeave += gcnew EventHandler(this, &UC_TEAMS::Button_MouseLeave);
@@ -219,6 +219,11 @@ namespace Form2 {
 				Console::WriteLine("Maximized");
 				flowLayoutPanel1->Padding = System::Windows::Forms::Padding(buttonWidth / 2, 0, buttonWidth / 2, 0); //...
 			}
+			else
+			{
+				Console::WriteLine("Normal");
+				flowLayoutPanel1->Padding = System::Windows::Forms::Padding(buttonWidth / 3.5, 0, 0, 0);
+			}
 			this->flowLayoutPanel1->ResumeLayout(false);
 			this->ResumeLayout(false);
 			mainForm->ResumeLayout(false);
@@ -226,45 +231,30 @@ namespace Form2 {
 			this->PerformLayout();
 			mainForm->PerformLayout();
 		}
-		Image^ GetImageResource (String^ resourceName)
-		{
-			Assembly^ assembly = Assembly::GetExecutingAssembly();
-			ResourceManager^ rm = gcnew ResourceManager("Form2.MyResource", assembly);
-			Object^ resource = rm->GetObject(resourceName);
-			if (resource == nullptr)
-			{
-				Console::WriteLine("Resource not found: " + resourceName);
-			}
-			if (resource->GetType() == array<Byte>::typeid)
-			{
-				array<Byte>^ bytes = (array<Byte>^)resource;
-				System::IO::MemoryStream^ ms = gcnew System::IO::MemoryStream(bytes);
-				return Image::FromStream(ms);
-			}
-			return (Image^)resource;
-		}
 		void Button_MouseEnter(Object^ sender, EventArgs^ e)
 		{
 			Button^ button = (Button^)sender;
-			button->BackgroundImage = GetImageResource(button->Name + "_Hover");
+			button->BackgroundImage = ImageHelper::GetImageResource(button->Name + "_Hover");
 			button->ForeColor = System::Drawing::Color::White;
 		}
 		void Button_MouseLeave(Object^ sender, EventArgs^ e)
 		{
 			Button^ button = (Button^)sender;
-			button->BackgroundImage = GetImageResource(button->Name + "_Default");
+			button->BackgroundImage = ImageHelper::GetImageResource(button->Name + "_Default");
 			button->ForeColor = System::Drawing::Color::FromArgb(0x37, 0x00, 0x3c);
 		}
 		void Button_MouseClick(Object^ sender, MouseEventArgs^ e)
 		{
-			if (isDeleteMode)
+			if (isDeleteMode == true)
 			{
 				Button^ button = (Button^)sender;
 				String^ teamName = button->Name;
 				DialogResult result = MessageBox::Show("Are you sure you want to delete " + teamName + "?", "Delete Team", MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
 				if (result == System::Windows::Forms::DialogResult::Yes)
-				{
-
+				{	
+					Team* team = tour->getTeam(button->TabIndex);
+					tour->delete_team(*team);
+					GenerateTeamButtons(tour->get_team_count());
 				}
 			}
 		}
@@ -275,14 +265,27 @@ private: System::Void buttonPlus_Click(System::Object^ sender, System::EventArgs
 
 }
 private: System::Void buttonMinus_Click(System::Object^ sender, System::EventArgs^ e) {
+                
 
+     State state = tour->getState();
+
+	 if (state == GO || state == MID || state == AWAY || state == POS)
+	{
+		 MessageBox::Show("Cannot delete team during tournament is on going", "Cannot Delete", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		 return;
+	}
+	if (tour->get_team_count() == 0)
+	{
+		MessageBox::Show("There are no teams to delete", "No Teams", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		return;
+	}
 	DialogResult result = MessageBox::Show("You are in DELETE MODE! Click on a team to delete it", "DELETE MODE", MessageBoxButtons::OKCancel, MessageBoxIcon::Warning);
 	if (result == System::Windows::Forms::DialogResult::OK)
 	{
 		isDeleteMode = true;
 	}
 	else
-	{
+	{ 
 		isDeleteMode = false;
 	}
 	if (isDeleteMode == true)

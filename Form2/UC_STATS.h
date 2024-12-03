@@ -36,6 +36,7 @@ namespace Form2 {
 			}
 		}
 	private: System::Windows::Forms::Label^ label1;
+
 	protected:
 
 	private:
@@ -59,19 +60,21 @@ namespace Form2 {
 			this->label1->AutoSize = true;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(671, 449);
+			this->label1->Location = System::Drawing::Point(336, 233);
+			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(121, 37);
+			this->label1->Size = System::Drawing::Size(60, 20);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"STATS";
 			// 
 			// UC_STATS
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->Controls->Add(this->label1);
+			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"UC_STATS";
-			this->Size = System::Drawing::Size(1488, 1033);
+			this->Size = System::Drawing::Size(744, 537);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 

@@ -23,6 +23,8 @@
     <ClCompile Include="UC_STATS.cpp" />
     <ClCompile Include="UC_TEAMS.cpp" />
     <ClCompile Include="TeamInformation.cpp" />
+    <ClCompile Include="ImageHelper.cpp" />
+    <ClCompile Include="CustomControl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Coach.h" />
@@ -46,12 +48,10 @@
     <ClInclude Include="UC_STATS.h" />
     <ClInclude Include="UC_TEAMS.h" />
     <ClInclude Include="TeamInformation.h" />
+    <ClInclude Include="ImageHelper.h" />
+    <ClInclude Include="CustomControl.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\2024\coaches.json" />
-    <None Include="data\2024\matches.json" />
-    <None Include="data\2024\players.json" />
-    <None Include="data\2024\teams.json" />
     <None Include="data\tournament.json" />
   </ItemGroup>
   <ItemGroup>

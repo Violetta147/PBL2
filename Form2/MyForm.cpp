@@ -334,6 +334,7 @@ System::Void Form2::MyForm::RANKING_Click(System::Object^ sender, System::EventA
 		//draw the line under the current button
 		this->MAINBUTTON->Invalidate(); //Trigger Paint event ~ repaint
 		// Add the user control to the panel
+		this->vScrollBar1->Visible = false;
 		UC_RANKING^ ucRanking = gcnew Form2::UC_RANKING(tour);
 		addUserControl(ucRanking);
 	}
@@ -362,6 +363,10 @@ System::Void Form2::MyForm::TEAMS_Click(System::Object^ sender, System::EventArg
 		//draw the line under the current button
 		this->MAINBUTTON->Invalidate(); //Trigger Paint event ~ repaint
 		// Add the user control to the panel
+		if (vScrollBar1->Visible == false)
+		{
+			vScrollBar1->Visible = true;
+		}
 		UC_TEAMS^ ucTeams = gcnew Form2::UC_TEAMS(tour);
 		FlowLayoutPanel^ flowPanel = dynamic_cast<FlowLayoutPanel^>(ucTeams->Controls["flowLayoutPanel1"]);
 		if (flowPanel != nullptr)

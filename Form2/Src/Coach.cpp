@@ -141,5 +141,6 @@ void Coach::display() const {
 
 void Coach::leave_team() {
     set_team(nullptr);
+    this->set_TId(-1);
 }
 

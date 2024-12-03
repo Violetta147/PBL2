@@ -655,6 +655,7 @@ void Tournament::link_all_data()
     // Link players and teams
     for (auto &player : players)
     {
+		if (player.getTId() == -1) continue; //i modified it here
         Team *team_ptr = this->find_team_by_id(player.getTId());
         player.setTeam(team_ptr);
         team_ptr->add_player(&player);
@@ -662,7 +663,8 @@ void Tournament::link_all_data()
 
     // Link coaches and teams
     for (auto &coach : coaches)
-    {
+    {   
+		if (coach.get_TId() == -1) continue; //i modified it here
         Team *team_ptr = this->find_team_by_id(coach.get_TId());
         coach.set_team(team_ptr);
         team_ptr->set_coach(&coach);
@@ -1306,6 +1308,26 @@ void Tournament::remove_coach(Coach& gone) {
     }
     write_coach();
     write_team();
+}
+
+void Tournament::delete_team(Team& gone)
+{
+    Team* team = find_team_by_id(gone.get_id());
+    if (team->get_coach() != nullptr) {
+        Coach* coach = find_coach_by_id(team->get_coach()->get_id());
+        coach->leave_team();
+    }
+    if (!team->get_players().empty()) {
+        for (const auto& player : team->get_players()) {
+            Player* play = find_player_by_id(player->getId());
+            play->leave_team();
+        }
+    }
+    teams.erase(std::remove_if(teams.begin(), teams.end(),
+        [&](const Team& p) { return &p == team; }), teams.end());
+    write_team();
+    write_player();
+    write_coach();
 }
 
 void Tournament::display() const {

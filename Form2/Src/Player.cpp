@@ -214,4 +214,5 @@ void Player::display() const
 // Leave
 void Player::leave_team() {
     setTeam(nullptr);
+    this->setTId(-1);
 }

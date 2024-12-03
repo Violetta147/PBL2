@@ -114,6 +114,8 @@ class Tournament
         void remove_player(Player& gone);
         void delete_coach(Coach& gone);
         void remove_coach(Coach& gone);
+        void delete_team(Team& gone);
+		//void remove_team(Team& gone);
 
         // Gather all data
         void get_all_data();
