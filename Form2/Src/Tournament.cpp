@@ -1345,3 +1345,7 @@ std::vector<Match> Tournament::list_upcoming_matches(int num) {
     }
     return res;
 }
+
+Player Tournament::getPlayer(int index) {
+	return players[index];
+}

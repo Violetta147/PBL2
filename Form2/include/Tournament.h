@@ -80,6 +80,7 @@ class Tournament
         Coach* getCoach(int index);
         std::vector<Team> getTeams() const;
         std::vector<Player> getPlayers() const;
+		Player getPlayer(int index);
         std::vector<Coach> getCoaches() const;
         std::vector<Match> getMatches() const;
         int get_team_count() const;

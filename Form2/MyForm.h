@@ -67,7 +67,7 @@ namespace Form2 {
 		int originalMarginRight;
 		VScrollBar^ vScrollBar1 = nullptr;
 
-		   Tournament* tour;
+	public: Tournament * tour;
     
 		   void InitializeComponent(void);
 		   void MyForm_Load(Object^ sender, EventArgs^ e);

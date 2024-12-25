@@ -25,6 +25,8 @@
     <ClCompile Include="TeamInformation.cpp" />
     <ClCompile Include="ImageHelper.cpp" />
     <ClCompile Include="CustomControl.cpp" />
+    <ClCompile Include="WrapperPlayer.cpp" />
+    <ClCompile Include="NewPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Coach.h" />
@@ -50,6 +52,8 @@
     <ClInclude Include="TeamInformation.h" />
     <ClInclude Include="ImageHelper.h" />
     <ClInclude Include="CustomControl.h" />
+    <ClInclude Include="WrapperPlayer.h" />
+    <ClInclude Include="NewPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\tournament.json" />

@@ -133,6 +133,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="Neon.cpp" />
+    <ClCompile Include="NewPlayer.cpp" />
     <ClCompile Include="Src\Coach.cpp" />
     <ClCompile Include="Src\datetime.cpp" />
     <ClCompile Include="Src\Event.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="UC_RANKING.cpp" />
     <ClCompile Include="UC_STATS.cpp" />
     <ClCompile Include="UC_TEAMS.cpp" />
+    <ClCompile Include="WrapperPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CustomControl.h" />
@@ -171,6 +173,9 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Neon.h" />
+    <ClInclude Include="NewPlayer.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="TeamInformation.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -193,6 +198,7 @@
     <ClInclude Include="UC_TEAMS.h">
       <FileType>CppControl</FileType>
     </ClInclude>
+    <ClInclude Include="WrapperPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm.resx">
@@ -200,6 +206,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MyResource.resx" />
+    <EmbeddedResource Include="NewPlayer.resx">
+      <DependentUpon>NewPlayer.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TeamInformation.resx">
       <DependentUpon>TeamInformation.h</DependentUpon>
     </EmbeddedResource>

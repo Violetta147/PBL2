@@ -2,6 +2,7 @@
 #include "include/Tournament.h"
 #include "include/Team.h"
 #include "ImageHelper.h"
+#include "TeamInformation.h"
 using namespace System;
 using namespace System::ComponentModel;
 using namespace System::Collections;
@@ -45,13 +46,15 @@ namespace Form2 {
 	private: System::Windows::Forms::Label^ buttonMinus;
 	private: System::Windows::Forms::Label^ buttonPlus;
 	private: System::Windows::Forms::FlowLayoutPanel^ flowLayoutPanel1;
-		     Tournament* tour;
+	private: System::Windows::Forms::Label^ label1;
+	public: Tournament* tour;
 
 #pragma region Windows Form Designer generated code
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(UC_TEAMS::typeid));
 			this->SearchPanel = (gcnew System::Windows::Forms::Panel());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->buttonMinus = (gcnew System::Windows::Forms::Label());
 			this->buttonPlus = (gcnew System::Windows::Forms::Label());
 			this->flowLayoutPanel1 = (gcnew System::Windows::Forms::FlowLayoutPanel());
@@ -65,6 +68,7 @@ namespace Form2 {
 			this->SearchPanel->BackColor = System::Drawing::Color::Transparent;
 			this->SearchPanel->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"SearchPanel.BackgroundImage")));
 			this->SearchPanel->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->SearchPanel->Controls->Add(this->label1);
 			this->SearchPanel->Controls->Add(this->buttonMinus);
 			this->SearchPanel->Controls->Add(this->buttonPlus);
 			this->SearchPanel->Location = System::Drawing::Point(0, 0);
@@ -73,9 +77,20 @@ namespace Form2 {
 			this->SearchPanel->Size = System::Drawing::Size(1260, 90);
 			this->SearchPanel->TabIndex = 0;
 			// 
+			// label1
+			// 
+			this->label1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->label1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->label1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"label1.Image")));
+			this->label1->Location = System::Drawing::Point(1161, 6);
+			this->label1->Margin = System::Windows::Forms::Padding(0);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(85, 78);
+			this->label1->TabIndex = 2;
+			// 
 			// buttonMinus
 			// 
-			this->buttonMinus->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->buttonMinus->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->buttonMinus->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"buttonMinus.Image")));
 			this->buttonMinus->Location = System::Drawing::Point(141, 6);
 			this->buttonMinus->Margin = System::Windows::Forms::Padding(0);
@@ -83,12 +98,10 @@ namespace Form2 {
 			this->buttonMinus->Size = System::Drawing::Size(85, 78);
 			this->buttonMinus->TabIndex = 1;
 			this->buttonMinus->Click += gcnew System::EventHandler(this, &UC_TEAMS::buttonMinus_Click);
-			this->buttonMinus->MouseHover += gcnew System::EventHandler(this, &UC_TEAMS::buttonMinus_MouseHover);
-			this->buttonMinus->MouseLeave += gcnew System::EventHandler(this, &UC_TEAMS::buttonMinus_MouseLeave);
 			// 
 			// buttonPlus
 			// 
-			this->buttonPlus->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->buttonPlus->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->buttonPlus->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"buttonPlus.Image")));
 			this->buttonPlus->Location = System::Drawing::Point(53, 6);
 			this->buttonPlus->Margin = System::Windows::Forms::Padding(0);
@@ -96,8 +109,6 @@ namespace Form2 {
 			this->buttonPlus->Size = System::Drawing::Size(88, 78);
 			this->buttonPlus->TabIndex = 0;
 			this->buttonPlus->Click += gcnew System::EventHandler(this, &UC_TEAMS::buttonPlus_Click);
-			this->buttonPlus->MouseHover += gcnew System::EventHandler(this, &UC_TEAMS::buttonPlus_MouseHover);
-			this->buttonPlus->MouseLeave += gcnew System::EventHandler(this, &UC_TEAMS::buttonPlus_MouseLeave);
 			// 
 			// flowLayoutPanel1
 			// 
@@ -261,8 +272,16 @@ namespace Form2 {
 #pragma endregion
 
 private: System::Void buttonPlus_Click(System::Object^ sender, System::EventArgs^ e) {
-
-
+	
+	/*if (tour->get_team_count() == tour->getReq())
+	{
+		MessageBox::Show("NUMBER OF TEAMS LIMIT REACHED", "Cannot Add", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		MessageBox::Show("Please go to delete mode to delete a team", "Delete Mode", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		return;
+	}*/
+	//create new instance of TeamInformation form
+	Form^ teamInformation = gcnew TeamInformation(tour);
+	teamInformation->ShowDialog();
 }
 private: System::Void buttonMinus_Click(System::Object^ sender, System::EventArgs^ e) {
                 
@@ -292,18 +311,6 @@ private: System::Void buttonMinus_Click(System::Object^ sender, System::EventArg
 	{
 	}
 }
-private: System::Void buttonPlus_MouseHover(System::Object^ sender, System::EventArgs^ e) {
-	buttonPlus->Size = System::Drawing::Size(95, 88);
-}
-private: System::Void buttonMinus_MouseHover(System::Object^ sender, System::EventArgs^ e) {
-	buttonMinus->Size = System::Drawing::Size(95, 88);
-}
-private: System::Void buttonPlus_MouseLeave(System::Object^ sender, System::EventArgs^ e) {
 
-	buttonPlus->Size = System::Drawing::Size(88, 78);
-}
-private: System::Void buttonMinus_MouseLeave(System::Object^ sender, System::EventArgs^ e) {
-	buttonMinus->Size = System::Drawing::Size(85, 78);
-}
 };
 }
