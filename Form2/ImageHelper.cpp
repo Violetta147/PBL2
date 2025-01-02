@@ -2,18 +2,36 @@
 
 Image^ ImageHelper::GetImageResource(String^ resourceName)
 {
-	System::Reflection::Assembly^ assembly = System::Reflection::Assembly::GetExecutingAssembly();
-	System::Resources::ResourceManager^ rm = gcnew System::Resources::ResourceManager("Form2.MyResource", assembly);
-	System::Object^ resource = rm->GetObject(resourceName);
-	if (resource == nullptr)
-	{
-		Console::WriteLine("Resource not found: " + resourceName);
-	}
-	if (resource->GetType() == array<Byte>::typeid)
-	{
-		array<Byte>^ bytes = (array<Byte>^)resource;
-		System::IO::MemoryStream^ ms = gcnew System::IO::MemoryStream(bytes);
-		return Image::FromStream(ms);
-	}
-	return (Image^)resource;
+    // Define the base directory where resources are located (you can adjust this to your needs)
+    String^ baseDirectory = "Resources//";
+
+    // Construct the image file path
+    String^ imagePath = baseDirectory + resourceName + ".png";
+
+    try
+    {
+        // Check if the file exists before loading it
+        if (System::IO::File::Exists(imagePath))
+        {
+            // Read the image into memory
+            array<Byte>^ imageBytes = System::IO::File::ReadAllBytes(imagePath);
+
+            // Create a MemoryStream from the byte array
+            System::IO::MemoryStream^ memoryStream = gcnew System::IO::MemoryStream(imageBytes);
+
+            // Return the image loaded from memory
+            return System::Drawing::Image::FromStream(memoryStream);
+        }
+        else
+        {
+            Console::WriteLine("Image file not found: " + imagePath);
+            return nullptr; // Or return a default image
+        }
+    }
+    catch (Exception^ ex)
+    {
+        // Handle any exceptions, such as invalid image format or IO errors
+        Console::WriteLine("Error loading image: " + ex->Message);
+        return nullptr; // Or return a default image
+    }
 }

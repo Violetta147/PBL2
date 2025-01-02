@@ -2,6 +2,7 @@
 #include "include/Tournament.h"
 #include "include/Team.h"
 #include "ImageHelper.h"
+#include "AddTeam.h"
 #include "TeamInformation.h"
 using namespace System;
 using namespace System::ComponentModel;
@@ -149,6 +150,8 @@ namespace Form2 {
 			{	
 				Button^ button = gcnew Button();
 				Team* team = tour->getTeam(i);
+				button->TabIndex = i;
+				button->Tag = team->get_id();
 				button->Name = gcnew String(team->get_name().c_str());
 				button->Text = gcnew String(team->get_name().c_str());
                 button->ForeColor = System::Drawing::Color::FromArgb(0x37, 0x00, 0x3c);
@@ -158,7 +161,15 @@ namespace Form2 {
 				button->Padding = System::Windows::Forms::Padding(10, 0, 0, 30);
 				button->Size = System::Drawing::Size(buttonWidth, buttonHeight);
 				button->Margin = System::Windows::Forms::Padding(buttonMargin);
-				button->BackgroundImage = ImageHelper::GetImageResource(button->Name + "_Default");
+				Image^ backGroundImage= ImageHelper::GetImageResource(button->Name + "_Default");
+				if (backGroundImage != nullptr)
+				{
+					button->BackgroundImage = backGroundImage;
+				}
+				else
+				{
+					button->BackgroundImage = ImageHelper::GetImageResource("Unknown_Default");
+				}
 				button->BackgroundImageLayout = ImageLayout::Stretch;
 				button->MouseEnter += gcnew EventHandler(this, &UC_TEAMS::Button_MouseEnter);
 				button->MouseLeave += gcnew EventHandler(this, &UC_TEAMS::Button_MouseLeave);
@@ -245,8 +256,17 @@ namespace Form2 {
 		void Button_MouseEnter(Object^ sender, EventArgs^ e)
 		{
 			Button^ button = (Button^)sender;
-			button->BackgroundImage = ImageHelper::GetImageResource(button->Name + "_Hover");
-			button->ForeColor = System::Drawing::Color::White;
+			//check if the resource is null
+			if (ImageHelper::GetImageResource(button->Name + "_Hover") != nullptr)
+			{
+				button->BackgroundImage = ImageHelper::GetImageResource(button->Name + "_Hover");
+				button->ForeColor = System::Drawing::Color::White;
+			}
+			else
+			{
+				button->BackgroundImage = ImageHelper::GetImageResource("Unknown_Hover");
+				button->ForeColor = System::Drawing::Color::White;
+			}
 		}
 		void Button_MouseLeave(Object^ sender, EventArgs^ e)
 		{
@@ -261,14 +281,79 @@ namespace Form2 {
 				Button^ button = (Button^)sender;
 				String^ teamName = button->Name;
 				DialogResult result = MessageBox::Show("Are you sure you want to delete " + teamName + "?", "Delete Team", MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
+
 				if (result == System::Windows::Forms::DialogResult::Yes)
-				{	
+				{
+					// Delete the team from the tournament
 					Team* team = tour->getTeam(button->TabIndex);
 					tour->delete_team(*team);
 					GenerateTeamButtons(tour->get_team_count());
+
+					// Delete the associated image files
+					String^ resourceDir = "C:\\Users\\LAPTOP T&T\\source\\repos\\Violetta147\\PBL2\\Form2\\Resources\\";
+
+					try
+					{
+						// Safely dispose of the background image
+						if (button->BackgroundImage != nullptr)
+						{
+							delete button->BackgroundImage; // Calls Dispose internally
+							button->BackgroundImage = nullptr; // Clear the reference
+						}
+
+						// Construct file paths
+						String^ defaultImage = System::IO::Path::Combine(resourceDir, teamName + "_Default.png");
+						String^ hoverImage = System::IO::Path::Combine(resourceDir, teamName + "_Hover.png");
+
+						// Attempt to delete files, fallback to renaming if deletion fails
+						if (System::IO::File::Exists(defaultImage))
+						{
+							try
+							{
+								System::IO::File::Delete(defaultImage);
+							}
+							catch (Exception^)
+							{
+								// Rename the file as a fallback
+								String^ renamedDefault = defaultImage + ".to_delete";
+								System::IO::File::Move(defaultImage, renamedDefault);
+							}
+						}
+
+						if (System::IO::File::Exists(hoverImage))
+						{
+							try
+							{
+								System::IO::File::Delete(hoverImage);
+							}
+							catch (Exception^)
+							{
+								// Rename the file as a fallback
+								String^ renamedHover = hoverImage + ".to_delete";
+								System::IO::File::Move(hoverImage, renamedHover);
+							}
+						}
+					}
+					catch (Exception^ ex)
+					{
+						Console::WriteLine("Error handling image files: " + ex->Message);
+					}
+				}
+			}
+			else
+			{
+				Button^ button = (Button^)sender;
+				for each (auto team in tour->getTeams())
+				{	
+					if (team.get_id() == Convert::ToInt32(button->Tag))
+					{
+						Form^ teamInformation = gcnew TeamInformation(tour, team.get_id());
+						teamInformation->ShowDialog();
+					}
 				}
 			}
 		}
+
 #pragma endregion
 
 private: System::Void buttonPlus_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -279,13 +364,18 @@ private: System::Void buttonPlus_Click(System::Object^ sender, System::EventArgs
 		MessageBox::Show("Please go to delete mode to delete a team", "Delete Mode", MessageBoxButtons::OK, MessageBoxIcon::Information);
 		return;
 	}*/
-	//create new instance of TeamInformation form
-	Form^ teamInformation = gcnew TeamInformation(tour);
-	teamInformation->ShowDialog();
+	Form^ addTeam = gcnew AddTeam(tour);
+	addTeam->ShowDialog();
+	GenerateTeamButtons(tour->get_team_count());
 }
 private: System::Void buttonMinus_Click(System::Object^ sender, System::EventArgs^ e) {
                 
-
+	if (isDeleteMode == true)
+	{
+		isDeleteMode = false;
+		MessageBox::Show("You are out of DELETE MODE", "Out of Delete Mode", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		return;
+	}
      State state = tour->getState();
 
 	 if (state == GO || state == MID || state == AWAY || state == POS)
@@ -306,9 +396,6 @@ private: System::Void buttonMinus_Click(System::Object^ sender, System::EventArg
 	else
 	{ 
 		isDeleteMode = false;
-	}
-	if (isDeleteMode == true)
-	{
 	}
 }
 

@@ -2,12 +2,14 @@
 #include "include/Tournament.h"
 #include "include/Player.h"
 #include "include/Team.h"
+#include "Ultility.h"
 
 using namespace System;
-using namespace System::ComponentModel;
 using namespace System::Collections;
-using namespace System::Windows::Forms;
 using namespace System::Data;
+using namespace System::Drawing;
+using namespace System::Windows::Forms;
+using namespace System::ComponentModel;
 
 public ref class WrapperPlayer
 {
@@ -23,7 +25,8 @@ private:
     int yellowCard;
     int isBan;
     int match;
-    String^ playerName;
+    String^ playerFirstName;
+	String^ playerLastName;
     String^ teamName;
 
 public:
@@ -124,16 +127,16 @@ public:
         }
     }
 
-    property int IsBan
+    property bool IsBan
     {
-        int get()
-        {
-            return isBan;
-        }
-        void set(int value)
-        {
-            isBan = value;
-        }
+		bool get()
+		{
+			return isBan == 1;
+		}
+		void set(bool value)
+		{
+			isBan = value;
+		}
     }
 
     property int Match
@@ -148,17 +151,19 @@ public:
         }
     }
 
-    property String^ PlayerName
-    {
-        String^ get()
-        {
-            return playerName;
-        }
-        void set(String^ value)
-        {
-            playerName = value;
-        }
-    }
+	property String^ PlayerName
+	{
+		String^ get()
+		{
+			return playerFirstName + " " + playerLastName;
+		}
+		void set(String^ value)
+		{
+			array<String^>^ names = value->Split(' '); // Split the string by something else than space if needed
+			playerFirstName = names[0];
+			playerLastName = names[1];
+		}
+	}
 
     property String^ TeamName
     {
@@ -185,12 +190,13 @@ public:
         this->yellowCard = player->getYellowCards();
         this->isBan = player->getIsBan();
         this->match = player->getMatch();
-        this->playerName = gcnew String(player->get_Name().c_str());
-        this->teamName = gcnew String(player->getTeam()->get_name().c_str());
+		this->playerFirstName = gcnew String(player->get_first_name().c_str());
+        this->playerLastName = gcnew String(player->get_last_name().c_str());
+        this->teamName = player->getTeam() ? gcnew String(player->getTeam()->get_name().c_str()) : nullptr; //nullptr; 
     }
 
     // Default constructor for initialization
-    WrapperPlayer() : nativePlayer(nullptr)
+	WrapperPlayer() : nativePlayer(nullptr)
     {
         this->player_id = gcnew String("");
         this->jersey_num = 0;
@@ -202,7 +208,43 @@ public:
         this->yellowCard = 0;
         this->isBan = 0;
         this->match = 0;
-        this->playerName = gcnew String("");
+		this->playerFirstName = gcnew String("");
+		this->playerLastName = gcnew String("");
         this->teamName = gcnew String("");
+		nativePlayer = new Player();
     }
+	//method to convert all data of WrapperPlayer to Player without using msclr::interop::marshal_as<std::string>
+    void ConvertToNativePlayer()
+    {
+		//using StringToStlWString method to convert System::String to std::wstring
+		std::string player_id_string;
+        Ultility::StringToStlString(player_id, player_id_string);
+		std::string position_string;
+        Ultility::StringToStlString(position, position_string);
+		std::string playerFirstName_string;
+        Ultility::StringToStlString(playerFirstName, playerFirstName_string);
+		std::string playerLastName_string;
+        Ultility::StringToStlString(playerLastName, playerLastName_string);
+		std::string teamName_string;
+        Ultility::StringToStlString(teamName, teamName_string);
+		//set all data to nativePlayer
+		nativePlayer->setId(player_id_string);
+		nativePlayer->setNum(jersey_num);
+		nativePlayer->setTId(team_id);
+		nativePlayer->setPosition(position_string);
+		nativePlayer->setGoals(goal);
+		nativePlayer->setAssists(assist);
+		nativePlayer->setRedCards(redCard);
+		nativePlayer->setYellowCards(yellowCard);
+		nativePlayer->setIsBan(isBan);
+		nativePlayer->setMatch(match);
+		nativePlayer->set_first_name(playerFirstName_string);
+		nativePlayer->set_last_name(playerLastName_string);
+		//not set team name, team* yet
+    }
+	Player* GetNativePlayer()
+	{
+		return nativePlayer;
+	}
 };
+
