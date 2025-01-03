@@ -143,14 +143,18 @@ namespace Form2 {
 
 		}
 
-		void GenerateTeamButtons(int teamCount)
+		void GenerateTeamButtons()
 		{	
 			flowLayoutPanel1->Controls->Clear();
-			for (int i = 0; i < tour->get_team_count(); i++)
+			Console::WriteLine(tour->get_team_count());
+			for (int i = 1 ; i <= tour->getReq(); i++)
 			{	
 				Button^ button = gcnew Button();
-				Team* team = tour->getTeam(i);
-				button->TabIndex = i;
+				Team* team = tour->find_team_by_id(i);
+				if (team == nullptr)
+				{
+					continue;
+				}
 				button->Tag = team->get_id();
 				button->Name = gcnew String(team->get_name().c_str());
 				button->Text = gcnew String(team->get_name().c_str());
@@ -174,7 +178,7 @@ namespace Form2 {
 				button->MouseEnter += gcnew EventHandler(this, &UC_TEAMS::Button_MouseEnter);
 				button->MouseLeave += gcnew EventHandler(this, &UC_TEAMS::Button_MouseLeave);
 				button->MouseClick += gcnew MouseEventHandler(this, &UC_TEAMS::Button_MouseClick);
-				if (i == tour->get_team_count() - 1)
+				if (i == tour->getReq())
 				{	
 					this->flowLayoutPanel1->ResumeLayout(false);
 					flowLayoutPanel1->Controls->Add(button);
@@ -198,8 +202,8 @@ namespace Form2 {
 			flowLayoutPanel1->Padding = System::Windows::Forms::Padding(buttonWidth / 3.5, 0, 0, 0);
 			//panel1->Size = System::Drawing::Size(flowLayoutPanel1->Width - 20, flowLayoutPanel1->Height);
 			flowLayoutPanel1->MouseWheel += gcnew System::Windows::Forms::MouseEventHandler(this, &Form2::UC_TEAMS::OnMouseWheel);
-			int teamCount = tour->get_team_count();
-			GenerateTeamButtons(teamCount);
+			int teamCount = tour->getReq();
+			GenerateTeamButtons();
 			this->flowLayoutPanel1->ResumeLayout(false);
 			this->flowLayoutPanel1->PerformLayout();
 		}
@@ -285,9 +289,9 @@ namespace Form2 {
 				if (result == System::Windows::Forms::DialogResult::Yes)
 				{
 					// Delete the team from the tournament
-					Team* team = tour->getTeam(button->TabIndex);
+					Team* team = tour->find_team_by_id(Convert::ToInt32(button->Tag));
 					tour->delete_team(*team);
-					GenerateTeamButtons(tour->get_team_count());
+					GenerateTeamButtons();
 
 					// Delete the associated image files
 					String^ resourceDir = "C:\\Users\\LAPTOP T&T\\source\\repos\\Violetta147\\PBL2\\Form2\\Resources\\";
@@ -366,7 +370,7 @@ private: System::Void buttonPlus_Click(System::Object^ sender, System::EventArgs
 	}*/
 	Form^ addTeam = gcnew AddTeam(tour);
 	addTeam->ShowDialog();
-	GenerateTeamButtons(tour->get_team_count());
+	GenerateTeamButtons();
 }
 private: System::Void buttonMinus_Click(System::Object^ sender, System::EventArgs^ e) {
                 

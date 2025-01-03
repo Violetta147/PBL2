@@ -183,6 +183,7 @@
     <ClInclude Include="NewPlayer.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="read.h" />
     <ClInclude Include="TeamDataView.h">
       <FileType>CppControl</FileType>
     </ClInclude>

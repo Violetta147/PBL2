@@ -27,7 +27,7 @@ class Player : public Human {
         // Constructor
         //this doesn't bind team* to any team
         Player();
-        Player(const std::string human_id, const std::string& first_name, const std::string& last_name,
+        Player(const std::string& human_id, const std::string& first_name, const std::string& last_name,
             const std::string& country, const std::string& birth, int height,
             int weight, const std::string id, int jersey, int team_id,
             const std::string& pos, int goal = 0, int ass = 0, int red = 0, int yellow = 0,

@@ -1,6 +1,7 @@
 #pragma once
 #include "include/Tournament.h"
 #include "WrapperPlayer.h"
+#include "Ultility.h"
 namespace Form2 {
 
 	using namespace System;
@@ -9,6 +10,7 @@ namespace Form2 {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Collections::Generic;
 
 	/// <summary>
 	/// Summary for NewPlayer
@@ -16,7 +18,7 @@ namespace Form2 {
 	public ref class NewPlayer : public System::Windows::Forms::Form
 	{
 	public:
-		NewPlayer(Tournament* tour)
+		NewPlayer(Tournament* tour, String^ TID)
 		{
 			InitializeComponent();
 			//
@@ -24,6 +26,7 @@ namespace Form2 {
 			//
 			//so the components like datagridview will load data before Load method so i need to have this->tour = tour; here
 			this->tour = tour;
+			this->TID = TID;
 			this->Load += gcnew EventHandler(this, &NewPlayer::NewPlayer_Load);
 		}
 
@@ -58,7 +61,7 @@ namespace Form2 {
 	private: System::Windows::Forms::Label^ label5;
 	private: System::Windows::Forms::Label^ label6;
 	private: System::Windows::Forms::TextBox^ textBox4;
-	private: System::Windows::Forms::TextBox^ textBox5;
+
 	private: System::Windows::Forms::Label^ label7;
 
 	private: System::Windows::Forms::Label^ label8;
@@ -70,6 +73,7 @@ namespace Form2 {
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::Button^ button2;
 		   Tournament* tour;
+		   String^ TID;
 	public:	 BindingList<WrapperPlayer^>^ wrappedPlayers = gcnew BindingList<WrapperPlayer^>();
 		  DataTable^ player_data_table;
 	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel1;
@@ -77,10 +81,6 @@ namespace Form2 {
 	private: System::Windows::Forms::Button^ btnPrev;
 	private: System::Windows::Forms::Button^ btnNext;
 	private: System::Windows::Forms::Button^ btnLast;
-
-
-
-
 	private: System::Windows::Forms::Label^ label11;
 	private: System::Windows::Forms::Label^ lblTotalRows;
 
@@ -95,6 +95,8 @@ namespace Form2 {
 	private: int totalPages = 0;
 	private: int totalRows = 0;
 	private: System::Windows::Forms::TextBox^ textBox7;
+	private: CustomControls::RJButton^ rjButton1;
+	private: System::Windows::Forms::ComboBox^ comboBox2;
 
 	private:
 		/// <summary>
@@ -109,6 +111,7 @@ namespace Form2 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(NewPlayer::typeid));
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
@@ -122,7 +125,6 @@ namespace Form2 {
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->label9 = (gcnew System::Windows::Forms::Label());
@@ -133,6 +135,8 @@ namespace Form2 {
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
+			this->comboBox2 = (gcnew System::Windows::Forms::ComboBox());
+			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
 			this->btnFirst = (gcnew System::Windows::Forms::Button());
 			this->btnPrev = (gcnew System::Windows::Forms::Button());
 			this->btnNext = (gcnew System::Windows::Forms::Button());
@@ -143,7 +147,7 @@ namespace Form2 {
 			this->lblCurrentPage = (gcnew System::Windows::Forms::Label());
 			this->label15 = (gcnew System::Windows::Forms::Label());
 			this->lblTotalPages = (gcnew System::Windows::Forms::Label());
-			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
+			this->rjButton1 = (gcnew CustomControls::RJButton());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->tableLayoutPanel1->SuspendLayout();
 			this->SuspendLayout();
@@ -151,10 +155,10 @@ namespace Form2 {
 			// textBox1
 			// 
 			this->textBox1->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->textBox1->Location = System::Drawing::Point(153, 19);
+			this->textBox1->Location = System::Drawing::Point(148, 19);
 			this->textBox1->Margin = System::Windows::Forms::Padding(4, 3, 4, 3);
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(286, 20);
+			this->textBox1->Size = System::Drawing::Size(296, 20);
 			this->textBox1->TabIndex = 0;
 			// 
 			// label1
@@ -199,19 +203,19 @@ namespace Form2 {
 			// textBox2
 			// 
 			this->textBox2->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->textBox2->Location = System::Drawing::Point(153, 78);
+			this->textBox2->Location = System::Drawing::Point(148, 78);
 			this->textBox2->Margin = System::Windows::Forms::Padding(4, 3, 4, 3);
 			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(286, 20);
+			this->textBox2->Size = System::Drawing::Size(296, 20);
 			this->textBox2->TabIndex = 10;
 			// 
 			// textBox3
 			// 
 			this->textBox3->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->textBox3->Location = System::Drawing::Point(153, 137);
+			this->textBox3->Location = System::Drawing::Point(148, 137);
 			this->textBox3->Margin = System::Windows::Forms::Padding(4, 3, 4, 3);
 			this->textBox3->Name = L"textBox3";
-			this->textBox3->Size = System::Drawing::Size(286, 20);
+			this->textBox3->Size = System::Drawing::Size(296, 20);
 			this->textBox3->TabIndex = 11;
 			// 
 			// dataGridView1
@@ -231,10 +235,10 @@ namespace Form2 {
 			// 
 			this->comboBox1->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->comboBox1->FormattingEnabled = true;
-			this->comboBox1->Location = System::Drawing::Point(153, 196);
+			this->comboBox1->Location = System::Drawing::Point(148, 196);
 			this->comboBox1->Margin = System::Windows::Forms::Padding(4, 3, 4, 3);
 			this->comboBox1->Name = L"comboBox1";
-			this->comboBox1->Size = System::Drawing::Size(286, 21);
+			this->comboBox1->Size = System::Drawing::Size(296, 21);
 			this->comboBox1->TabIndex = 15;
 			// 
 			// label2
@@ -294,20 +298,11 @@ namespace Form2 {
 			// textBox4
 			// 
 			this->textBox4->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->textBox4->Location = System::Drawing::Point(153, 314);
+			this->textBox4->Location = System::Drawing::Point(148, 314);
 			this->textBox4->Margin = System::Windows::Forms::Padding(4, 3, 4, 3);
 			this->textBox4->Name = L"textBox4";
-			this->textBox4->Size = System::Drawing::Size(286, 20);
+			this->textBox4->Size = System::Drawing::Size(296, 20);
 			this->textBox4->TabIndex = 21;
-			// 
-			// textBox5
-			// 
-			this->textBox5->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->textBox5->Location = System::Drawing::Point(153, 432);
-			this->textBox5->Margin = System::Windows::Forms::Padding(4, 3, 4, 3);
-			this->textBox5->Name = L"textBox5";
-			this->textBox5->Size = System::Drawing::Size(286, 20);
-			this->textBox5->TabIndex = 23;
 			// 
 			// label7
 			// 
@@ -352,10 +347,11 @@ namespace Form2 {
 			// 
 			this->comboBox3->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->comboBox3->FormattingEnabled = true;
-			this->comboBox3->Location = System::Drawing::Point(153, 491);
+			this->comboBox3->Items->AddRange(gcnew cli::array< System::Object^  >(4) { L"Defender", L"Midfielder", L"Goalkeeper", L"Forward" });
+			this->comboBox3->Location = System::Drawing::Point(148, 491);
 			this->comboBox3->Margin = System::Windows::Forms::Padding(4, 3, 4, 3);
 			this->comboBox3->Name = L"comboBox3";
-			this->comboBox3->Size = System::Drawing::Size(286, 21);
+			this->comboBox3->Size = System::Drawing::Size(296, 21);
 			this->comboBox3->TabIndex = 27;
 			// 
 			// label10
@@ -373,11 +369,11 @@ namespace Form2 {
 			// 
 			// textBox6
 			// 
-			this->textBox6->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->textBox6->Location = System::Drawing::Point(153, 552);
+			this->textBox6->Anchor = System::Windows::Forms::AnchorStyles::Left;
+			this->textBox6->Location = System::Drawing::Point(148, 552);
 			this->textBox6->Margin = System::Windows::Forms::Padding(4, 3, 4, 3);
 			this->textBox6->Name = L"textBox6";
-			this->textBox6->Size = System::Drawing::Size(286, 20);
+			this->textBox6->Size = System::Drawing::Size(114, 20);
 			this->textBox6->TabIndex = 29;
 			// 
 			// AddButton
@@ -399,6 +395,7 @@ namespace Form2 {
 			this->button1->TabIndex = 31;
 			this->button1->Text = L"UPDATE";
 			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &NewPlayer::button1_Click);
 			// 
 			// button2
 			// 
@@ -417,12 +414,12 @@ namespace Form2 {
 				32.36607F)));
 			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
 				67.63393F)));
+			this->tableLayoutPanel1->Controls->Add(this->comboBox2, 1, 7);
 			this->tableLayoutPanel1->Controls->Add(this->textBox7, 1, 6);
 			this->tableLayoutPanel1->Controls->Add(this->label10, 0, 9);
 			this->tableLayoutPanel1->Controls->Add(this->textBox6, 1, 9);
 			this->tableLayoutPanel1->Controls->Add(this->label9, 0, 8);
 			this->tableLayoutPanel1->Controls->Add(this->comboBox3, 1, 8);
-			this->tableLayoutPanel1->Controls->Add(this->textBox5, 1, 7);
 			this->tableLayoutPanel1->Controls->Add(this->label7, 0, 6);
 			this->tableLayoutPanel1->Controls->Add(this->label8, 0, 7);
 			this->tableLayoutPanel1->Controls->Add(this->label1, 0, 0);
@@ -437,7 +434,7 @@ namespace Form2 {
 			this->tableLayoutPanel1->Controls->Add(this->comboBox1, 1, 3);
 			this->tableLayoutPanel1->Controls->Add(this->textBox3, 1, 2);
 			this->tableLayoutPanel1->Controls->Add(this->textBox4, 1, 5);
-			this->tableLayoutPanel1->Location = System::Drawing::Point(12, 22);
+			this->tableLayoutPanel1->Location = System::Drawing::Point(0, 198);
 			this->tableLayoutPanel1->MaximumSize = System::Drawing::Size(448, 593);
 			this->tableLayoutPanel1->MinimumSize = System::Drawing::Size(448, 593);
 			this->tableLayoutPanel1->Name = L"tableLayoutPanel1";
@@ -454,6 +451,25 @@ namespace Form2 {
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 10)));
 			this->tableLayoutPanel1->Size = System::Drawing::Size(448, 593);
 			this->tableLayoutPanel1->TabIndex = 34;
+			// 
+			// comboBox2
+			// 
+			this->comboBox2->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->comboBox2->FormattingEnabled = true;
+			this->comboBox2->Location = System::Drawing::Point(148, 432);
+			this->comboBox2->Margin = System::Windows::Forms::Padding(4, 3, 4, 3);
+			this->comboBox2->Name = L"comboBox2";
+			this->comboBox2->Size = System::Drawing::Size(296, 21);
+			this->comboBox2->TabIndex = 31;
+			// 
+			// textBox7
+			// 
+			this->textBox7->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->textBox7->Location = System::Drawing::Point(148, 373);
+			this->textBox7->Margin = System::Windows::Forms::Padding(4, 3, 4, 3);
+			this->textBox7->Name = L"textBox7";
+			this->textBox7->Size = System::Drawing::Size(296, 20);
+			this->textBox7->TabIndex = 30;
 			// 
 			// btnFirst
 			// 
@@ -561,20 +577,32 @@ namespace Form2 {
 			this->lblTotalPages->Text = L"0";
 			this->lblTotalPages->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
-			// textBox7
+			// rjButton1
 			// 
-			this->textBox7->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->textBox7->Location = System::Drawing::Point(153, 373);
-			this->textBox7->Margin = System::Windows::Forms::Padding(4, 3, 4, 3);
-			this->textBox7->Name = L"textBox7";
-			this->textBox7->Size = System::Drawing::Size(286, 20);
-			this->textBox7->TabIndex = 30;
+			this->rjButton1->BackColor = System::Drawing::SystemColors::MenuBar;
+			this->rjButton1->BackgroundColor = System::Drawing::SystemColors::MenuBar;
+			this->rjButton1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"rjButton1.BackgroundImage")));
+			this->rjButton1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
+			this->rjButton1->BorderColor = System::Drawing::Color::PaleVioletRed;
+			this->rjButton1->BorderRadius = 40;
+			this->rjButton1->BorderSize = 0;
+			this->rjButton1->FlatAppearance->BorderSize = 0;
+			this->rjButton1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->rjButton1->ForeColor = System::Drawing::Color::White;
+			this->rjButton1->Location = System::Drawing::Point(88, 14);
+			this->rjButton1->Name = L"rjButton1";
+			this->rjButton1->Size = System::Drawing::Size(252, 181);
+			this->rjButton1->TabIndex = 46;
+			this->rjButton1->TextColor = System::Drawing::Color::White;
+			this->rjButton1->UseVisualStyleBackColor = false;
+			this->rjButton1->Click += gcnew System::EventHandler(this, &NewPlayer::rjButton1_Click);
 			// 
 			// NewPlayer
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(7, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1288, 803);
+			this->Controls->Add(this->rjButton1);
 			this->Controls->Add(this->lblTotalPages);
 			this->Controls->Add(this->label15);
 			this->Controls->Add(this->lblCurrentPage);
@@ -607,33 +635,82 @@ namespace Form2 {
 
 		}
 		void InitializePlayers()
-		{
-			int count = tour->get_player_count();
-			for (int i = 0; i < count; i++)
+		{	
+			if (!this->IdExist())
 			{
-				Player player = tour->getPlayer(i);
-				wrappedPlayers->Add(gcnew WrapperPlayer(&player));
+				int count = tour->get_player_count();
+				for (int i = 0; i < count; i++)
+				{
+					Player player = tour->getPlayer(i);
+					wrappedPlayers->Add(gcnew WrapperPlayer(&player));
+				}
 			}
+			else //If is on TEAM MODE
+			{
+				String^ PID = ExtractPID();
+				int TID = Convert::ToInt32(ExtractTID());
+				//can use team is tead of tour
+				for (int i = 0; i < tour->get_player_count(); ++i)
+				{	
+					Player player = tour->getPlayer(i);
+					if (player.getTId() == TID)
+					{	
+						wrappedPlayers->Add(gcnew WrapperPlayer(&player));
+					}
+				}
+				AttachDataToControls();
+				
+			}
+
 		}
 		void InitializeTables()
-		{
-			player_data_table = gcnew DataTable();
-			player_data_table->Columns->Add("PLAYER ID", String::typeid);
-			player_data_table->Columns->Add("NAME", String::typeid);
-			player_data_table->Columns->Add("JERSEY NUMBER", int::typeid); //maybe nullable
-			player_data_table->Columns->Add("POSITION", String::typeid);
-			player_data_table->Columns->Add("TEAM NAME", String::typeid);
+		{	
+			if (!this->IdExist())
+			{
+				player_data_table = gcnew DataTable();
+				player_data_table->Columns->Add("PLAYER ID", String::typeid);
+				player_data_table->Columns->Add("NAME", String::typeid);
+				player_data_table->Columns->Add("JERSEY NUMBER", int::typeid); //maybe nullable
+				player_data_table->Columns->Add("POSITION", String::typeid);
+				player_data_table->Columns->Add("TEAM NAME", String::typeid);
+				InitializePlayers();
 
-			InitializePlayers();
+				totalRows = wrappedPlayers->Count;
+				totalPages = (int)Math::Ceiling((double)totalRows / pageSize);
+				lblTotalPages->Text = totalPages.ToString();
 
-			totalRows = wrappedPlayers->Count;
-			totalPages = (int)Math::Ceiling((double)totalRows / pageSize);
-			lblTotalPages->Text = totalPages.ToString();
+				LoadPageData();
+				InitializeComboBox2();
+				InitializeComboBox1();
 
-			LoadPageData();
 
-			dataGridView1->DataSource = player_data_table;
-			player_data_table->DefaultView->Sort = "PLAYER ID ASC";
+				dataGridView1->DataSource = player_data_table;
+				player_data_table->DefaultView->Sort = "PLAYER ID ASC";
+			}
+			else
+			{
+				player_data_table = gcnew DataTable();
+				player_data_table->Columns->Add("PLAYER ID", String::typeid);
+				player_data_table->Columns->Add("NAME", String::typeid);
+				player_data_table->Columns->Add("JERSEY NUMBER", int::typeid); //maybe nullable
+				player_data_table->Columns->Add("POSITION", String::typeid);
+				player_data_table->Columns->Add("GOALS", int::typeid);
+				player_data_table->Columns->Add("ASSISTS", int::typeid);
+				player_data_table->Columns->Add("RED CARDS", int::typeid);
+				player_data_table->Columns->Add("YELLOW CARDS", int::typeid);
+				player_data_table->Columns->Add("MATCH PLAYED", int::typeid);
+				player_data_table->Columns->Add("IS BAN", bool::typeid);
+				InitializePlayers();
+				totalRows = wrappedPlayers->Count;
+				totalPages = (int)Math::Ceiling((double)totalRows / pageSize);
+				lblTotalPages->Text = totalPages.ToString();
+				LoadPageData();
+				InitializeComboBox2();
+				InitializeComboBox1();
+				dataGridView1->DataSource = player_data_table;
+				//group rows player_data_table by POSITION(bad)
+				player_data_table->DefaultView->Sort = "POSITION ASC";
+			}	
 		}
 		void NewPlayer_Load(System::Object^ sender, System::EventArgs^ e)
 		{	
@@ -645,16 +722,38 @@ namespace Form2 {
 			int startIndex = (currentPageIndex - 1) * pageSize;
 			int endIndex = Math::Min(startIndex + pageSize, totalRows);
 
-			for (int i = startIndex; i < endIndex; i++)
+			if (!this->IdExist())
 			{
-				auto player = wrappedPlayers[i];
-				player_data_table->Rows->Add(
-					player->PlayerID,
-					player->PlayerName,
-					player->JerseyNum,
-					player->Position,
-					player->TeamName
-				);
+				for (int i = startIndex; i < endIndex; i++)
+				{
+					auto player = wrappedPlayers[i];
+					player_data_table->Rows->Add(
+						player->PlayerID,
+						player->PlayerName,
+						player->JerseyNum,
+						player->Position,
+						player->TeamName
+					);
+				}
+			}
+			else
+			{
+				for (int i = startIndex; i < endIndex; i++)
+				{
+					auto player = wrappedPlayers[i];
+					player_data_table->Rows->Add(
+						player->PlayerID,
+						player->PlayerName,
+						player->JerseyNum,
+						player->Position,
+						player->Goal,
+						player->Assist,
+						player->RedCard,
+						player->YellowCard,
+						player->Match,
+						player->IsBan
+					);
+				}
 			}
 
 			UpdatePaginationLabels();
@@ -685,11 +784,171 @@ private: System::Void btnNext_Click(System::Object^ sender, System::EventArgs^ e
 		LoadPageData();
 	}
 }
-private: System::Void btnLast_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (currentPageIndex != totalPages) {
-		currentPageIndex = totalPages;
-		LoadPageData();
-	}
+	private: System::Void btnLast_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (currentPageIndex != totalPages) {
+			currentPageIndex = totalPages;
+			LoadPageData();
+		}
 }
+	private:	   bool IdExist() {
+		//compare null
+		//TID|PID
+		//extract TID and check if PID Exist by cutting
+		if (TID->Contains("|"))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	private: String^ ExtractPID()
+	{
+		if (IdExist())
+		{
+			int index = TID->IndexOf("|");
+			return TID->Substring(index + 1);
+		}
+		else
+		{
+			return TID;
+		}
+	}
+	private: String^ ExtractTID()
+	{
+			int index = TID->IndexOf("|");
+			return TID->Substring(0, index);
+	}
+		   private: System::Void AttachDataToControls()
+		   {	
+			   for each (WrapperPlayer ^ player in wrappedPlayers)
+			   {
+				   if (player->PlayerID == this->ExtractPID())
+				   {	
+					   textBox1->Text = player->CCCD;
+					   textBox2->Text = player->getFirstName();
+					   textBox3->Text = player->getLastName();
+					   comboBox1->Text = player->Nation;
+					   Ultility::SetDateTimePickerValue(this->dateTimePicker1, player->DateOfBirth);
+					   textBox4->Text = player->Weight.ToString();
+					   textBox7->Text = player->Height.ToString();
+					   comboBox2->Text = player->TeamName;
+					   comboBox3->Text = player->Position;
+					   textBox6->Text = player->JerseyNum.ToString();
+					   break;
+				   }
+			   }
+			  
+		   }
+private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	if (this->IdExist())
+	{
+		String^ PID = ExtractPID();
+		int TID = Convert::ToInt32(ExtractTID());
+		//check if the value of the player is the same as the value in the text box if not update and also check if the value is valid
+		if (this->IdExist())
+		{
+			String^ PID = ExtractPID();
+			int TID = Convert::ToInt32(ExtractTID());
+
+			for each (WrapperPlayer ^ player in wrappedPlayers)
+			{
+				if (player->PlayerID == PID)
+				{	
+					std::string PIDStr;
+					Ultility::StringToStlString(PID, PIDStr);
+					player->CCCD = textBox1->Text;
+					player->setFirstName(textBox2->Text);
+					player->setLastName(textBox3->Text);
+					player->Nation = comboBox1->Text;
+					player->Position = comboBox3->Text;
+					player->JerseyNum = Convert::ToInt32(textBox6->Text);
+
+
+					//Update birthday
+					std::string newBirthDateStr;
+					String^ newBirthDate = dateTimePicker1->Value.ToString("dd-MM-yyyy");
+					Ultility::StringToStlString(newBirthDate, newBirthDateStr);
+					player->DateOfBirth = newBirthDate;
+					
+					if (comboBox2->SelectedItem != nullptr)
+					{
+						KeyValuePair<int, String^>^ selectedTeam = (KeyValuePair<int, String^>^)comboBox2->SelectedItem;
+						player->TeamName = selectedTeam->Value;
+						player->TeamID = selectedTeam->Key;
+					}
+					else
+					{
+						player->TeamName = "";
+						player->TeamID = -1;
+					}
+					player->Weight = Convert::ToInt32(textBox4->Text);
+					player->Height = Convert::ToInt32(textBox7->Text);
+					//update player in native c++ and save to file
+					std::string CCCDStr;
+					std::string firstNameStr;
+					std::string lastNameStr;
+					std::string nationStr;
+					std::string positionStr;
+					std::string teamIDStr = std::to_string(player->TeamID);
+					std::string weightStr = std::to_string(player->Weight);
+					std::string heightStr = std::to_string(player->Height);
+					std::string jerseyNumStr = std::to_string(player->JerseyNum);
+					Ultility::StringToStlString(player->CCCD, CCCDStr);
+					Ultility::StringToStlString(player->getFirstName(), firstNameStr);
+					Ultility::StringToStlString(player->getLastName(), lastNameStr);
+					Ultility::StringToStlString(player->Nation, nationStr);
+					Ultility::StringToStlString(player->Position, positionStr);
+					//update player in native c++ and save to file
+					Player newInformation(CCCDStr, firstNameStr, lastNameStr, nationStr,
+						newBirthDateStr, player->Height, player->Weight, PIDStr, player->JerseyNum, TID, positionStr);
+					tour->edit_player(newInformation);
+					//update player in managed c++
+					InitializeTables();
+					MessageBox::Show("Player information has been updated successfully!");
+					break;  
+				}
+			}
+		}
+		else
+		{
+			MessageBox::Show("Player ID does not exist. You may not in TEAM MODE");
+		}
+	}
+	
+}
+	private: System::Void InitializeComboBox2()
+	   {
+		   Dictionary<int, String^>^ teamList = gcnew Dictionary<int, String^>();
+		   for (int i = 1; i <= tour->getReq(); i++)
+		   {	
+			   if (tour->find_team_by_id(i) == nullptr)
+			   {
+				   continue;
+			   }
+			   teamList->Add(i, gcnew String(tour->find_team_by_id(i)->get_name().c_str()));
+		   }
+		   BindingSource^ bindingSource = gcnew BindingSource();
+		   bindingSource->DataSource = teamList;
+
+		   comboBox2->DataSource = bindingSource;
+		   comboBox2->DisplayMember = "Value";
+		   comboBox2->ValueMember = "Key";
+		   //check if ADD NEW TEAM MODE THEN ADD THE NAME OF NEW TEAM TO COMBOBOX
+	   }
+	   private: System::Void InitializeComboBox1()
+	   {
+		   comboBox1->Items->Clear();
+		   Console::WriteLine("InitializeComboBox1");
+		   System::IO::StreamReader^ sr = gcnew System::IO::StreamReader("C:/Users/LAPTOP T&T/source/repos/Violetta147/PBL2/Form2/file-handling/country.txt");
+		   String^ line;
+		   while ((line = sr->ReadLine()) != nullptr)
+		   {
+			   comboBox1->Items->Add(line);
+		   }
+		   sr->Close();
+	   }
 };
 }

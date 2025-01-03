@@ -89,7 +89,7 @@
             "player_id": "P007",
             "jersey_num": 12,
             "team_id": 1,
-            "position": "Defender"
+            "position": "Midfielder"
         },
         {
             "human_id": "1000000007",
@@ -4612,7 +4612,7 @@
             "weight": 75,
             "player_id": "P355",
             "jersey_num": 23,
-            "team_id": 14,
+            "team_id": 4,
             "position": "Defender"
         },
         {

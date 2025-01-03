@@ -14,7 +14,6 @@ using namespace System::ComponentModel;
 public ref class WrapperPlayer
 {
 private:
-    Player* nativePlayer; // No const
     String^ player_id;
     int jersey_num;
     int team_id;
@@ -28,6 +27,11 @@ private:
     String^ playerFirstName;
 	String^ playerLastName;
     String^ teamName;
+    String^ DOB;
+    String^ CMND;
+    String^ nation;
+    int weight;
+    int height;
 
 public:
     // Define properties instead of fields
@@ -127,13 +131,13 @@ public:
         }
     }
 
-    property bool IsBan
+    property int IsBan
     {
-		bool get()
+		int get()
 		{
-			return isBan == 1;
+            return isBan;
 		}
-		void set(bool value)
+		void set(int value)
 		{
 			isBan = value;
 		}
@@ -176,9 +180,63 @@ public:
             teamName = value;
         }
     }
-
+    property String^ DateOfBirth
+    {
+        String^ get()
+        {
+            return DOB;
+        }
+        void set(String^ value)
+        {
+            DOB = value;
+        }
+    }
+    property String^ CCCD
+    {
+        String^ get()
+        {
+			return CMND;
+        }
+		void set(String^ value)
+		{
+			CMND = value;
+		}
+    }
+	property String^ Nation
+	{
+		String^ get()
+		{
+			return nation;
+		}
+		void set(String^ value)
+		{
+			nation = value;
+		}
+	}
+	property int Weight
+	{
+		int get()
+		{
+			return weight;
+		}
+		void set(int value)
+		{
+			weight = value;
+		}
+	}
+    property int Height
+    {
+        int get()
+        {
+            return height;
+        }
+        void set(int value)
+        {
+            height = value;
+        }
+    }
     // Constructor that initializes the properties
-    WrapperPlayer(Player* player) : nativePlayer(player)
+    WrapperPlayer(Player* player)
     {
         this->player_id = gcnew String(player->getId().c_str());
         this->jersey_num = player->getNum();
@@ -193,10 +251,15 @@ public:
 		this->playerFirstName = gcnew String(player->get_first_name().c_str());
         this->playerLastName = gcnew String(player->get_last_name().c_str());
         this->teamName = player->getTeam() ? gcnew String(player->getTeam()->get_name().c_str()) : nullptr; //nullptr; 
+		this->DOB = gcnew String(player->get_birth().c_str());
+		this->CMND = gcnew String(player->get_Id().c_str());
+		this->nation = gcnew String(player->get_nation().c_str());
+		this->weight = player->get_weight();
+		this->height = player->get_height();
     }
 
     // Default constructor for initialization
-	WrapperPlayer() : nativePlayer(nullptr)
+	WrapperPlayer()
     {
         this->player_id = gcnew String("");
         this->jersey_num = 0;
@@ -211,40 +274,22 @@ public:
 		this->playerFirstName = gcnew String("");
 		this->playerLastName = gcnew String("");
         this->teamName = gcnew String("");
-		nativePlayer = new Player();
     }
-	//method to convert all data of WrapperPlayer to Player without using msclr::interop::marshal_as<std::string>
-    void ConvertToNativePlayer()
-    {
-		//using StringToStlWString method to convert System::String to std::wstring
-		std::string player_id_string;
-        Ultility::StringToStlString(player_id, player_id_string);
-		std::string position_string;
-        Ultility::StringToStlString(position, position_string);
-		std::string playerFirstName_string;
-        Ultility::StringToStlString(playerFirstName, playerFirstName_string);
-		std::string playerLastName_string;
-        Ultility::StringToStlString(playerLastName, playerLastName_string);
-		std::string teamName_string;
-        Ultility::StringToStlString(teamName, teamName_string);
-		//set all data to nativePlayer
-		nativePlayer->setId(player_id_string);
-		nativePlayer->setNum(jersey_num);
-		nativePlayer->setTId(team_id);
-		nativePlayer->setPosition(position_string);
-		nativePlayer->setGoals(goal);
-		nativePlayer->setAssists(assist);
-		nativePlayer->setRedCards(redCard);
-		nativePlayer->setYellowCards(yellowCard);
-		nativePlayer->setIsBan(isBan);
-		nativePlayer->setMatch(match);
-		nativePlayer->set_first_name(playerFirstName_string);
-		nativePlayer->set_last_name(playerLastName_string);
-		//not set team name, team* yet
-    }
-	Player* GetNativePlayer()
+	String^ getFirstName()
 	{
-		return nativePlayer;
+		return playerFirstName;
+	}
+	String^ getLastName()
+	{
+		return playerLastName;
+	}
+	System::Void setFirstName(String^ value)
+	{
+		playerFirstName = value;
+	}
+	System::Void setLastName(String^ value)
+	{
+		playerLastName = value;
 	}
 };
 

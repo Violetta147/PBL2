@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 using namespace System;
+using namespace System::Windows::Forms; 
 class Ultility
 {
 public: static void StringToStlString(System::String^ s, std::string& os)
@@ -26,4 +27,20 @@ public: static void StringToStlString(System::String^ s, std::string& os)
         Marshal::FreeHGlobal(pUtf8);
     }
 }
+public: static void SetDateTimePickerValue(DateTimePicker^ dateTimePicker, String^ dateStr)
+      {
+          try
+          {
+              DateTime date = DateTime::ParseExact(dateStr, "dd-MM-yyyy", nullptr);
+
+              String^ formattedDate = date.ToString("dd-MMM-yyyy");
+
+			  dateTimePicker->Value = date; // Put real value into DateTimePicker
+              Console::WriteLine("DateFormat: " + formattedDate);
+          }
+          catch (FormatException^ e)
+          {
+              Console::WriteLine("Error: " + e->Message);
+          }
+      }
 };

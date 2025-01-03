@@ -85,10 +85,7 @@ void Form2::RJButton::OnHandleCreated(EventArgs^ e)
 void Form2::RJButton::OnParentBackColorChanged(Object^ sender, EventArgs^ e)
 {
 	//can move this if need to change the color at run time
-	if (this->DesignMode)
-	{
 		this->Invalidate();
-	}
 }
 
 void Form2::RJButton::OnResize(System::Object^ sender, System::EventArgs^ e)

@@ -3,7 +3,7 @@
 
 // Constructor
 Player::Player() {}
-Player::Player(const std::string human_id, const std::string &first_name,
+Player::Player(const std::string& human_id, const std::string &first_name,
                const std::string &last_name, const std::string &country,
                const std::string &birth, int height, int weight, const std::string id, int jersey,
                int team_id, const std::string &pos, int goal, int ass, int red, int yellow,

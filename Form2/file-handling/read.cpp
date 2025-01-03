@@ -8,7 +8,7 @@
 
 std::string* readCountry(const std::string& filename, int& size)
 {
-    std::string absfpath = FILE_PATH + filename;
+    std::string absfpath = filename; 
     std::ifstream file(absfpath);
     if (!file)
     {

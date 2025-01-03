@@ -222,7 +222,7 @@ Team* Tournament::getTeam(int index) {
 }
 
 Coach* Tournament::getCoach(int index) {
-    return &coaches[index];
+    return &coaches[index]; //remember vector starts from 0
 }
 
 int Tournament::get_round() const {
@@ -408,7 +408,11 @@ void Tournament::edit_player(const Player &information)
         target->set_weight(information.get_weight());
         target->setNum(information.getNum());
         target->setPosition(information.getPosition());
+        //I CHANGED Here 3/1/2024
+        target->set_Id(information.get_Id());
+		target->set_nation(information.get_nation());
 
+    
         if (information.getTId() != target->getTId())
         {
             // if Team with information.getTID exist, obviously exists because information is
@@ -1316,6 +1320,7 @@ void Tournament::delete_team(Team& gone)
     if (team->get_coach() != nullptr) {
         Coach* coach = find_coach_by_id(team->get_coach()->get_id());
         coach->leave_team();
+        team->remove_coach();//
     }
     if (!team->get_players().empty()) {
         for (const auto& player : team->get_players()) {

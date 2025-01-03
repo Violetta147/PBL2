@@ -2,6 +2,7 @@
 #include "include/Tournament.h"
 #include "WrapperPlayer.h"
 #include "TeamDataView.h"
+#include "ImageHelper.h"
 
 
 
@@ -31,6 +32,8 @@ namespace Form2 {
 			SetTeamName();
 			SetTeamLogo();
 			SetEstablishmentYear();
+			SetMainPanelBGR();
+			SetButtonColor();
 		}
 
 	protected:
@@ -47,13 +50,18 @@ namespace Form2 {
 	private: System::Windows::Forms::Panel^ containerPanel;
 	private: System::Windows::Forms::Panel^ mainPanel;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
-	private: CustomControls::RJButton^ rjButton1;
+
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::Label^ label2;
-	private: System::Windows::Forms::Label^ label1;
 
 		   Tournament* tour;
 		   int TId;
+	private: System::Windows::Forms::PictureBox^ pictureBox2;
+	private: CustomControls::RJButton^ rjButton1;
+
+
+
+
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -67,15 +75,17 @@ namespace Form2 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(TeamInformation::typeid));
 			this->containerPanel = (gcnew System::Windows::Forms::Panel());
 			this->mainPanel = (gcnew System::Windows::Forms::Panel());
 			this->rjButton1 = (gcnew CustomControls::RJButton());
+			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->containerPanel->SuspendLayout();
 			this->mainPanel->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -95,10 +105,11 @@ namespace Form2 {
 			// mainPanel
 			// 
 			this->mainPanel->BackColor = System::Drawing::Color::DarkGoldenrod;
+			this->mainPanel->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->mainPanel->Controls->Add(this->rjButton1);
+			this->mainPanel->Controls->Add(this->pictureBox2);
 			this->mainPanel->Controls->Add(this->label3);
 			this->mainPanel->Controls->Add(this->label2);
-			this->mainPanel->Controls->Add(this->label1);
 			this->mainPanel->Controls->Add(this->pictureBox1);
 			this->mainPanel->Dock = System::Windows::Forms::DockStyle::Top;
 			this->mainPanel->Location = System::Drawing::Point(0, 0);
@@ -109,56 +120,66 @@ namespace Form2 {
 			// 
 			// rjButton1
 			// 
-			this->rjButton1->BackColor = System::Drawing::Color::Lavender;
-			this->rjButton1->BackgroundColor = System::Drawing::Color::Lavender;
-			this->rjButton1->BorderColor = System::Drawing::Color::PaleVioletRed;
+			this->rjButton1->BackColor = System::Drawing::Color::GhostWhite;
+			this->rjButton1->BackgroundColor = System::Drawing::Color::GhostWhite;
+			this->rjButton1->BorderColor = System::Drawing::Color::Transparent;
 			this->rjButton1->BorderRadius = 40;
 			this->rjButton1->BorderSize = 0;
 			this->rjButton1->FlatAppearance->BorderSize = 0;
 			this->rjButton1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->rjButton1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->rjButton1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->rjButton1->ForeColor = System::Drawing::Color::Black;
-			this->rjButton1->Location = System::Drawing::Point(129, 241);
+			this->rjButton1->Location = System::Drawing::Point(170, 243);
 			this->rjButton1->Name = L"rjButton1";
 			this->rjButton1->Padding = System::Windows::Forms::Padding(0, 15, 0, 0);
-			this->rjButton1->Size = System::Drawing::Size(150, 77);
-			this->rjButton1->TabIndex = 4;
+			this->rjButton1->Size = System::Drawing::Size(150, 72);
+			this->rjButton1->TabIndex = 6;
 			this->rjButton1->Text = L"SQUAD";
 			this->rjButton1->TextAlign = System::Drawing::ContentAlignment::TopCenter;
 			this->rjButton1->TextColor = System::Drawing::Color::Black;
 			this->rjButton1->UseVisualStyleBackColor = false;
 			this->rjButton1->Click += gcnew System::EventHandler(this, &TeamInformation::rjButton1_Click);
 			// 
+			// pictureBox2
+			// 
+			this->pictureBox2->BackColor = System::Drawing::Color::Transparent;
+			this->pictureBox2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->pictureBox2->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->pictureBox2->ErrorImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.ErrorImage")));
+			this->pictureBox2->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.InitialImage")));
+			this->pictureBox2->Location = System::Drawing::Point(72, 21);
+			this->pictureBox2->Margin = System::Windows::Forms::Padding(0);
+			this->pictureBox2->Name = L"pictureBox2";
+			this->pictureBox2->Size = System::Drawing::Size(181, 150);
+			this->pictureBox2->TabIndex = 5;
+			this->pictureBox2->TabStop = false;
+			// 
 			// label3
 			// 
-			this->label3->BackColor = System::Drawing::Color::Lime;
-			this->label3->Location = System::Drawing::Point(277, 101);
+			this->label3->BackColor = System::Drawing::Color::Transparent;
+			this->label3->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label3->Location = System::Drawing::Point(276, 104);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(108, 32);
+			this->label3->Size = System::Drawing::Size(161, 32);
 			this->label3->TabIndex = 3;
 			this->label3->Text = L"EST";
-			this->label3->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->label3->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			// 
 			// label2
 			// 
-			this->label2->BackColor = System::Drawing::Color::Lime;
-			this->label2->Location = System::Drawing::Point(277, 21);
+			this->label2->BackColor = System::Drawing::Color::Transparent;
+			this->label2->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 21.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label2->Location = System::Drawing::Point(276, 30);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(249, 60);
 			this->label2->TabIndex = 2;
 			this->label2->Text = L"TEAM NAME";
-			this->label2->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-			// 
-			// label1
-			// 
-			this->label1->BackColor = System::Drawing::Color::Lime;
-			this->label1->Location = System::Drawing::Point(79, 21);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(168, 144);
-			this->label1->TabIndex = 1;
-			this->label1->Text = L"LOGO";
-			this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			this->label2->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			// 
 			// pictureBox1
 			// 
@@ -183,6 +204,7 @@ namespace Form2 {
 			this->Text = L"TeamInformation";
 			this->containerPanel->ResumeLayout(false);
 			this->mainPanel->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -200,7 +222,35 @@ private: System::Void rjButton1_Click(System::Object^ sender, System::EventArgs^
 }
 	private: System::Void SetTeamName()
 	{
-		label2->Text = gcnew String(tour->getTeam(TId).getTName().c_str());
+		label2->Text = gcnew String(tour->find_team_by_id(TId)->get_name().c_str());
+		//set color for the label using the dominant color
+		Color^ color = ImageHelper::GetDominantColor(( "Resources\\" + gcnew String(tour->find_team_by_id(TId)->get_name().c_str()) + "_BackGround") + ".png");
+		label2->BackColor = *color;
+		label2->ForeColor = *ImageHelper::GetContrastingColor(*color);
 	}
+	private: System::Void SetTeamLogo()
+	{
+		pictureBox2->BackgroundImage = ImageHelper::GetImageResource(gcnew String(tour->find_team_by_id(TId)->get_name().c_str()) + "_logo");
+	}
+	private: System::Void SetEstablishmentYear()
+	{
+		label3->Text = "EST:" + tour->find_team_by_id(TId)->get_founded_year().ToString();
+		Color^ color = ImageHelper::GetDominantColor(("Resources\\" + gcnew String(tour->find_team_by_id(TId)->get_name().c_str()) + "_BackGround") + ".png");
+		label3->BackColor = *color;
+		label3->ForeColor = *ImageHelper::GetContrastingColor(*color);
+	}
+	private: System::Void SetMainPanelBGR()
+	{
+		mainPanel->BackgroundImage = ImageHelper::GetImageResource(gcnew String(tour->find_team_by_id(TId)->get_name().c_str()) + "_BackGround");
+	}
+	private: System::Void SetButtonColor()
+	{
+		Color^ color = ImageHelper::GetDominantColor(("Resources\\" + gcnew String(tour->find_team_by_id(TId)->get_name().c_str()) + "_BackGround") + ".png");
+		rjButton1->BackColor = *color;
+		rjButton1->BackgroundColor = *color;
+		rjButton1->BorderColor = *color;
+		rjButton1->ForeColor = *ImageHelper::GetContrastingColor(*color);
+	}
+	
 };
 }

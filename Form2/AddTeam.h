@@ -61,7 +61,7 @@ namespace Form2 {
 	private: System::Windows::Forms::TextBox^ textBox3;
 		   array<String^>^ years;
 	public: Tournament* tour;
-	private: System::Windows::Forms::ComboBox^ comboBox1;
+	public: System::Windows::Forms::ComboBox^ comboBox1;
 	private: System::Windows::Forms::Button^ button2;
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::DataGridView^ dataGridView2;
@@ -101,6 +101,8 @@ namespace Form2 {
 		{
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
+			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
+			this->btnChooseLogo2 = (gcnew System::Windows::Forms::Button());
 			this->btnChooseLogo = (gcnew System::Windows::Forms::Button());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->dataGridView3 = (gcnew System::Windows::Forms::DataGridView());
@@ -122,16 +124,14 @@ namespace Form2 {
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
 			this->btnFinish = (gcnew System::Windows::Forms::Button());
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
-			this->btnChooseLogo2 = (gcnew System::Windows::Forms::Button());
-			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView3))->BeginInit();
 			this->tabPage2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// tabControl1
@@ -169,6 +169,27 @@ namespace Form2 {
 			this->tabPage1->TabIndex = 0;
 			this->tabPage1->Text = L"tabPage1";
 			this->tabPage1->UseVisualStyleBackColor = true;
+			// 
+			// pictureBox2
+			// 
+			this->pictureBox2->Location = System::Drawing::Point(593, 287);
+			this->pictureBox2->Name = L"pictureBox2";
+			this->pictureBox2->Size = System::Drawing::Size(257, 149);
+			this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBox2->TabIndex = 15;
+			this->pictureBox2->TabStop = false;
+			// 
+			// btnChooseLogo2
+			// 
+			this->btnChooseLogo2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->btnChooseLogo2->Location = System::Drawing::Point(444, 326);
+			this->btnChooseLogo2->Name = L"btnChooseLogo2";
+			this->btnChooseLogo2->Size = System::Drawing::Size(106, 84);
+			this->btnChooseLogo2->TabIndex = 14;
+			this->btnChooseLogo2->Text = L"ChooseImgHover";
+			this->btnChooseLogo2->UseVisualStyleBackColor = true;
+			this->btnChooseLogo2->Click += gcnew System::EventHandler(this, &AddTeam::btnChooseLogo2_Click);
 			// 
 			// btnChooseLogo
 			// 
@@ -382,27 +403,6 @@ namespace Form2 {
 			this->btnCancel->UseVisualStyleBackColor = false;
 			this->btnCancel->Click += gcnew System::EventHandler(this, &AddTeam::btnCancel_Click);
 			// 
-			// btnChooseLogo2
-			// 
-			this->btnChooseLogo2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->btnChooseLogo2->Location = System::Drawing::Point(444, 326);
-			this->btnChooseLogo2->Name = L"btnChooseLogo2";
-			this->btnChooseLogo2->Size = System::Drawing::Size(106, 84);
-			this->btnChooseLogo2->TabIndex = 14;
-			this->btnChooseLogo2->Text = L"ChooseImgHover";
-			this->btnChooseLogo2->UseVisualStyleBackColor = true;
-			this->btnChooseLogo2->Click += gcnew System::EventHandler(this, &AddTeam::btnChooseLogo2_Click);
-			// 
-			// pictureBox2
-			// 
-			this->pictureBox2->Location = System::Drawing::Point(593, 287);
-			this->pictureBox2->Name = L"pictureBox2";
-			this->pictureBox2->Size = System::Drawing::Size(257, 149);
-			this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			this->pictureBox2->TabIndex = 15;
-			this->pictureBox2->TabStop = false;
-			// 
 			// AddTeam
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -416,12 +416,12 @@ namespace Form2 {
 			this->tabControl1->ResumeLayout(false);
 			this->tabPage1->ResumeLayout(false);
 			this->tabPage1->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView3))->EndInit();
 			this->tabPage2->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			this->ResumeLayout(false);
 
 		}
@@ -551,7 +551,13 @@ private: System::Void button2_MouseClick(System::Object^ sender, System::Windows
 	dataGridView2->Refresh();
 }
 private: System::Void button3_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
-	Form^ addPlayer = gcnew NewPlayer(tour);
+
+	String^ team_id = "-1";
+	if (this->comboBox1->SelectedItem != nullptr)
+	{
+		team_id = this->comboBox1->SelectedItem->ToString();
+	}
+	Form^ addPlayer = gcnew NewPlayer(tour, team_id);
 	addPlayer->ShowDialog();
 }
 private: System::Void btnFinish_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -665,5 +671,6 @@ private: System::Void btnChooseLogo2_Click(System::Object^ sender, System::Event
 		pictureBox2->Image = Image::FromFile(logoFilePath2);
 	}
 }
+
 };
 }

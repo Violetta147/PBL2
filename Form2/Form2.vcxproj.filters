@@ -59,6 +59,7 @@
     <ClInclude Include="Ultility.h" />
     <ClInclude Include="TeamInformation.h" />
     <ClInclude Include="TeamDataView.h" />
+    <ClInclude Include="read.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\tournament.json" />

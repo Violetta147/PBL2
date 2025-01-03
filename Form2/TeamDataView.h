@@ -1,6 +1,10 @@
 #pragma once
 #include "include/Tournament.h"
 #include "WrapperPlayer.h"
+#include "NewPlayer.h"
+#include "ImageHelper.h"
+#include "CustomControl.h"
+
 using namespace System;
 using namespace System::ComponentModel;
 using namespace System::Collections;
@@ -261,21 +265,49 @@ namespace Form2 {
 			dataGridView1->DataSource = playerList; 
 		}
 		void dataGridView1_RowPrePaint(Object^ sender, System::Windows::Forms::DataGridViewRowPrePaintEventArgs^ e)
-		{
-			// Determine the alternating color
-			Color primaryColor = Color::LightBlue;
-			Color secondaryColor = Color::LightCyan;
-
-			// Alternate rows
-			if (e->RowIndex % 2 == 0)
-			{
-				this->dataGridView1->Rows[e->RowIndex]->DefaultCellStyle->BackColor = primaryColor;
-				this->dataGridView1->Rows[e->RowIndex]->DefaultCellStyle->ForeColor = Color::Black;
+		{	
+			//retrieve the control in parent panel
+			Form^ parentForm = dynamic_cast<Form^>(this->Parent->Parent);
+			Console::WriteLine(parentForm->Name);
+			if (parentForm != nullptr)
+			{	
+				Control^ control = parentForm->Controls->Find("mainPanel", true)[0];
+				Console::WriteLine(control->Name);
+				Label^ NameButton = dynamic_cast<Label^>(control->Controls->Find("label2", true)[0]);
+				Console::WriteLine(NameButton->Name);
+				//Set the color of header the same as the button back color
+				this->dataGridView1->ColumnHeadersDefaultCellStyle->BackColor = NameButton->BackColor;
+				this->dataGridView1->ColumnHeadersDefaultCellStyle->ForeColor = NameButton->ForeColor;
+				if (e->RowIndex % 2 == 0)
+				{
+					this->dataGridView1->Rows[e->RowIndex]->DefaultCellStyle->BackColor = NameButton->BackColor;
+					this->dataGridView1->Rows[e->RowIndex]->DefaultCellStyle->ForeColor = NameButton->ForeColor;
+				}
+				else
+				{
+					this->dataGridView1->Rows[e->RowIndex]->DefaultCellStyle->BackColor = *ImageHelper::LightenColor(NameButton->BackColor, 0.2);
+					this->dataGridView1->Rows[e->RowIndex]->DefaultCellStyle->ForeColor = NameButton->ForeColor;
+				}
 			}
 			else
-			{
-				this->dataGridView1->Rows[e->RowIndex]->DefaultCellStyle->BackColor = secondaryColor;
-				this->dataGridView1->Rows[e->RowIndex]->DefaultCellStyle->ForeColor = Color::Black;
+			{	
+				// Determine the alternating color
+				Color primaryColor = Color::LightBlue;
+				Color secondaryColor = Color::LightCyan;
+
+				// Alternate rows
+				if (e->RowIndex % 2 == 0)
+				{
+					this->dataGridView1->Rows[e->RowIndex]->DefaultCellStyle->BackColor = primaryColor;
+					this->dataGridView1->Rows[e->RowIndex]->DefaultCellStyle->ForeColor = Color::Black;
+				}
+				else
+				{
+					this->dataGridView1->Rows[e->RowIndex]->DefaultCellStyle->BackColor = secondaryColor;
+					this->dataGridView1->Rows[e->RowIndex]->DefaultCellStyle->ForeColor = Color::Black;
+				}
+				this->dataGridView1->ColumnHeadersDefaultCellStyle->BackColor = Color::LightGray;
+				this->dataGridView1->ColumnHeadersDefaultCellStyle->ForeColor = Color::Black;
 			}
 		}
 
@@ -283,10 +315,13 @@ namespace Form2 {
 	private: System::Void dataGridView1_CellClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 		if (e->RowIndex >= 0) // Check if row is valid
 		{
-			// Get the row information
+			//// Get the row information
 			WrapperPlayer^ selectedPlayer = (WrapperPlayer^)dataGridView1->Rows[e->RowIndex]->DataBoundItem;
 
 			//Open form
+			NewPlayer^ newPlayer = gcnew NewPlayer(tour, selectedPlayer->TeamID + "|" + selectedPlayer->PlayerID);
+			newPlayer->ShowDialog();
+
 		}
 	}
 };
