@@ -45,6 +45,7 @@ namespace Form2 {
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
+	private: CustomControls::RJButton^ btnSlideBack;
 
 	private:
 		/// <summary>
@@ -69,6 +70,7 @@ namespace Form2 {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->btnSlideBack = (gcnew CustomControls::RJButton());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -105,7 +107,7 @@ namespace Form2 {
 			// 
 			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label4->ForeColor = System::Drawing::Color::LawnGreen;
+			this->label4->ForeColor = System::Drawing::Color::Black;
 			this->label4->Location = System::Drawing::Point(37, 239);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(114, 23);
@@ -117,7 +119,7 @@ namespace Form2 {
 			// 
 			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label3->ForeColor = System::Drawing::Color::LawnGreen;
+			this->label3->ForeColor = System::Drawing::Color::Black;
 			this->label3->Location = System::Drawing::Point(37, 179);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(100, 23);
@@ -129,7 +131,7 @@ namespace Form2 {
 			// 
 			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label2->ForeColor = System::Drawing::Color::LawnGreen;
+			this->label2->ForeColor = System::Drawing::Color::Black;
 			this->label2->Location = System::Drawing::Point(37, 124);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(100, 23);
@@ -141,7 +143,7 @@ namespace Form2 {
 			// 
 			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label1->ForeColor = System::Drawing::Color::LawnGreen;
+			this->label1->ForeColor = System::Drawing::Color::Black;
 			this->label1->Location = System::Drawing::Point(37, 64);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(100, 23);
@@ -151,22 +153,43 @@ namespace Form2 {
 			// 
 			// pictureBox1
 			// 
-			this->pictureBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->pictureBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->pictureBox1->BackColor = System::Drawing::SystemColors::Info;
 			this->pictureBox1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->pictureBox1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->pictureBox1->InitialImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.InitialImage")));
-			this->pictureBox1->Location = System::Drawing::Point(506, 51);
+			this->pictureBox1->Location = System::Drawing::Point(559, 41);
 			this->pictureBox1->Name = L"pictureBox1";
 			this->pictureBox1->Size = System::Drawing::Size(302, 221);
 			this->pictureBox1->TabIndex = 18;
 			this->pictureBox1->TabStop = false;
+			// 
+			// btnSlideBack
+			// 
+			this->btnSlideBack->BackColor = System::Drawing::Color::Red;
+			this->btnSlideBack->BackgroundColor = System::Drawing::Color::Red;
+			this->btnSlideBack->BorderColor = System::Drawing::Color::PaleVioletRed;
+			this->btnSlideBack->BorderRadius = 60;
+			this->btnSlideBack->BorderSize = 0;
+			this->btnSlideBack->FlatAppearance->BorderSize = 0;
+			this->btnSlideBack->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnSlideBack->ForeColor = System::Drawing::Color::White;
+			this->btnSlideBack->Location = System::Drawing::Point(-23, 255);
+			this->btnSlideBack->Name = L"btnSlideBack";
+			this->btnSlideBack->Size = System::Drawing::Size(54, 73);
+			this->btnSlideBack->TabIndex = 19;
+			this->btnSlideBack->TextColor = System::Drawing::Color::White;
+			this->btnSlideBack->UseVisualStyleBackColor = false;
+			this->btnSlideBack->Click += gcnew System::EventHandler(this, &EditTeam::btnSlideBack_Click);
 			// 
 			// EditTeam
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::LightGray;
+			this->Controls->Add(this->btnSlideBack);
 			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->foundedYearBox);
 			this->Controls->Add(this->textBox4);
@@ -184,5 +207,7 @@ namespace Form2 {
 
 		}
 #pragma endregion
-	};
+	private: System::Void btnSlideBack_Click(System::Object^ sender, System::EventArgs^ e) {
+	}
+};
 }

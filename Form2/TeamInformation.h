@@ -282,79 +282,83 @@ namespace Form2 {
 		ReplaceUserControlWithAnimation(editTeam);
 		
 	}
-	   private: System::Void ReplaceUserControl(UserControl^ newControl)
+	private: System::Void ReplaceUserControl(UserControl^ newControl)
 	   {
-		   // Duyệt qua danh sách Controls của containerPanel
+		  
 		   for (int i = containerPanel->Controls->Count - 1; i >= 0; i--)
 		   {
 			   Control^ control = containerPanel->Controls[i];
 
-			   // Kiểm tra nếu điều khiển là UserControl
+			  
 			   if (dynamic_cast<UserControl^>(control))
 			   {
-				   // Xóa UserControl hiện tại
+				   
 				   containerPanel->Controls->Remove(control);
 				   delete control;
 			   }
 		   }
-
-		   // Thêm UserControl mới
 		   newControl->Dock = System::Windows::Forms::DockStyle::Fill;
 		   newControl->Size = System::Drawing::Size(this->containerPanel->ClientSize.Width, this->containerPanel->ClientSize.Height - this->mainPanel->ClientSize.Height);
 		   newControl->Location = System::Drawing::Point(0, this->mainPanel->ClientSize.Height);
 		   newControl->Anchor = System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left | System::Windows::Forms::AnchorStyles::Right | System::Windows::Forms::AnchorStyles::Bottom;
 		   containerPanel->Controls->Add(newControl);
 	   }
-	   private: System::Void InitializeSlideTimer()
+	private: System::Void InitializeSlideTimer()
 	   {
 		   slideTimer = gcnew System::Windows::Forms::Timer();
-		   slideTimer->Interval = 10; // Tốc độ chuyển động
+		   slideTimer->Interval = 10; 
 		   slideTimer->Tick += gcnew System::EventHandler(this, &TeamInformation::OnSlideTimerTick);
 	   }
-		private: System::Void OnSlideTimerTick(System::Object^ sender, System::EventArgs^ e)
+	private: System::Void OnSlideTimerTick(System::Object^ sender, System::EventArgs^ e)
 		{
-			if (slidingControl == nullptr)
-				return;
+		if (slidingControl == nullptr)
+		{
+			slideTimer->Stop(); 
+			return;
+		}
 
-			// Dịch chuyển UserControl dần từ phải sang trái
-			System::Drawing::Point currentLocation = slidingControl->Location;
-			int newX = currentLocation.X - 20; // Tốc độ dịch chuyển
-			if (newX <= targetX)
-			{
-				newX = targetX; // Đạt đến vị trí đích
-				slideTimer->Stop(); // Dừng Timer
-				slidingControl = nullptr; // Reset
-			}
 
+		System::Drawing::Point currentLocation = slidingControl->Location;
+		int newX = currentLocation.X - 20; 
+
+	
+		if (newX <= targetX)
+		{
+			newX = targetX; 
+			slidingControl->Location = System::Drawing::Point(newX, currentLocation.Y); 
+			slideTimer->Stop(); 
+			slidingControl = nullptr; 
+		}
+		else
+		{
 			slidingControl->Location = System::Drawing::Point(newX, currentLocation.Y);
 		}
-		private: System::Void ReplaceUserControlWithAnimation(UserControl^ newControl)
-		{
-			// Xóa UserControl cũ
-			for (int i = containerPanel->Controls->Count - 1; i >= 0; i--)
-			{
-				Control^ control = containerPanel->Controls[i];
-				if (dynamic_cast<UserControl^>(control))
+		}
+    private: System::Void ReplaceUserControlWithAnimation(UserControl^ newControl)
+		{	
+				if (slidingControl != nullptr)
 				{
-					containerPanel->Controls->Remove(control);
-					delete control;
+					containerPanel->Controls->Remove(slidingControl);  
+					delete slidingControl; 
 				}
-			}
 
-			// Cài đặt UserControl mới
+			
 			newControl->Dock = System::Windows::Forms::DockStyle::None;
-			newControl->Size = System::Drawing::Size(this->containerPanel->ClientSize.Width / 2,
-				this->containerPanel->ClientSize.Height - this->mainPanel->ClientSize.Height);
+			newControl->Size = System::Drawing::Size(this->containerPanel->ClientSize.Width / 2, this->containerPanel->ClientSize.Height - this->mainPanel->ClientSize.Height);
 			newControl->Location = System::Drawing::Point(this->containerPanel->ClientSize.Width,
-				(this->containerPanel->ClientSize.Height - newControl->Height) / 2); // Xuất phát từ bên phải
+				this->mainPanel->ClientSize.Height); 
 			newControl->Anchor = System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right | System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left;
 			containerPanel->Controls->Add(newControl);
 
-			// Cài đặt giá trị cho hiệu ứng
+		
 			slidingControl = newControl;
-			targetX = (this->containerPanel->ClientSize.Width - newControl->Width); // Middle-Right
+			if (slidingControl == nullptr)
+			{
+				throw gcnew System::Exception("Sliding control is null");
+			}
+			targetX = (this->containerPanel->ClientSize.Width - newControl->Width); 
 
-			// Bắt đầu hiệu ứng
+	
 			slideTimer->Start();
 		}
 
