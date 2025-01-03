@@ -43,7 +43,7 @@ bool valid_Date(const std::string& date) {
 
     // Leap year check and day validity
     bool isLeapYear = ((time.tm_year + 1900) % 4 == 0 && (time.tm_year + 1900) % 100 != 0) || ((time.tm_year + 1900) % 400 == 0);
-    int daysInMonth[] = {31, (isLeapYear ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int daysInMonth[] = { 31, (isLeapYear ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
     if (time.tm_mday < 1 || time.tm_mday > daysInMonth[time.tm_mon]) {
         throw DateValidationException("Day value out of range for the given month.");
     }
@@ -80,7 +80,8 @@ bool isvalid(const std::string& date) {
     // Now call valid_Date and catch its exceptions
     try {
         valid_Date(date);
-    } catch (const DateValidationException& e) {
+    }
+    catch (const DateValidationException& e) {
         errorMessages += e.what(); // Append the error message
     }
 
@@ -96,7 +97,8 @@ bool isvalid(const std::string& date) {
 std::time_t timestamp(const std::string& date) {
     try {
         isvalid(date);
-    } catch (const DateValidationException& e) {
+    }
+    catch (const DateValidationException& e) {
         std::cerr << "Validation Error: " << e.what() << std::endl;
         throw; // Re-throw or handle as needed
     }
@@ -106,7 +108,8 @@ std::time_t timestamp(const std::string& date) {
 
     if (date.size() == 16) {
         ss >> std::get_time(&time, "%d-%m-%Y %H:%M");
-    } else {
+    }
+    else {
         ss >> std::get_time(&time, "%d-%m-%Y");
     }
 
@@ -118,7 +121,7 @@ std::time_t timestamp(const std::string& date) {
 }
 
 // Function to choose a starting and ending date, ensuring the end date is after the start
-bool choose_Date(std::string &Date1, std::string &Date2) {
+bool choose_Date(std::string& Date1, std::string& Date2) {
     std::tm time1 = {};
     std::tm time2 = {};
 
@@ -134,7 +137,8 @@ bool choose_Date(std::string &Date1, std::string &Date2) {
 
         try {
             isvalid(Date1);
-        } catch (const DateValidationException &e) {
+        }
+        catch (const DateValidationException& e) {
             std::cerr << e.what() << std::endl;
             Date1.clear();
         }
@@ -144,7 +148,8 @@ bool choose_Date(std::string &Date1, std::string &Date2) {
     std::istringstream ss1(Date1);
     if (Date1.size() == 16) {
         ss1 >> std::get_time(&time1, "%d-%m-%Y %H:%M");
-    } else {
+    }
+    else {
         ss1 >> std::get_time(&time1, "%d-%m-%Y");
     }
     time1.tm_mon -= 1;
@@ -162,7 +167,8 @@ bool choose_Date(std::string &Date1, std::string &Date2) {
 
         try {
             isvalid(Date2);
-        } catch (const DateValidationException &e) {
+        }
+        catch (const DateValidationException& e) {
             std::cerr << e.what() << std::endl;
             Date2.clear();
         }
@@ -172,7 +178,8 @@ bool choose_Date(std::string &Date1, std::string &Date2) {
     std::istringstream ss2(Date2);
     if (Date2.size() == 16) {
         ss2 >> std::get_time(&time2, "%d-%m-%Y %H:%M");
-    } else {
+    }
+    else {
         ss2 >> std::get_time(&time2, "%d-%m-%Y");
     }
     time2.tm_mon -= 1;
@@ -235,4 +242,3 @@ int compareTimes(const std::string& time1, const std::string& time2) {
 
     return 0;
 }
-

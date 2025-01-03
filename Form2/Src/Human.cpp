@@ -1,11 +1,12 @@
 #include "../include/Human.h"
 
 Human::Human() {}
-Human::Human(const std::string human_id, const std::string &first_name,
-             const std::string &last_name, const std::string &country,
-             const std::string &birth, int height, int weight)
+Human::Human(const std::string human_id, const std::string& first_name,
+    const std::string& last_name, const std::string& country,
+    const std::string& birth, int height, int weight)
     : human_id(human_id), first_name(first_name), last_name(last_name),
-      country(country), birth(birth), height(height), weight(weight){}
+    country(country), birth(birth), height(height), weight(weight) {
+}
 
 // Getter and setter for Id
 std::string Human::get_Id() const
@@ -13,7 +14,7 @@ std::string Human::get_Id() const
     return human_id;
 }
 
-void Human::set_Id(const std::string &Id)
+void Human::set_Id(const std::string& Id)
 {
     human_id = Id;
 }
@@ -34,12 +35,12 @@ std::string Human::get_first_name() const
     return first_name;
 }
 
-void Human::set_first_name(const std::string &first_name)
+void Human::set_first_name(const std::string& first_name)
 {
     this->first_name = first_name;
 }
 
-void Human::set_last_name(const std::string &last_name)
+void Human::set_last_name(const std::string& last_name)
 {
     this->last_name = last_name;
 }
@@ -56,7 +57,7 @@ int Human::get_age() const
         throw std::invalid_argument("Invalid date format. Please use dd-mm-yyyy");
     }
     std::time_t now = std::time(nullptr); //calculate the time ELAPSED in secs since Jan, 1st, 1970
-    std::tm *now_tm = std::localtime(&now); //create struct tm of local machine time (what time is it now?)
+    std::tm* now_tm = std::localtime(&now); //create struct tm of local machine time (what time is it now?)
     int age = now_tm->tm_year - birth.tm_year; //year(now) - year(birth) = age
     //if NOT HAPPYBIRTHDAY means hasn't increased age in the same year
     if (now_tm->tm_mon < birth.tm_mon ||
@@ -95,7 +96,7 @@ std::string Human::get_nation() const
     return country;
 }
 
-void Human::set_nation(const std::string &nation)
+void Human::set_nation(const std::string& nation)
 {
     this->country = nation;
 }
@@ -106,7 +107,7 @@ std::string Human::get_birth() const
     return birth;
 }
 
-void Human::set_birth(const std::string &birth)
+void Human::set_birth(const std::string& birth)
 {
     this->birth = birth;
 }

@@ -295,7 +295,8 @@ System::Void Form2::MyForm::PLAYERS_Click(System::Object^ sender, System::EventA
 		//draw the line under the current button
 		this->MAINBUTTON->Invalidate(); //Trigger Paint event ~ repaint
 		// Add the user control to the panel
-		UC_PLAYERS^ ucPlayers = gcnew Form2::UC_PLAYERS();
+		this->vScrollBar1->Visible = false;
+		UC_PLAYERS^ ucPlayers = gcnew Form2::UC_PLAYERS(tour);
 		addUserControl(ucPlayers);
 	}
 }
@@ -308,6 +309,7 @@ System::Void Form2::MyForm::MATCHES_Click(System::Object^ sender, System::EventA
 		//draw the line under the current button
 		this->MAINBUTTON->Invalidate(); //Trigger Paint event ~ repaint
 		// Add the user control to the panel
+		this->vScrollBar1->Visible = false;
 		UC_MATCHES^ ucMatches = gcnew Form2::UC_MATCHES();
 		addUserControl(ucMatches);
 	}
@@ -321,7 +323,8 @@ System::Void Form2::MyForm::STATS_Click(System::Object^ sender, System::EventArg
 		//draw the line under the current button
 		this->MAINBUTTON->Invalidate(); //Trigger Paint event ~ repaint
 		// Add the user control to the panel
-		UC_STATS^ ucStats = gcnew Form2::UC_STATS();
+		this->vScrollBar1->Visible = false;
+		UC_STATS^ ucStats = gcnew Form2::UC_STATS(tour);
 		addUserControl(ucStats);
 	}
 }

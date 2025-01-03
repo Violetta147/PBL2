@@ -7,9 +7,9 @@
 // Constructor
 Match::Match() {}
 Match::Match(int match_id, int home_id, int away_id, std::string date, std::string time, int updated)
-    : match_id(match_id), home_team_id(home_id), away_team_id(away_id), date(date), time(time), updated(updated), home_score(0), away_score(0){
-        home_lineup.reserve(11);
-        away_lineup.reserve(11);
+    : match_id(match_id), home_team_id(home_id), away_team_id(away_id), date(date), time(time), updated(updated), home_score(0), away_score(0) {
+    home_lineup.reserve(11);
+    away_lineup.reserve(11);
 }
 
 // Setters
@@ -36,22 +36,22 @@ void Match::setAwayTeam(const Team* team)
     away_team = team;
 }
 
-void Match::setHomeLineupId(const std::vector<std::string> &lineup_id)
+void Match::setHomeLineupId(const std::vector<std::string>& lineup_id)
 {
     home_lineup_id = lineup_id;
 }
 
-void Match::setAwayLineupId(const std::vector<std::string> &lineup_id)
+void Match::setAwayLineupId(const std::vector<std::string>& lineup_id)
 {
     away_lineup_id = lineup_id;
 }
 
-void Match::setHomeLineup(const std::vector<const Player *> &lineup)
+void Match::setHomeLineup(const std::vector<const Player*>& lineup)
 {
     home_lineup = lineup;
 }
 
-void Match::setAwayLineup(const std::vector<const Player *> &lineup)
+void Match::setAwayLineup(const std::vector<const Player*>& lineup)
 {
     away_lineup = lineup;
 }
@@ -66,7 +66,7 @@ void Match::setAwayScore(int score)
     away_score = score;
 }
 
-void Match::addEvent(const Event &event)
+void Match::addEvent(const Event& event)
 {
     events.push_back(event);
 }
@@ -109,12 +109,12 @@ std::string Match::getTime() const {
     return time;
 }
 
-const std::vector<const Player *>& Match::getHomeLineup() const
+const std::vector<const Player*>& Match::getHomeLineup() const
 {
     return home_lineup;
 }
 
-const std::vector<const Player *>& Match::getAwayLineup() const
+const std::vector<const Player*>& Match::getAwayLineup() const
 {
     return away_lineup;
 }
@@ -143,7 +143,7 @@ std::vector<Event>& Match::getEvents() {
     return events;
 }
 
-const std::vector<Event> &Match::getEvents() const
+const std::vector<Event>& Match::getEvents() const
 {
     return events;
 }
@@ -175,13 +175,15 @@ void Match::displayMatchSummary() const {
             std::cout << id << " ";
         }
         std::cout << std::endl;
-    } else return;
+    }
+    else return;
 
     std::cout << "Match Events: " << std::endl;
     for (const auto& event : events) {
         if (event.get_side() == 0) {
             std::cout << "Team: " << home_team->get_name() << std::endl;
-        } else std::cout << "Team: " << away_team->get_name() << std::endl;
+        }
+        else std::cout << "Team: " << away_team->get_name() << std::endl;
         event.display_event();
     }
     std::cout << "---------------------------" << std::endl;
@@ -198,7 +200,7 @@ void Match::displayMatch() const {
 }
 
 // JSON conversion (to JSON)
-void Match::to_json(json &j, const Match &m) {
+void Match::to_json(json& j, const Match& m) {
     j = json{
         {"match_id", m.getMatchId()},
         {"home_team_id", m.getHomeTeamId()},
@@ -242,4 +244,3 @@ Match Match::from_json(const json& j) {
 
     return m;
 }
-

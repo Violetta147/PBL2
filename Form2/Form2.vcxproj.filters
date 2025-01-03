@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="file-handling\read.cpp" />
     <ClCompile Include="Loading.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyForm.cpp" />
@@ -29,6 +28,7 @@
     <ClCompile Include="AddTeam.cpp" />
     <ClCompile Include="TeamInformation.cpp" />
     <ClCompile Include="TeamDataView.cpp" />
+    <ClCompile Include="EditTeam.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Coach.h" />
@@ -47,7 +47,6 @@
     <ClInclude Include="TransparentRenderer.h" />
     <ClInclude Include="UC_HOME.h" />
     <ClInclude Include="UC_MATCHES.h" />
-    <ClInclude Include="UC_PLAYERS.h" />
     <ClInclude Include="UC_RANKING.h" />
     <ClInclude Include="UC_STATS.h" />
     <ClInclude Include="UC_TEAMS.h" />
@@ -59,15 +58,14 @@
     <ClInclude Include="Ultility.h" />
     <ClInclude Include="TeamInformation.h" />
     <ClInclude Include="TeamDataView.h" />
-    <ClInclude Include="read.h" />
+    <ClInclude Include="UC_PLAYERS.h" />
+    <ClInclude Include="EditTeam.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\tournament.json" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="file-handling\country.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="MyResource.resx" />
+    <EmbeddedResource Include="UC_PLAYERS.resx" />
   </ItemGroup>
 </Project>

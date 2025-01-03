@@ -94,6 +94,7 @@ namespace Form2 {
 			this->tableLayoutPanel->Dock = DockStyle::None;
 			this->Controls->Add(this->tableLayoutPanel);
 		}
+
 		void AddTableHeaders()
 		{
 			array<System::String^>^ headers = gcnew array<System::String^> {
@@ -131,6 +132,7 @@ namespace Form2 {
 		}
 		void AddTeamData()
 		{
+			this->tour->updateRanking();
 			const std::vector<RankingEntry>& ranking = this->tour->getRanking();
 			if (ranking.empty())
 			{
@@ -157,6 +159,7 @@ namespace Form2 {
 				for (int col = 0; col < teamData->Length; col++)
 				{
 					Label^ cell = gcnew Label();
+					if (col == 1) cell->Name = System::Convert::ToString(entry.team->get_id());
 					cell->Margin = System::Windows::Forms::Padding(0);
 					cell->Text = teamData[col];
 					cell->BackColor = System::Drawing::Color::WhiteSmoke;
@@ -180,10 +183,10 @@ namespace Form2 {
 						else
 							cell->ForeColor = System::Drawing::Color::Gray;
 					}
-					cell->Font = gcnew System::Drawing::Font("Arial", 12, System::Drawing::FontStyle::Bold);
+					cell->Font = gcnew System::Drawing::Font("Arial", 10, System::Drawing::FontStyle::Bold);
 					cell->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
-						if (col == teamData->Length - 1)
-							cell->Font = gcnew System::Drawing::Font("Arial", 10, System::Drawing::FontStyle::Bold);
+					if (col == teamData->Length - 1)
+						cell->Font = gcnew System::Drawing::Font("Arial", 10, System::Drawing::FontStyle::Bold);
 
 					cell->Dock = System::Windows::Forms::DockStyle::Fill;
 					cell->Paint += gcnew PaintEventHandler(this, &UC_RANKING::DrawCustomBorder);
@@ -197,8 +200,10 @@ namespace Form2 {
 						cell->MouseEnter += gcnew EventHandler(this, &UC_RANKING::OnMouseEnterName);
 						cell->MouseLeave += gcnew EventHandler(this, &UC_RANKING::OnMouseLeaveName);
 						cell->Click += gcnew EventHandler(this, &UC_RANKING::OnNameClick);
-					}	
-						this->tableLayoutPanel->Controls->Add(cell, col, row);
+						cell->Text = "              " + teamData[col];
+						cell->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+					}
+					this->tableLayoutPanel->Controls->Add(cell, col, row);
 				}
 
 				row++;
@@ -262,7 +267,7 @@ namespace Form2 {
 				if (i != 1)
 					this->tableLayoutPanel->ColumnStyles->Add(gcnew ColumnStyle(SizeType::Percent, 100.0f / (columnCount + 1)));
 				if (i == 1) {
-					this->tableLayoutPanel->ColumnStyles->Add(gcnew ColumnStyle(SizeType::Percent, 200.0f / (columnCount + 1)));
+					this->tableLayoutPanel->ColumnStyles->Add(gcnew ColumnStyle(SizeType::Percent, 225.0f / (columnCount + 1)));
 				}
 			}
 
@@ -289,20 +294,22 @@ namespace Form2 {
 			Label^ label = safe_cast<Label^>(sender);
 			label->Font = gcnew System::Drawing::Font(
 				label->Font,
-				label->Font->Style | FontStyle::Underline
+				label->Font->Style | FontStyle::Italic
 			);
+			label->Cursor = Cursors::Hand;
 		}
 
 		void OnMouseLeaveName(Object^ sender, EventArgs^ e)
 		{
 			Label^ label = safe_cast<Label^>(sender);
-			label->Font = gcnew System::Drawing::Font("Arial", 12, System::Drawing::FontStyle::Bold);
+			label->Font = gcnew System::Drawing::Font("Arial", 10, System::Drawing::FontStyle::Bold);
+			label->Cursor = Cursors::Default;
 		}
 
 		void OnNameClick(Object^ sender, EventArgs^ e)
 		{
 			Label^ label = safe_cast<Label^>(sender);
-			MessageBox::Show("You clicked on: " + label->Text);
+			MessageBox::Show("You clicked on: " + label->Name);
 		}
 
 	};

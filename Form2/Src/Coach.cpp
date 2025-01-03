@@ -8,8 +8,9 @@
 // Constructor
 Coach::Coach() {}
 Coach::Coach(const std::string& human_id, const std::string& first_name, const std::string& last_name, const std::string& country,
-             const std::string& birth, int height, int weight, const std::string& coach_id, int team_id, int wins, int loses, int ties)
-    : Human(human_id, first_name, last_name, country, birth, height, weight), coach_id(coach_id), team_id(team_id), wins(wins), loses(loses), ties(ties), team(nullptr) {}
+    const std::string& birth, int height, int weight, const std::string& coach_id, int team_id, int wins, int loses, int ties)
+    : Human(human_id, first_name, last_name, country, birth, height, weight), coach_id(coach_id), team_id(team_id), wins(wins), loses(loses), ties(ties), team(nullptr) {
+}
 
 // Getter for team
 std::string Coach::get_id() const {
@@ -123,18 +124,19 @@ void Coach::to_json(json& j, const Coach& c) {
 // Display coach info
 void Coach::display() const {
     std::cout << "Coach ID: " << coach_id << "\n"
-              << "Coach name: " << get_Name() << "\n"
-              << "Birthday: " << get_birth() << std::endl
-              << "Age: " << get_age() << std::endl
-              << "Country: " << get_nation() << std::endl
-              << "Height: " << get_height() << std::endl
-              << "Weight: " << get_weight() << std::endl
-              << "Wins: " << get_wins() << std::endl
-              << "Loses: " << get_loses() << std::endl
-              << "Ties: " << get_ties() << std::endl;
+        << "Coach name: " << get_Name() << "\n"
+        << "Birthday: " << get_birth() << std::endl
+        << "Age: " << get_age() << std::endl
+        << "Country: " << get_nation() << std::endl
+        << "Height: " << get_height() << std::endl
+        << "Weight: " << get_weight() << std::endl
+        << "Wins: " << get_wins() << std::endl
+        << "Loses: " << get_loses() << std::endl
+        << "Ties: " << get_ties() << std::endl;
     if (team) {
         std::cout << "Team: " << team->get_name() << "\n";
-    } else {
+    }
+    else {
         std::cout << "No team assigned.\n";
     }
 }
@@ -143,4 +145,3 @@ void Coach::leave_team() {
     set_team(nullptr);
     this->set_TId(-1);
 }
-

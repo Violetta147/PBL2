@@ -6,10 +6,11 @@
 #include "../include/Team.h"
 #include "../include/file_handler.h"
 #include "../include/datetime.h"
+#include <algorithm>
 #include <fstream>
 
 // Constructor
-Tournament::Tournament(const std::string name, const std::string &season, int req, State initState)
+Tournament::Tournament(const std::string name, const std::string& season, int req, State initState)
     : name(name), season(season), team_required(req), state(initState)
 {
     std::cout << "Tournament created for season: " << season << std::endl;
@@ -26,7 +27,7 @@ Tournament::~Tournament()
 }
 
 // Setters
-void Tournament::setSeason(const std::string &season)
+void Tournament::setSeason(const std::string& season)
 {
     this->season = season;
 }
@@ -40,10 +41,10 @@ void Tournament::changeState()
         {
             flag = 1;
             std::cout << "Not enough players(only " << players.size() << " while minimum "
-                      << team_required * 11 << ") required!\n";
+                << team_required * 11 << ") required!\n";
         }
         std::vector<std::string> player_id;
-        for (const auto &p : players)
+        for (const auto& p : players)
         {
             if (p.getTeam() == nullptr)
             {
@@ -54,7 +55,7 @@ void Tournament::changeState()
         {
             flag = 1;
             std::cout << "Players with id: ";
-            for (const auto &id : player_id)
+            for (const auto& id : player_id)
                 std::cout << id << " ";
             std::cout << "aren't assigned to any team!\n";
         }
@@ -62,15 +63,15 @@ void Tournament::changeState()
         {
             flag = 1;
             std::cout << "Not enough teams(only " << teams.size() << " while " << team_required
-                      << " required!\n";
+                << " required!\n";
         }
-        for (const auto &team : teams)
+        for (const auto& team : teams)
         {
             if (team.get_players().size() < 11)
             {
                 flag = 1;
                 std::cout << "Team " << team.get_name() << " only have " << team.get_player_count()
-                          << " players(required minimum 11 players)!\n";
+                    << " players(required minimum 11 players)!\n";
             }
             if (team.get_coach() == nullptr)
             {
@@ -195,9 +196,11 @@ int Tournament::get_match_occured() const
             if (day_comp == 0) {
                 int time_comp = compareTimes(m.getTime(), time);
                 if (time_comp > 0) break;
-                    else occured++;
-            } else occured++;
-        } else break;
+                else occured++;
+            }
+            else occured++;
+        }
+        else break;
     }
     return occured;
 }
@@ -222,7 +225,7 @@ Team* Tournament::getTeam(int index) {
 }
 
 Coach* Tournament::getCoach(int index) {
-    return &coaches[index]; //remember vector starts from 0
+    return &coaches[index];
 }
 
 int Tournament::get_round() const {
@@ -234,7 +237,7 @@ int Tournament::get_round_updated() const {
 }
 
 // Add methods
-void Tournament::addPlayer(Player &player)
+void Tournament::addPlayer(Player& player)
 {
     if (this->get_team_count() != team_required) {
         std::cout << "You must add all teams first!\n";
@@ -254,7 +257,8 @@ void Tournament::addPlayer(Player &player)
                 // this->write_all_data();
             }
         }
-    } else {
+    }
+    else {
         std::cout << "Cannot add player during this duration!\n";
     }
     return;
@@ -269,19 +273,21 @@ void Tournament::addTeam(Team& team)
     if (state == PRE) {
         teams.push_back(team);
         // ....
-    } else {
+    }
+    else {
         std::cout << "Cannot add team during this duration!\n";
     }
 }
 
-void Tournament::addMatch(Match &match)
+void Tournament::addMatch(Match& match)
 {
     if (state == PRE) {
         matches.push_back(match);
         Match* match_ptr = find_match_by_id(match.getMatchId());
         match_ptr->setHomeTeam(find_team_by_id(match_ptr->getHomeTeamId()));
         match_ptr->setAwayTeam(find_team_by_id(match_ptr->getAwayTeamId()));
-    } else {
+    }
+    else {
         std::cout << "Cannot add match during this duration!\n";
     }
     return;
@@ -298,27 +304,28 @@ void Tournament::addCoach(Coach& coach)
         coach.set_team(team_ptr);
         coaches.push_back(coach);
         team_ptr->add_coach(find_coach_by_id(coach.get_id()));
-    } else {
+    }
+    else {
         std::cout << "Cannot add coach during this duration!\n";
     }
     return;
 }
 
 // Chuyển đối tượng Tournament sang JSON
-void Tournament::to_json(json &j, const Tournament &tournament)
+void Tournament::to_json(json& j, const Tournament& tournament)
 {
     j["name"] = tournament.get_name();
     j["season"] = tournament.getSeason();
     j["team_required"] = tournament.getReq();
-    j["state"] = (tournament.getState() == PRE)    ? "PRE"
-                 : (tournament.getState() == GO)   ? "GO"
-                 : (tournament.getState() == MID)  ? "MID"
-                 : (tournament.getState() == AWAY) ? "AWAY"
-                                                   : "POS";
+    j["state"] = (tournament.getState() == PRE) ? "PRE"
+        : (tournament.getState() == GO) ? "GO"
+        : (tournament.getState() == MID) ? "MID"
+        : (tournament.getState() == AWAY) ? "AWAY"
+        : "POS";
 }
 
 // Đọc dữ liệu từ file JSON vào đối tượng Tournament
-Tournament Tournament::from_json(const json &j)
+Tournament Tournament::from_json(const json& j)
 {
     std::string name = j.at("name").get<std::string>();
     std::string season = j.at("season").get<std::string>();
@@ -353,14 +360,14 @@ Tournament Tournament::from_json(const json &j)
 
 void Tournament::edit_team(const Team& information)
 {
-   Team* team = find_team_by_id(information.get_id());
-   if (team != nullptr)
-   {
+    Team* team = find_team_by_id(information.get_id());
+    if (team != nullptr)
+    {
         team->set_name(information.get_name());
         team->set_abb(information.get_abb());
         team->set_stadium(information.get_stadium());
-   }
-   write_team();
+    }
+    write_team();
 }
 
 void Tournament::edit_coach(const Coach& information) // has this pointer to tournament
@@ -389,10 +396,10 @@ void Tournament::edit_coach(const Coach& information) // has this pointer to tou
     write_team();
 }
 
-void Tournament::edit_player(const Player &information)
+void Tournament::edit_player(const Player& information)
 {
     // change find to return pointer instead of int
-    Player *target = this->find_player_by_id(information.getId()); // temporarily suppose we don't have index passed in edit_player func
+    Player* target = this->find_player_by_id(information.getId()); // temporarily suppose we don't have index passed in edit_player func
     if (target != nullptr)
     {
         // bool isExist = isPlayerExist()
@@ -408,11 +415,7 @@ void Tournament::edit_player(const Player &information)
         target->set_weight(information.get_weight());
         target->setNum(information.getNum());
         target->setPosition(information.getPosition());
-        //I CHANGED Here 3/1/2024
-        target->set_Id(information.get_Id());
-		target->set_nation(information.get_nation());
 
-    
         if (information.getTId() != target->getTId())
         {
             // if Team with information.getTID exist, obviously exists because information is
@@ -423,7 +426,7 @@ void Tournament::edit_player(const Player &information)
                 target->leave_team();
             }
 
-            Team *target_team = this->find_team_by_id(information.getTId()); // this will certainly always return the CORRECT Team
+            Team* target_team = this->find_team_by_id(information.getTId()); // this will certainly always return the CORRECT Team
             if (target_team != nullptr) {
                 target->setTId(information.getTId());
                 target->setTeam(target_team);
@@ -463,7 +466,8 @@ void Tournament::edit_match(Match& match) {
                 return;
             }
         }
-    } else {
+    }
+    else {
         std::cout << "Match not ended yet!\n";
         return;
     }
@@ -500,33 +504,40 @@ void Tournament::edit_match(Match& match) {
             if (tegrat->getTId() == target->getHomeTeamId()) {
                 home++;
                 Events[i].set_side(0);
-            } else {
+            }
+            else {
                 away++;
                 Events[i].set_side(1);
             }
-        } else if (Events[i].get_event() == ASSIST) {
+        }
+        else if (Events[i].get_event() == ASSIST) {
             tegrat->addAssists(1);
             if (tegrat->getTId() == target->getHomeTeamId()) {
                 Events[i].set_side(0);
-            } else {
+            }
+            else {
                 Events[i].set_side(1);
             }
-        } else if (Events[i].get_event() == YELLOW) {
+        }
+        else if (Events[i].get_event() == YELLOW) {
             tegrat->addYellowCards(1);
             if (tegrat->getTId() == target->getHomeTeamId()) {
                 Events[i].set_side(0);
-            } else {
+            }
+            else {
                 Events[i].set_side(1);
             }
             foul[tegrat->getId()]++;
             if (foul[tegrat->getId()] == 2) {
                 tegrat->addRedCards(1);
             }
-        } else {
+        }
+        else {
             tegrat->addRedCards(1);
             if (tegrat->getTId() == target->getHomeTeamId()) {
                 Events[i].set_side(0);
-            } else {
+            }
+            else {
                 Events[i].set_side(1);
             }
             tegrat->addRedCards(1);
@@ -543,16 +554,42 @@ void Tournament::edit_match(Match& match) {
         meat_yawa->up_tie();
         find_coach_by_id(meat_emoh->get_coach()->get_id())->up_ties();
         find_coach_by_id(meat_yawa->get_coach()->get_id())->up_ties();
-    } else if (home > away) {
+        if (home == 0) {
+            for (int i = 0; i < 11; i++) {
+                if (target->getHomeLineup()[i]->getPosition() == "Goalkeeper") {
+                    find_player_by_id(target->getHomeLineup()[i]->getId())->addCleanSheets(1);
+                }
+                if (target->getAwayLineup()[i]->getPosition() == "Goalkeeper") {
+                    find_player_by_id(target->getAwayLineup()[i]->getId())->addCleanSheets(1);
+                }
+            }
+        }
+    }
+    else if (home > away) {
         meat_emoh->up_win();
         meat_yawa->up_lose();
         find_coach_by_id(meat_emoh->get_coach()->get_id())->up_wins();
         find_coach_by_id(meat_yawa->get_coach()->get_id())->up_loses();
-    } else {
+        if (away == 0) {
+            for (int i = 0; i < 11; i++) {
+                if (target->getHomeLineup()[i]->getPosition() == "Goalkeeper") {
+                    find_player_by_id(target->getHomeLineup()[i]->getId())->addCleanSheets(1);
+                }
+            }
+        }
+    }
+    else {
         meat_emoh->up_lose();
         meat_yawa->up_win();
         find_coach_by_id(meat_emoh->get_coach()->get_id())->up_loses();
         find_coach_by_id(meat_yawa->get_coach()->get_id())->up_wins();
+        if (home == 0) {
+            for (int i = 0; i < 11; i++) {
+                if (target->getAwayLineup()[i]->getPosition() == "Goalkeeper") {
+                    find_player_by_id(target->getAwayLineup()[i]->getId())->addCleanSheets(1);
+                }
+            }
+        }
     }
     target->setHomeScore(home);
     target->setAwayScore(away);
@@ -582,7 +619,8 @@ void Tournament::edit_match(Match& match) {
             Player* somebody = find_player_by_id(a.first);
             if (somebody->getTId() == target->getHomeTeamId()) {
                 somebody->setIsBan(meat_emoh->get_matches());
-            } else {
+            }
+            else {
                 somebody->setIsBan(meat_yawa->get_matches());
             }
         }
@@ -592,7 +630,7 @@ void Tournament::edit_match(Match& match) {
     return;
 }
 
-Player *Tournament::find_player_by_id(const std::string &player_id)
+Player* Tournament::find_player_by_id(const std::string& player_id)
 {
     for (int i = 0; i < players.size(); ++i)
     {
@@ -608,7 +646,7 @@ Player *Tournament::find_player_by_id(const std::string &player_id)
 // only show main buttons}
 //
 
-Team *Tournament::find_team_by_id(int team_id)
+Team* Tournament::find_team_by_id(int team_id)
 {
     for (int i = 0; i < teams.size(); ++i)
     {
@@ -618,7 +656,7 @@ Team *Tournament::find_team_by_id(int team_id)
     return nullptr;
 }
 
-Coach *Tournament::find_coach_by_id(const std::string &coach_id)
+Coach* Tournament::find_coach_by_id(const std::string& coach_id)
 {
     for (int i = 0; i < coaches.size(); i++)
     {
@@ -628,7 +666,7 @@ Coach *Tournament::find_coach_by_id(const std::string &coach_id)
     return nullptr;
 }
 
-Match *Tournament::find_match_by_id(const int &match_id)
+Match* Tournament::find_match_by_id(const int& match_id)
 {
     for (int i = 0; i < matches.size(); i++)
     {
@@ -657,19 +695,19 @@ void Tournament::get_all_data()
 void Tournament::link_all_data()
 {
     // Link players and teams
-    for (auto &player : players)
+    for (auto& player : players)
     {
-		if (player.getTId() == -1) continue; //i modified it here
-        Team *team_ptr = this->find_team_by_id(player.getTId());
+        if (player.getTId() == -1) continue; //i modified it here
+        Team* team_ptr = this->find_team_by_id(player.getTId());
         player.setTeam(team_ptr);
         team_ptr->add_player(&player);
     }
 
     // Link coaches and teams
-    for (auto &coach : coaches)
-    {   
-		if (coach.get_TId() == -1) continue; //i modified it here
-        Team *team_ptr = this->find_team_by_id(coach.get_TId());
+    for (auto& coach : coaches)
+    {
+        if (coach.get_TId() == -1) continue; //i modified it here
+        Team* team_ptr = this->find_team_by_id(coach.get_TId());
         coach.set_team(team_ptr);
         team_ptr->set_coach(&coach);
     }
@@ -679,8 +717,8 @@ void Tournament::link_all_data()
     for (int i = 0, num = (team_required - 1) * 2; i < num; i++) {
         for (int j = 0, cc = team_required / 2; j < cc; j++) {
             int index = 10 * i + j;
-            Team *home_team_ptr = this->find_team_by_id(matches[index].getHomeTeamId());
-            Team *away_team_ptr = this->find_team_by_id(matches[index].getAwayTeamId());
+            Team* home_team_ptr = this->find_team_by_id(matches[index].getHomeTeamId());
+            Team* away_team_ptr = this->find_team_by_id(matches[index].getAwayTeamId());
             matches[index].setHomeTeam(home_team_ptr);
             matches[index].setAwayTeam(away_team_ptr);
             // team->match
@@ -689,16 +727,16 @@ void Tournament::link_all_data()
             std::vector<const Player*> home_lineup;
             for (int t = 0, sm = matches[index].getHomeLineupId().size(); t < sm; t++)
             {
-                Player *player_ptr = this->find_player_by_id(matches[index].getHomeLineupId()[t]);
+                Player* player_ptr = this->find_player_by_id(matches[index].getHomeLineupId()[t]);
                 home_lineup.push_back(player_ptr);
                 player_ptr->upMatch();
             }
             matches[index].setHomeLineup(home_lineup);
 
-            std::vector<const Player *> away_lineup;
-            for (int t = 0, sm = matches[index].getAwayLineup().size(); t < sm; t++)
+            std::vector<const Player*> away_lineup;
+            for (int t = 0, sm = matches[index].getAwayLineupId().size(); t < sm; t++)
             {
-                Player *player_ptr = this->find_player_by_id(matches[index].getAwayLineupId()[t]);
+                Player* player_ptr = this->find_player_by_id(matches[index].getAwayLineupId()[t]);
                 away_lineup.push_back(player_ptr);
                 player_ptr->upMatch();
             }
@@ -712,29 +750,67 @@ void Tournament::link_all_data()
                 Events[k].set_player(tegrat);
                 if (Events[k].get_event() == GOAL) {
                     tegrat->addGoals(1);
-                } else if (Events[k].get_event() == ASSIST) {
+                }
+                else if (Events[k].get_event() == ASSIST) {
                     tegrat->addAssists(1);
-                } else if (Events[k].get_event() == YELLOW) {
+                }
+                else if (Events[k].get_event() == YELLOW) {
                     tegrat->addYellowCards(1);
-                } else {
+                }
+                else {
                     tegrat->addRedCards(1);
                 }
             }
             if (home == away) {
                 home_team_ptr->up_tie();
                 away_team_ptr->up_tie();
-            } else if (home > away) {
+                if (home == 0) {
+                    for (int t = 0; t < 11; t++) {
+                        Player* p1 = find_player_by_id(matches[index].getHomeLineup()[t]->getId());
+                        if (p1->getPosition() == "Goalkeeper") {
+                            p1->addCleanSheets(1);
+                        }
+
+                        Player* p2 = find_player_by_id(matches[index].getHomeLineup()[t]->getId());
+                        if (p2->getPosition() == "Goalkeeper") {
+                            p2->addCleanSheets(1);
+                        }
+                    }
+                }
+            }
+            else if (home > away) {
                 home_team_ptr->up_win();
                 away_team_ptr->up_lose();
-            } else {
+                if (away == 0) {
+                    for (int t = 0; t < 11; t++) {
+                        Player* p = find_player_by_id(matches[index].getHomeLineup()[t]->getId());
+                        if (p->getPosition() == "Goalkeeper") {
+                            p->addCleanSheets(1);
+                        }
+                    }
+                }
+            }
+            else {
                 home_team_ptr->up_lose();
                 away_team_ptr->up_win();
+                if (home == 0) {
+                    for (int t = 0; t < 11; t++) {
+                        Player* p = find_player_by_id(matches[index].getAwayLineup()[t]->getId());
+                        if (p->getPosition() == "Goalkeeper") {
+                            p->addCleanSheets(1);
+                        }
+                    }
+                }
             }
             home_team_ptr->add_goal_scored(home);
             home_team_ptr->add_goal_conceded(away);
             away_team_ptr->add_goal_scored(away);
             away_team_ptr->add_goal_conceded(home);
         }
+    }
+
+    for (int i = 0; i < team_required; i++) {
+        find_team_by_id(i + 1)->set_match(list_match_by_TID(this->matches, i + 1));
     }
 
     traverse_for_ban();
@@ -762,7 +838,8 @@ void Tournament::traverse_for_ban() {
                             Player* tegrat = find_player_by_id(Events[j].get_player_id());
                             tegrat->setIsBan(find_team_by_id(home)->get_matches());
                         }
-                    } else if (Events[j].get_event() == RED) {
+                    }
+                    else if (Events[j].get_event() == RED) {
                         Player* tegrat = find_player_by_id(Events[j].get_player_id());
                         tegrat->setIsBan(find_team_by_id(home)->get_matches());
                     }
@@ -781,7 +858,8 @@ void Tournament::traverse_for_ban() {
                             Player* tegrat = find_player_by_id(Events[j].get_player_id());
                             tegrat->setIsBan(find_team_by_id(away)->get_matches());
                         }
-                    } else if (Events[j].get_event() == RED) {
+                    }
+                    else if (Events[j].get_event() == RED) {
                         Player* tegrat = find_player_by_id(Events[j].get_player_id());
                         tegrat->setIsBan(find_team_by_id(away)->get_matches());
                     }
@@ -829,7 +907,7 @@ void Tournament::generate_match() {
     }
 
     //std::vector<std::pair<int, int>> go_rounds[numTeams - 1];
-	std::unique_ptr<std::vector<std::pair<int, int>>[]> go_rounds(new std::vector<std::pair<int, int>>[numTeams - 1]);
+    std::unique_ptr<std::vector<std::pair<int, int>>[]> go_rounds(new std::vector<std::pair<int, int>>[numTeams - 1]);
     std::vector<int> team_id(numTeams);
     for (int i = 0; i < numTeams; ++i) {
         team_id[i] = i + 1;
@@ -844,7 +922,7 @@ void Tournament::generate_match() {
             int home = team_id[i];
             int away = team_id[numTeams - 1 - i];
             if (!(hasFakeTeam && (home == numTeams || away == numTeams))) {
-                go_rounds[round].push_back({home, away});
+                go_rounds[round].push_back({ home, away });
             }
         }
         int first = team_id[1];
@@ -859,7 +937,7 @@ void Tournament::generate_match() {
     }
 
     //std::vector<std::pair<int, int>> away_rounds[numTeams - 1];
-	std::unique_ptr<std::vector<std::pair<int, int>>[]> away_rounds(new std::vector<std::pair<int, int>>[numTeams - 1]);
+    std::unique_ptr<std::vector<std::pair<int, int>>[]> away_rounds(new std::vector<std::pair<int, int>>[numTeams - 1]);
     std::shuffle(team_id.begin(), team_id.end(), g);
 
     for (int round = 0; round < numTeams - 1; ++round) {
@@ -867,7 +945,7 @@ void Tournament::generate_match() {
             int away = team_id[i];
             int home = team_id[numTeams - 1 - i];
             if (!(hasFakeTeam && (home == numTeams || away == numTeams))) {
-                away_rounds[round].push_back({home, away});
+                away_rounds[round].push_back({ home, away });
             }
         }
         int first = team_id[1];
@@ -894,13 +972,16 @@ void Tournament::generate_match() {
                     Match match(matches.size() + 1, go_rounds[round][i].first, go_rounds[round][i].second, date, "02:30");
                     addMatch(match);
                 }
-            } else if (i < numTeams / 4) {
+            }
+            else if (i < numTeams / 4) {
                 Match match(matches.size() + 1, go_rounds[round][i].first, go_rounds[round][i].second, date, "22:00");
                 addMatch(match);
-            } else if (i != numTeams / 2) {
+            }
+            else if (i != numTeams / 2) {
                 Match match(matches.size() + 1, go_rounds[round][i].first, go_rounds[round][i].second, date, "21:00");
                 addMatch(match);
-            } else {
+            }
+            else {
                 Match match(matches.size() + 1, go_rounds[round][i].first, go_rounds[round][i].second, date, "23:30");
                 addMatch(match);
             }
@@ -919,13 +1000,16 @@ void Tournament::generate_match() {
                     Match match(matches.size() + 1, away_rounds[round][i].first, away_rounds[round][i].second, date, "02:30");
                     addMatch(match);
                 }
-            } else if (i < numTeams / 4) {
+            }
+            else if (i < numTeams / 4) {
                 Match match(matches.size() + 1, away_rounds[round][i].first, away_rounds[round][i].second, date, "22:00");
                 addMatch(match);
-            } else if (i != numTeams / 2) {
+            }
+            else if (i != numTeams / 2) {
                 Match match(matches.size() + 1, away_rounds[round][i].first, away_rounds[round][i].second, date, "21:00");
                 addMatch(match);
-            } else {
+            }
+            else {
                 Match match(matches.size() + 1, away_rounds[round][i].first, away_rounds[round][i].second, date, "23:30");
                 addMatch(match);
             }
@@ -937,6 +1021,11 @@ void Tournament::generate_match() {
         Match match(matches.size() + 1, away_rounds[numTeams - 2][i].first, away_rounds[numTeams - 2][i].second, date, "22:00");
         addMatch(match);
     }
+
+    for (int i = 0; i < team_required; i++) {
+        find_team_by_id(i + 1)->set_match(list_match_by_TID(this->matches, i + 1));
+    }
+
     write_match();
 }
 
@@ -948,22 +1037,73 @@ bool Descending(int a, int b) {
     return a > b;
 }
 
-std::vector<Match> Tournament::list_match_by_TID(const int &team_id)
+std::vector<Player> Tournament::search_by_name(std::vector<Player> players, const std::string lower) {
+    std::vector<Player> res;
+    std::string keyword = lower;
+    std::transform(keyword.begin(), keyword.end(), keyword.begin(), ::tolower);
+    for (int i = 0, num = players.size(); i < num; i++) {
+        std::string name = players[i].get_Name();
+        std::transform(name.begin(), name.end(), name.begin(), ::tolower);
+        if (name.find(keyword) != std::string::npos) {
+            res.push_back(players[i]);
+        }
+    }
+    return res;
+}
+
+std::vector<Team> Tournament::search_by_team_name(std::vector<Team> teams, const std::string lower) {
+    std::vector<Team> res;
+    std::string keyword = lower;
+    std::transform(keyword.begin(), keyword.end(), keyword.begin(), ::tolower);
+    for (int i = 0, num = teams.size(); i < num; i++) {
+        std::string name = teams[i].get_name();
+        std::transform(name.begin(), name.end(), name.begin(), ::tolower);
+        if (name.find(keyword) != std::string::npos) {
+            res.push_back(teams[i]);
+        }
+    }
+    return res;
+}
+
+std::vector<const Match*> Tournament::list_match_by_TID(std::vector<Match> matches, const int& team_id)
 {
-    std::vector<Match> res;
+    std::vector<const Match*> res;
     if (matches.size() != 0) {
         for (int i = 0, num = matches.size(); i < num; i++)
         {
             if (matches[i].getHomeTeamId() == team_id || matches[i].getAwayTeamId() == team_id) {
-                matches[i].displayMatchSummary();
-                res.push_back(matches[i]);
+                /*matches[i].displayMatchSummary();*/
+                res.push_back(&matches[i]);
             }
         }
     }
     return res;
 }
 
-std::vector<Player> Tournament::list_players_by_age(bool (*CompFunc)(int, int)) {
+std::vector<Player> Tournament::list_players_by_nation(std::vector<Player> players, std::string nation) {
+    std::vector<Player> res;
+    if (!players.empty()) {
+        for (int i = 0, num = players.size(); i < num; i++) {
+            if (players[i].get_nation() == nation)
+                res.push_back(players[i]);
+        }
+    }
+    return res;
+}
+
+std::vector<Player> Tournament::list_players_by_team(std::vector<Player> players, int team_id) {
+    std::vector<Player> res;
+    if (!players.empty()) {
+        for (int i = 0, num = players.size(); i < num; i++) {
+            const Team* team = players[i].getTeam();
+            if (team->get_id() == team_id)
+                res.push_back(players[i]);
+        }
+    }
+    return res;
+}
+
+std::vector<Player> Tournament::list_players_by_age(std::vector<Player> players, bool (*CompFunc)(int, int)) {
     std::vector<Player> res;
 
     if (!players.empty()) {
@@ -993,7 +1133,7 @@ std::vector<Player> Tournament::list_players_by_age(bool (*CompFunc)(int, int)) 
 }
 
 
-std::vector<Player> Tournament::list_players_by_born_year(int year) {
+std::vector<Player> Tournament::list_players_by_born_year(std::vector<Player> players, int year) {
     std::vector<Player> res;
     for (int i = 0, num = players.size(); i < num; i++) {
         std::string birth_date = players[i].get_birth();
@@ -1004,27 +1144,26 @@ std::vector<Player> Tournament::list_players_by_born_year(int year) {
                 if (year_int = year) {
                     res.push_back(players[i]);
                 }
-            } catch (const std::invalid_argument& e) {
-                std::cerr << "Error: Unable to convert birth year for player "
-                          << players[i].get_Name() << " - Birth date: " << birth_date << std::endl;
-            } catch (const std::out_of_range& e) {
-                std::cerr << "Error: Birth year out of range for player "
-                          << players[i].get_Name() << " - Birth date: " << birth_date << std::endl;
             }
-        } else {
+            catch (const std::invalid_argument& e) {
+                std::cerr << "Error: Unable to convert birth year for player "
+                    << players[i].get_Name() << " - Birth date: " << birth_date << std::endl;
+            }
+            catch (const std::out_of_range& e) {
+                std::cerr << "Error: Birth year out of range for player "
+                    << players[i].get_Name() << " - Birth date: " << birth_date << std::endl;
+            }
+        }
+        else {
             std::cerr << "Warning: Invalid birth date format for player "
-                      << players[i].get_Name() << " - Birth date: " << birth_date << std::endl;
+                << players[i].get_Name() << " - Birth date: " << birth_date << std::endl;
         }
     }
 
-    // Print results
-    for (const auto& player : res) {
-        std::cout << player.get_Name() << " " << player.get_birth() << std::endl;
-    }
     return res;
 }
 
-std::vector<Player> Tournament::list_players_by_height(bool (*CompFunc)(int, int)) {
+std::vector<Player> Tournament::list_players_by_height(std::vector<Player> players, bool (*CompFunc)(int, int)) {
     std::vector<Player> res;
     if (!players.empty()) {
         res.push_back(players[0]);
@@ -1043,17 +1182,45 @@ std::vector<Player> Tournament::list_players_by_height(bool (*CompFunc)(int, int
             }
         }
     }
+    return res;
+}
 
-    // // In tên cầu thủ đã sắp xếp
-    for (const auto& player : res) {
-        std::cout << player.get_Name() << " - Height: " << player.get_height() << std::endl;
+std::vector<Player> Tournament::list_players_by_weight(std::vector<Player> players, bool (*CompFunc)(int, int)) {
+    std::vector<Player> res;
+    if (!players.empty()) {
+        res.push_back(players[0]);
+        for (int i = 1, num = players.size(); i < num; i++) {
+            bool inserted = false;
+            int weight = players[i].get_weight();
+            for (int j = 0; j < res.size(); j++) {
+                if (CompFunc(weight, res[j].get_weight())) {
+                    res.insert(res.begin() + j, players[i]);
+                    inserted = true;
+                    break;
+                }
+            }
+            if (!inserted) {
+                res.push_back(players[i]);
+            }
+        }
+    }
+    return res;
+}
+
+std::vector<Player> Tournament::list_players_at_age(std::vector<Player> players, int age) {
+    std::vector<Player> res;
+    if (players.size() != 0) {
+        for (int i = 0, num = players.size(); i < num; i++) {
+            if (players[i].get_age() == age) {
+                res.push_back(players[i]);
+            }
+        }
     }
 
     return res;
 }
 
-
-std::vector<Player> Tournament::list_players_in_pos(std::string pos) {
+std::vector<Player> Tournament::list_players_in_pos(std::vector<Player> players, std::string pos) {
     std::vector<Player> res;
     if (players.size() != 0) {
         for (int i = 0, num = players.size(); i < num; i++) {
@@ -1062,13 +1229,11 @@ std::vector<Player> Tournament::list_players_in_pos(std::string pos) {
             }
         }
     }
-    for (int i = 0, num = res.size(); i < num; i++) {
-        std::cout << res[i].get_Name() << std::endl;
-    }
+
     return res;
 }
 
-std::vector<Player> Tournament::list_player_by_goal(bool (*CompFunc)(int, int)) {
+std::vector<Player> Tournament::list_player_by_goal(std::vector<Player> players, bool (*CompFunc)(int, int)) {
     std::vector<Player> res;
     if (players.size() != 0) {
         res.push_back(players[0]);
@@ -1087,14 +1252,11 @@ std::vector<Player> Tournament::list_player_by_goal(bool (*CompFunc)(int, int)) 
             }
         }
     }
-    for (const auto& player : res) {
-        std::cout << player.get_Name() << " - Goals: " << player.getGoals() << std::endl;
-    }
 
     return res;
 }
 
-std::vector<Player> Tournament::list_player_by_assist(bool (*CompFunc)(int, int)) {
+std::vector<Player> Tournament::list_player_by_assist(std::vector<Player> players, bool (*CompFunc)(int, int)) {
     std::vector<Player> res;
     if (!players.empty()) {
         res.push_back(players[0]);
@@ -1114,16 +1276,34 @@ std::vector<Player> Tournament::list_player_by_assist(bool (*CompFunc)(int, int)
         }
     }
 
-    //In tên cầu thủ đã sắp xếp theo assists
-    for (const auto& player : res) {
-        std::cout << player.get_Name() << " - Assists: " << player.getAssists() << std::endl;
-    }
-
     return res;
 }
 
+std::vector<Player> Tournament::list_gk_by_cs(std::vector<Player> players, bool (*CompFunc)(int, int)) {
+    std::vector<Player> res;
+    res = list_players_in_pos(players, "Goalkeeper");
+    std::vector<Player> res2;
+    if (!res.empty()) {
+        res2.push_back(res[0]);
+        for (int i = 1, num = res.size(); i < num; i++) {
+            bool inserted = false;
+            int cs = res[i].getCleanSheets();
+            for (int j = 0; j < res2.size(); j++) {
+                if (CompFunc(cs, res2[j].getCleanSheets())) {
+                    res2.insert(res2.begin() + j, res[i]);
+                    inserted = true;
+                    break;
+                }
+            }
+            if (!inserted) {
+                res2.push_back(players[i]);
+            }
+        }
+    }
+    return res2;
+}
 
-std::vector<Player> Tournament::list_player_by_rc(bool (*CompFunc)(int, int)) {
+std::vector<Player> Tournament::list_player_by_rc(std::vector<Player> players, bool (*CompFunc)(int, int)) {
     std::vector<Player> res;
     if (!players.empty()) {
         res.push_back(players[0]);
@@ -1143,16 +1323,11 @@ std::vector<Player> Tournament::list_player_by_rc(bool (*CompFunc)(int, int)) {
         }
     }
 
-    // In danh sách cầu thủ sắp xếp theo số thẻ đỏ
-    for (const auto& player : res) {
-        std::cout << player.get_Name() << " - Red Cards: " << player.getRedCards() << " - BAN: " << player.getIsBan() << std::endl;
-    }
-
     return res;
 }
 
 
-std::vector<Player> Tournament::list_player_by_yc(bool (*CompFunc)(int, int)) {
+std::vector<Player> Tournament::list_player_by_yc(std::vector<Player> players, bool (*CompFunc)(int, int)) {
     std::vector<Player> res;
     if (!players.empty()) {
         res.push_back(players[0]);
@@ -1172,58 +1347,54 @@ std::vector<Player> Tournament::list_player_by_yc(bool (*CompFunc)(int, int)) {
         }
     }
 
-    // In danh sách cầu thủ sắp xếp theo số thẻ vàng
-    for (const auto& player : res) {
-        std::cout << player.get_Name() << " - Yellow Cards: " << player.getYellowCards() << " - BAN: " << player.getIsBan() << std::endl;
-    }
-
     return res;
 }
 
 
-std::vector<Match> Tournament::list_matches_by_day(std::string occured) {
+std::vector<Match> Tournament::list_matches_by_day(std::vector<Match> matches, std::string occured) {
     std::vector<Match> match;
     for (const auto& m : matches) {
         int compResult = compareDates(m.getDate(), occured);
         if (compResult > 0) {
             break;
-        } else if (compResult == 0) {
+        }
+        else if (compResult == 0) {
             match.push_back(m);
         }
     }
-    for (int i = 0, num = match.size(); i < num; i++) {
+    /*for (int i = 0, num = match.size(); i < num; i++) {
         match[i].displayMatchSummary();
-    }
+    }*/
     return match;
 }
 
-std::vector<Match> Tournament::list_matches_by_month(int month) {
+std::vector<Match> Tournament::list_matches_by_month(std::vector<Match> matches, int month) {
     std::vector<Match> match;
     for (const auto& m : matches) {
         int month_int = std::stoi(m.getDate().substr(3, 2));
         if (month_int == month) match.push_back(m);
     }
-    for (int i = 0, num = match.size(); i < num; i++) {
+    /*for (int i = 0, num = match.size(); i < num; i++) {
         match[i].displayMatchSummary();
-    }
+    }*/
     return match;
 }
 
-std::vector<Match> Tournament::list_matches_by_round(int round) {
+std::vector<Match> Tournament::list_matches_by_round(std::vector<Match> matches, int round) {
     std::vector<Match> match;
-    for (int i = (round - 1) * int(team_required / 2), num = (round) * int(team_required / 2) ; i < num; i++) {
+    for (int i = (round - 1) * int(team_required / 2), num = (round) * int(team_required / 2); i < num; i++) {
         match.push_back(matches[i]);
     }
-    for (int i = 0, num = match.size(); i < num; i++) {
+    /*for (int i = 0, num = match.size(); i < num; i++) {
         match[i].displayMatchSummary();
-    }
+    }*/
     return match;
 }
 
 std::vector<Match> Tournament::list_matches() {
-    for (int i = 0, num = matches.size(); i < num; i++) {
-        matches[i].displayMatch();
-    }
+    //for (int i = 0, num = matches.size(); i < num; i++) {
+    //    matches[i].displayMatch();
+    //}
     return matches;
 }
 
@@ -1240,7 +1411,7 @@ std::vector<Player> Tournament::list_free_players() {
 // Rank
 void Tournament::generate_ranking() {
     for (int i = 0, num = teams.size(); i < num; i++) {
-        ranking.push_back({&teams[i], teams[i].get_points(), teams[i].get_secondary_points(), teams[i].get_goal_scored()});
+        ranking.push_back({ &teams[i], teams[i].get_points(), teams[i].get_secondary_points(), teams[i].get_goal_scored() });
     }
 }
 void Tournament::updateRanking() {
@@ -1269,8 +1440,8 @@ void Tournament::delete_player(Player& gone) {
         team->remove_player(play);
         play->leave_team();
     }
-   players.erase(std::remove_if(players.begin(), players.end(),
-             [&](const Player& p) { return &p == play; }), players.end());
+    players.erase(std::remove_if(players.begin(), players.end(),
+        [&](const Player& p) { return &p == play; }), players.end());
     write_player();
     write_team();
 }
@@ -1298,7 +1469,7 @@ void Tournament::delete_coach(Coach& gone) {
         play->leave_team();
     }
     coaches.erase(std::remove_if(coaches.begin(), coaches.end(),
-             [&](const Coach& p) { return &p == play; }), coaches.end());
+        [&](const Coach& p) { return &p == play; }), coaches.end());
     write_coach();
     write_team();
 }
@@ -1320,7 +1491,6 @@ void Tournament::delete_team(Team& gone)
     if (team->get_coach() != nullptr) {
         Coach* coach = find_coach_by_id(team->get_coach()->get_id());
         coach->leave_team();
-        team->remove_coach();//
     }
     if (!team->get_players().empty()) {
         for (const auto& player : team->get_players()) {
@@ -1351,6 +1521,91 @@ std::vector<Match> Tournament::list_upcoming_matches(int num) {
     return res;
 }
 
+std::vector<Team> Tournament::list_teams_by_goal_scored(bool (*CompFunc)(int, int)) {
+    std::vector<Team> res;
+    if (!this->teams.empty()) {
+        res.push_back(teams[0]);
+        for (int i = 1, num = teams.size(); i < num; i++) {
+            bool inserted = false;
+            int yc = teams[i].get_goal_scored();
+            for (int j = 0; j < res.size(); j++) {
+                if (CompFunc(yc, res[j].get_goal_scored())) {
+                    res.insert(res.begin() + j, teams[i]);
+                    inserted = true;
+                    break;
+                }
+            }
+            if (!inserted) {
+                res.push_back(teams[i]);
+            }
+        }
+    }
+    return res;
+}
+std::vector<Team> Tournament::list_teams_by_goal_conceded(bool (*CompFunc)(int, int)) {
+    std::vector<Team> res;
+    if (!teams.empty()) {
+        res.push_back(teams[0]);
+        for (int i = 1, num = teams.size(); i < num; i++) {
+            bool inserted = false;
+            int yc = teams[i].get_goal_conceded();
+            for (int j = 0; j < res.size(); j++) {
+                if (CompFunc(yc, res[j].get_goal_conceded())) {
+                    res.insert(res.begin() + j, teams[i]);
+                    inserted = true;
+                    break;
+                }
+            }
+            if (!inserted) {
+                res.push_back(teams[i]);
+            }
+        }
+    }
+    return res;
+}
+std::vector<Team> Tournament::list_teams_by_wins(bool (*CompFunc)(int, int)) {
+    std::vector<Team> res;
+    if (!teams.empty()) {
+        res.push_back(teams[0]);
+        for (int i = 1, num = teams.size(); i < num; i++) {
+            bool inserted = false;
+            int yc = teams[i].get_wins();
+            for (int j = 0; j < res.size(); j++) {
+                if (CompFunc(yc, res[j].get_wins())) {
+                    res.insert(res.begin() + j, teams[i]);
+                    inserted = true;
+                    break;
+                }
+            }
+            if (!inserted) {
+                res.push_back(teams[i]);
+            }
+        }
+    }
+    return res;
+}
+std::vector<Team> Tournament::list_teams_by_loses(bool (*CompFunc)(int, int)) {
+    std::vector<Team> res;
+    if (!teams.empty()) {
+        res.push_back(teams[0]);
+        for (int i = 1, num = teams.size(); i < num; i++) {
+            bool inserted = false;
+            int yc = teams[i].get_loses();
+            for (int j = 0; j < res.size(); j++) {
+                if (CompFunc(yc, res[j].get_loses())) {
+                    res.insert(res.begin() + j, teams[i]);
+                    inserted = true;
+                    break;
+                }
+            }
+            if (!inserted) {
+                res.push_back(teams[i]);
+            }
+        }
+    }
+    return res;
+}
+
 Player Tournament::getPlayer(int index) {
-	return players[index];
+    return players[index];
 }

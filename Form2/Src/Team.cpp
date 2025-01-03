@@ -7,29 +7,29 @@
 
 // Constructor
 Team::Team() : founded_year(0) {}
-Team::Team(int id, const std::string& name, const std::string& abbre, const std::string& stadium, const int founded_year,
-         int wins, int loses, int ties, int goal_scored, int goal_conceded)
+Team::Team(int id, const std::string& name, const std::string& abbre, const std::string& stadium, int founded_year,
+    int wins, int loses, int ties, int goal_scored, int goal_conceded)
     : team_id(id), name(name), abbreviation(abbre), stadium(stadium), founded_year(founded_year), wins(wins), loses(loses),
-      ties(ties), goal_scored(goal_scored), goal_conceded(goal_conceded), coach(nullptr) {
-        players.reserve(30);
+    ties(ties), goal_scored(goal_scored), goal_conceded(goal_conceded), coach(nullptr) {
+    players.reserve(30);
 }
 
 Team& Team::operator = (const Team& team) {
-	if (this == &team) {
-		return *this;
-	}
-	team_id = team.team_id;
-	name = team.name;
-	abbreviation = team.abbreviation;
-	stadium = team.stadium;
-	wins = team.wins;
-	loses = team.loses;
-	ties = team.ties;
-	goal_scored = team.goal_scored;
-	goal_conceded = team.goal_conceded;
-	coach = team.coach;
-	players = team.players;
-	return *this;
+    if (this == &team) {
+        return *this;
+    }
+    team_id = team.team_id;
+    name = team.name;
+    abbreviation = team.abbreviation;
+    stadium = team.stadium;
+    wins = team.wins;
+    loses = team.loses;
+    ties = team.ties;
+    goal_scored = team.goal_scored;
+    goal_conceded = team.goal_conceded;
+    coach = team.coach;
+    players = team.players;
+    return *this;
 }
 
 
@@ -71,6 +71,15 @@ int Team::get_founded_year() const {
     return founded_year;
 }
 
+// Getter for matches
+const std::vector<const Match*>& Team::get_match() const {
+    return matches;
+}
+
+void Team::set_match(const std::vector<const Match*>& matches) {
+    this->matches = matches;
+}
+
 // Getter for players
 const std::vector<const Player*>& Team::get_players() const {
     return players;
@@ -83,7 +92,7 @@ void Team::add_player(const Player* player) {
 
 // Add coach
 void Team::add_coach(const Coach* coach) {
-     this->coach = coach;
+    this->coach = coach;
 }
 
 // Getter and setter for coach
@@ -97,18 +106,19 @@ void Team::set_coach(const Coach* coach) {
 // Method to display team information
 void Team::displayInfo() const {
     std::cout << "Team ID: " << team_id << std::endl
-              << "Team Name: " << name << std::endl
-              << "Stadium: " << stadium << std::endl
-              << "Founded Year: " << founded_year << std::endl
-              << "Goals scored: " << goal_scored << std::endl
-              << "Goals conceded: " << goal_conceded << std::endl
-              << "Wins: " << wins << std::endl
-              << "Loses: " << loses << std::endl
-              << "Ties: " << ties << std::endl;
+        << "Team Name: " << name << std::endl
+        << "Stadium: " << stadium << std::endl
+        << "Founded Year: " << founded_year << std::endl
+        << "Goals scored: " << goal_scored << std::endl
+        << "Goals conceded: " << goal_conceded << std::endl
+        << "Wins: " << wins << std::endl
+        << "Loses: " << loses << std::endl
+        << "Ties: " << ties << std::endl;
     // Display coach info if available
     if (coach) {
         std::cout << "Coach: " << coach->get_Name() << std::endl;
-    } else {
+    }
+    else {
         std::cout << "Coach: No coach assigned." << std::endl;
     }
 }

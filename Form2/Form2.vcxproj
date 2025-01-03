@@ -130,7 +130,7 @@
   <ItemGroup>
     <ClCompile Include="AddTeam.cpp" />
     <ClCompile Include="CustomControl.cpp" />
-    <ClCompile Include="file-handling\read.cpp" />
+    <ClCompile Include="EditTeam.cpp" />
     <ClCompile Include="ImageHelper.cpp" />
     <ClCompile Include="Loading.cpp" />
     <ClCompile Include="main.cpp" />
@@ -162,6 +162,9 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="CustomControl.h" />
+    <ClInclude Include="EditTeam.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
     <ClInclude Include="ImageHelper.h" />
     <ClInclude Include="include\Coach.h" />
     <ClInclude Include="include\datetime.h" />
@@ -183,7 +186,6 @@
     <ClInclude Include="NewPlayer.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="read.h" />
     <ClInclude Include="TeamDataView.h">
       <FileType>CppControl</FileType>
     </ClInclude>
@@ -197,9 +199,7 @@
     <ClInclude Include="UC_MATCHES.h">
       <FileType>CppControl</FileType>
     </ClInclude>
-    <ClInclude Include="UC_PLAYERS.h">
-      <FileType>CppControl</FileType>
-    </ClInclude>
+    <ClInclude Include="UC_PLAYERS.h" />
     <ClInclude Include="UC_RANKING.h">
       <FileType>CppControl</FileType>
     </ClInclude>
@@ -215,6 +215,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AddTeam.resx">
       <DependentUpon>AddTeam.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditTeam.resx">
+      <DependentUpon>EditTeam.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MyForm.resx">
       <DependentUpon>MyForm.h</DependentUpon>
@@ -236,9 +239,7 @@
     <EmbeddedResource Include="UC_MATCHES.resx">
       <DependentUpon>UC_MATCHES.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UC_PLAYERS.resx">
-      <DependentUpon>UC_PLAYERS.h</DependentUpon>
-    </EmbeddedResource>
+    <EmbeddedResource Include="UC_PLAYERS.resx" />
     <EmbeddedResource Include="UC_RANKING.resx">
       <DependentUpon>UC_RANKING.h</DependentUpon>
     </EmbeddedResource>
@@ -251,9 +252,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="data\tournament.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="file-handling\country.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

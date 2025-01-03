@@ -22,7 +22,7 @@ public:
     // Constructor
     Coach();
     Coach(const std::string& human_id, const std::string& first_name, const std::string& last_name, const std::string& country,
-          const std::string& birth, int height, int weight, const std::string& coach_id, int team_id, int wins = 0, int loses = 0, int ties = 0);
+        const std::string& birth, int height, int weight, const std::string& coach_id, int team_id, int wins = 0, int loses = 0, int ties = 0);
 
     // Getter for id
     std::string get_id() const;

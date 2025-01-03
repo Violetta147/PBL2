@@ -385,6 +385,7 @@ namespace Form2 {
 			this->AddButton->TabIndex = 30;
 			this->AddButton->Text = L"ADD";
 			this->AddButton->UseVisualStyleBackColor = true;
+			this->AddButton->Click += gcnew System::EventHandler(this, &NewPlayer::AddButton_Click);
 			// 
 			// button1
 			// 
@@ -406,6 +407,7 @@ namespace Form2 {
 			this->button2->TabIndex = 32;
 			this->button2->Text = L"DELETE";
 			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &NewPlayer::button2_Click);
 			// 
 			// tableLayoutPanel1
 			// 
@@ -595,7 +597,6 @@ namespace Form2 {
 			this->rjButton1->TabIndex = 46;
 			this->rjButton1->TextColor = System::Drawing::Color::White;
 			this->rjButton1->UseVisualStyleBackColor = false;
-			this->rjButton1->Click += gcnew System::EventHandler(this, &NewPlayer::rjButton1_Click);
 			// 
 			// NewPlayer
 			// 
@@ -636,6 +637,10 @@ namespace Form2 {
 		}
 		void InitializePlayers()
 		{	
+			if (wrappedPlayers != nullptr)
+			{
+				wrappedPlayers->Clear();
+			}
 			if (!this->IdExist())
 			{
 				int count = tour->get_player_count();
@@ -942,7 +947,7 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	   {
 		   comboBox1->Items->Clear();
 		   Console::WriteLine("InitializeComboBox1");
-		   System::IO::StreamReader^ sr = gcnew System::IO::StreamReader("C:/Users/LAPTOP T&T/source/repos/Violetta147/PBL2/Form2/file-handling/country.txt");
+		   System::IO::StreamReader^ sr = gcnew System::IO::StreamReader("C:/Users/LAPTOP T&T/source/repos/Violetta147/PBL2/Form2/country.txt");
 		   String^ line;
 		   while ((line = sr->ReadLine()) != nullptr)
 		   {
@@ -950,5 +955,48 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 		   }
 		   sr->Close();
 	   }
+private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	if (this->IdExist())
+	{	
+		//if delete mode every control has to be read mode only
+
+		String^ PID = ExtractPID();
+		if (String::IsNullOrEmpty(PID))
+		{
+			MessageBox::Show("Invalid PID or PID is empty");
+			return;
+		}
+		try
+		{
+			std::string PIDStr;
+			Ultility::StringToStlString(PID, PIDStr);
+			auto player = tour->find_player_by_id(PIDStr);
+			if (player == nullptr) {
+				MessageBox::Show("Player not found.");
+				return;
+			}
+			tour->remove_player(*player);
+			InitializeTables();
+			MessageBox::Show("Player has been deleted successfully!");
+			this->Close();
+		}
+		catch (const std::exception& e)
+		{
+			MessageBox::Show("Error while deleting " + gcnew String(e.what()));
+		}
+		
+	}
+	else
+	{
+		MessageBox::Show("You cannot delete while not in TEAM MODE or doesn't have PID");
+	}
+}
+private: System::Void AddButton_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	if (IdExist()) //add player using TEAM MODE which means we have TID|PID in constructor
+	{
+	}
+}
 };
 }

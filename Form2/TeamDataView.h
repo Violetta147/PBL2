@@ -285,7 +285,7 @@ namespace Form2 {
 				}
 				else
 				{
-					this->dataGridView1->Rows[e->RowIndex]->DefaultCellStyle->BackColor = *ImageHelper::LightenColor(NameButton->BackColor, 0.2);
+					this->dataGridView1->Rows[e->RowIndex]->DefaultCellStyle->BackColor = *ImageHelper::LightenColor(NameButton->BackColor, 0.2f);
 					this->dataGridView1->Rows[e->RowIndex]->DefaultCellStyle->ForeColor = NameButton->ForeColor;
 				}
 			}
@@ -320,9 +320,13 @@ namespace Form2 {
 
 			//Open form
 			NewPlayer^ newPlayer = gcnew NewPlayer(tour, selectedPlayer->TeamID + "|" + selectedPlayer->PlayerID);
+			newPlayer->Owner = this->FindForm(); 
+			newPlayer->FormClosed += gcnew FormClosedEventHandler(this, &TeamDataView::NewPlayer_FormClosed);
 			newPlayer->ShowDialog();
-
 		}
+	}
+	private: System::Void NewPlayer_FormClosed(System::Object ^ sender, FormClosedEventArgs ^ e) {
+		LoadTeamPlayers();
 	}
 };
 }

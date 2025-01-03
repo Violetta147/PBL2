@@ -3,14 +3,14 @@
 
 // Constructor
 Player::Player() {}
-Player::Player(const std::string& human_id, const std::string &first_name,
-               const std::string &last_name, const std::string &country,
-               const std::string &birth, int height, int weight, const std::string id, int jersey,
-               int team_id, const std::string &pos, int goal, int ass, int red, int yellow,
-               int is_ban, int match)
+Player::Player(const std::string human_id, const std::string& first_name,
+    const std::string& last_name, const std::string& country,
+    const std::string& birth, int height, int weight, const std::string id, int jersey,
+    int team_id, const std::string& pos, int goal, int ass, int red, int yellow,
+    int is_ban, int match, int clean_sheet)
     : Human(human_id, first_name, last_name, country, birth, height, weight), player_id(id),
-      jersey_num(jersey), team_id(team_id), team(nullptr), position(pos), goal(goal), assist(ass),
-      red_card(red), yellow_card(yellow), is_ban(is_ban), match(match)
+    jersey_num(jersey), team_id(team_id), team(nullptr), position(pos), goal(goal), assist(ass),
+    red_card(red), yellow_card(yellow), is_ban(is_ban), match(match), clean_sheet(clean_sheet)
 {
 }
 
@@ -37,12 +37,12 @@ int Player::getTId() const
 }
 
 // Getter and Setter for team
-void Player::setTeam(const Team *t)
+void Player::setTeam(const Team* t)
 {
     team = t;
 }
 
-const Team *Player::getTeam() const
+const Team* Player::getTeam() const
 {
     return team;
 }
@@ -64,7 +64,7 @@ std::string Player::getPosition() const
     return position;
 }
 
-void Player::setPosition(const std::string &pos)
+void Player::setPosition(const std::string& pos)
 {
     position = pos;
 }
@@ -159,8 +159,21 @@ void Player::upMatch() {
     match += 1;
 }
 
+// Getter and setter for clean_sheet
+int Player::getCleanSheets() const {
+    return clean_sheet;
+}
+
+void Player::addCleanSheets(int cs) {
+    clean_sheet += cs;
+}
+
+void Player::setCleanSheets(int cs) {
+    clean_sheet = cs;
+}
+
 // JSON -> Player
-Player Player::from_json(const json &j)
+Player Player::from_json(const json& j)
 {
     return Player(
         j.at("human_id").get<std::string>(), j.at("first_name").get<std::string>(),
@@ -171,9 +184,9 @@ Player Player::from_json(const json &j)
 }
 
 // Player -> JSON
-void Player::to_json(json &j, const Player &p)
+void Player::to_json(json& j, const Player& p)
 {
-    j = json{{"human_id", p.get_Id()},
+    j = json{ {"human_id", p.get_Id()},
              {"first_name", p.get_first_name()},
              {"last_name", p.get_last_name()},
              {"country", p.get_nation()},
@@ -183,30 +196,31 @@ void Player::to_json(json &j, const Player &p)
              {"player_id", p.getId()},
              {"jersey_num", p.getNum()},
              {"team_id", p.getTId()},
-             {"position", p.getPosition()}};
+             {"position", p.getPosition()} };
 }
 
 // Display player information
 void Player::display() const
 {
     std::cout << "Player ID: " << player_id << "\n"
-              << "Player name: " << get_Name() << "\n"
-              << "Birthday: " << get_birth() << std::endl
-              << "Age: " << get_age() << std::endl
-              << "Country: " << get_nation() << std::endl
-              << "Height: " << get_height() << std::endl
-              << "Weight: " << get_weight() << std::endl
-              << "Jersey Number: " << jersey_num << "\n"
-              << "Position: " << position << "\n"
-              << "Goals: " << goal << "\n"
-              << "Assists: " << assist << "\n"
-              << "Red Cards: " << red_card << "\n"
-              << "Yellow Cards: " << yellow_card << "\n"
-              << "Is Banned: " << (is_ban ? "Yes" : "No") << "\n"
-              << "Matches Played: " << match << std::endl;
+        << "Player name: " << get_Name() << "\n"
+        << "Birthday: " << get_birth() << std::endl
+        << "Age: " << get_age() << std::endl
+        << "Country: " << get_nation() << std::endl
+        << "Height: " << get_height() << std::endl
+        << "Weight: " << get_weight() << std::endl
+        << "Jersey Number: " << jersey_num << "\n"
+        << "Position: " << position << "\n"
+        << "Goals: " << goal << "\n"
+        << "Assists: " << assist << "\n"
+        << "Red Cards: " << red_card << "\n"
+        << "Yellow Cards: " << yellow_card << "\n"
+        << "Is Banned: " << (is_ban ? "Yes" : "No") << "\n"
+        << "Matches Played: " << match << std::endl;
     if (team) {
         std::cout << "Team: " << team->get_name() << "\n";
-    } else {
+    }
+    else {
         std::cout << "No team assigned.\n";
     }
 }

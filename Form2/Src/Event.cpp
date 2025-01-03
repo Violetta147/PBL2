@@ -9,7 +9,8 @@
 // Constructor
 Event::Event() {}
 Event::Event(std::string player_id, EventType event, int minute, int side)
-    : player_id(player_id), event(event), minute(minute), side(side) {}
+    : player_id(player_id), event(event), minute(minute), side(side) {
+}
 
 // Getter for player id
 std::string Event::get_player_id() const {
@@ -66,11 +67,11 @@ void Event::display_event() const {
     std::cout << "Player ID: " << player_id << ", ";
     std::cout << "Event: ";
     switch (event) {
-        case GOAL: std::cout << "Goal"; break;
-        case ASSIST: std::cout << "Assist"; break;
-        case YELLOW: std::cout << "Yellow Card"; break;
-        case RED: std::cout << "Red Card"; break;
-        default: std::cout << "Unknown Event"; break;
+    case GOAL: std::cout << "Goal"; break;
+    case ASSIST: std::cout << "Assist"; break;
+    case YELLOW: std::cout << "Yellow Card"; break;
+    case RED: std::cout << "Red Card"; break;
+    default: std::cout << "Unknown Event"; break;
     }
     std::cout << ", Minute: " << minute << std::endl;
 }
@@ -78,10 +79,10 @@ void Event::display_event() const {
 void Event::to_json(json& j, const Event& e) {
     std::string event_str;
     switch (e.event) {
-        case GOAL: event_str = "GOAL"; break;
-        case ASSIST: event_str = "ASSIST"; break;
-        case YELLOW: event_str = "YELLOW"; break;
-        case RED: event_str = "RED"; break;
+    case GOAL: event_str = "GOAL"; break;
+    case ASSIST: event_str = "ASSIST"; break;
+    case YELLOW: event_str = "YELLOW"; break;
+    case RED: event_str = "RED"; break;
     }
 
     j = json{
@@ -99,11 +100,14 @@ Event Event::from_json(const json& j) {
 
     if (event_str == "GOAL") {
         event_type = GOAL;
-    } else if (event_str == "ASSIST") {
+    }
+    else if (event_str == "ASSIST") {
         event_type = ASSIST;
-    } else if (event_str == "YELLOW") {
+    }
+    else if (event_str == "YELLOW") {
         event_type = YELLOW;
-    } else if (event_str == "RED") {
+    }
+    else if (event_str == "RED") {
         event_type = RED;
     }
 

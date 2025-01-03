@@ -1,10 +1,9 @@
-#pragma once
+﻿#pragma once
 #include "include/Tournament.h"
 #include "WrapperPlayer.h"
 #include "TeamDataView.h"
 #include "ImageHelper.h"
-
-
+#include "EditTeam.h"
 
 namespace Form2 {
 
@@ -34,6 +33,7 @@ namespace Form2 {
 			SetEstablishmentYear();
 			SetMainPanelBGR();
 			SetButtonColor();
+			InitializeSlideTimer();
 		}
 
 	protected:
@@ -58,6 +58,10 @@ namespace Form2 {
 		   int TId;
 	private: System::Windows::Forms::PictureBox^ pictureBox2;
 	private: CustomControls::RJButton^ rjButton1;
+	private: CustomControls::RJButton^ rjButton2;
+	private: System::Windows::Forms::Timer^ slideTimer;
+	private: UserControl^ slidingControl;
+	private: int targetX;
 
 
 
@@ -78,6 +82,7 @@ namespace Form2 {
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(TeamInformation::typeid));
 			this->containerPanel = (gcnew System::Windows::Forms::Panel());
 			this->mainPanel = (gcnew System::Windows::Forms::Panel());
+			this->rjButton2 = (gcnew CustomControls::RJButton());
 			this->rjButton1 = (gcnew CustomControls::RJButton());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->label3 = (gcnew System::Windows::Forms::Label());
@@ -106,6 +111,7 @@ namespace Form2 {
 			// 
 			this->mainPanel->BackColor = System::Drawing::Color::DarkGoldenrod;
 			this->mainPanel->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->mainPanel->Controls->Add(this->rjButton2);
 			this->mainPanel->Controls->Add(this->rjButton1);
 			this->mainPanel->Controls->Add(this->pictureBox2);
 			this->mainPanel->Controls->Add(this->label3);
@@ -117,6 +123,29 @@ namespace Form2 {
 			this->mainPanel->Name = L"mainPanel";
 			this->mainPanel->Size = System::Drawing::Size(1399, 293);
 			this->mainPanel->TabIndex = 0;
+			// 
+			// rjButton2
+			// 
+			this->rjButton2->BackColor = System::Drawing::Color::GhostWhite;
+			this->rjButton2->BackgroundColor = System::Drawing::Color::GhostWhite;
+			this->rjButton2->BorderColor = System::Drawing::Color::Transparent;
+			this->rjButton2->BorderRadius = 40;
+			this->rjButton2->BorderSize = 0;
+			this->rjButton2->FlatAppearance->BorderSize = 0;
+			this->rjButton2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->rjButton2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->rjButton2->ForeColor = System::Drawing::Color::Black;
+			this->rjButton2->Location = System::Drawing::Point(343, 243);
+			this->rjButton2->Name = L"rjButton2";
+			this->rjButton2->Padding = System::Windows::Forms::Padding(0, 15, 0, 0);
+			this->rjButton2->Size = System::Drawing::Size(150, 72);
+			this->rjButton2->TabIndex = 7;
+			this->rjButton2->Text = L"EDIT TEAM";
+			this->rjButton2->TextAlign = System::Drawing::ContentAlignment::TopCenter;
+			this->rjButton2->TextColor = System::Drawing::Color::Black;
+			this->rjButton2->UseVisualStyleBackColor = false;
+			this->rjButton2->Click += gcnew System::EventHandler(this, &TeamInformation::rjButton2_Click);
 			// 
 			// rjButton1
 			// 
@@ -211,15 +240,10 @@ namespace Form2 {
 
 		}
 #pragma endregion
-private: System::Void rjButton1_Click(System::Object^ sender, System::EventArgs^ e) {
-	
-	//open user control teamdataview
-	TeamDataView^ teamDataView = gcnew TeamDataView(tour, TId);
-	teamDataView->Dock = System::Windows::Forms::DockStyle::Fill;
-	teamDataView->Location = System::Drawing::Point(0, this->mainPanel->ClientSize.Height);
-	teamDataView->Anchor = System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left | System::Windows::Forms::AnchorStyles::Right | System::Windows::Forms::AnchorStyles::Bottom;
-	containerPanel->Controls->Add(teamDataView);
-}
+	private: System::Void rjButton1_Click(System::Object^ sender, System::EventArgs^ e) {
+		TeamDataView^ teamDataView = gcnew TeamDataView(tour, TId);
+		ReplaceUserControl(teamDataView);
+	}
 	private: System::Void SetTeamName()
 	{
 		label2->Text = gcnew String(tour->find_team_by_id(TId)->get_name().c_str());
@@ -252,5 +276,87 @@ private: System::Void rjButton1_Click(System::Object^ sender, System::EventArgs^
 		rjButton1->ForeColor = *ImageHelper::GetContrastingColor(*color);
 	}
 	
+	private: System::Void rjButton2_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		EditTeam^ editTeam = gcnew EditTeam();
+		ReplaceUserControlWithAnimation(editTeam);
+		
+	}
+	   private: System::Void ReplaceUserControl(UserControl^ newControl)
+	   {
+		   // Duyệt qua danh sách Controls của containerPanel
+		   for (int i = containerPanel->Controls->Count - 1; i >= 0; i--)
+		   {
+			   Control^ control = containerPanel->Controls[i];
+
+			   // Kiểm tra nếu điều khiển là UserControl
+			   if (dynamic_cast<UserControl^>(control))
+			   {
+				   // Xóa UserControl hiện tại
+				   containerPanel->Controls->Remove(control);
+				   delete control;
+			   }
+		   }
+
+		   // Thêm UserControl mới
+		   newControl->Dock = System::Windows::Forms::DockStyle::Fill;
+		   newControl->Size = System::Drawing::Size(this->containerPanel->ClientSize.Width, this->containerPanel->ClientSize.Height - this->mainPanel->ClientSize.Height);
+		   newControl->Location = System::Drawing::Point(0, this->mainPanel->ClientSize.Height);
+		   newControl->Anchor = System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left | System::Windows::Forms::AnchorStyles::Right | System::Windows::Forms::AnchorStyles::Bottom;
+		   containerPanel->Controls->Add(newControl);
+	   }
+	   private: System::Void InitializeSlideTimer()
+	   {
+		   slideTimer = gcnew System::Windows::Forms::Timer();
+		   slideTimer->Interval = 10; // Tốc độ chuyển động
+		   slideTimer->Tick += gcnew System::EventHandler(this, &TeamInformation::OnSlideTimerTick);
+	   }
+		private: System::Void OnSlideTimerTick(System::Object^ sender, System::EventArgs^ e)
+		{
+			if (slidingControl == nullptr)
+				return;
+
+			// Dịch chuyển UserControl dần từ phải sang trái
+			System::Drawing::Point currentLocation = slidingControl->Location;
+			int newX = currentLocation.X - 20; // Tốc độ dịch chuyển
+			if (newX <= targetX)
+			{
+				newX = targetX; // Đạt đến vị trí đích
+				slideTimer->Stop(); // Dừng Timer
+				slidingControl = nullptr; // Reset
+			}
+
+			slidingControl->Location = System::Drawing::Point(newX, currentLocation.Y);
+		}
+		private: System::Void ReplaceUserControlWithAnimation(UserControl^ newControl)
+		{
+			// Xóa UserControl cũ
+			for (int i = containerPanel->Controls->Count - 1; i >= 0; i--)
+			{
+				Control^ control = containerPanel->Controls[i];
+				if (dynamic_cast<UserControl^>(control))
+				{
+					containerPanel->Controls->Remove(control);
+					delete control;
+				}
+			}
+
+			// Cài đặt UserControl mới
+			newControl->Dock = System::Windows::Forms::DockStyle::None;
+			newControl->Size = System::Drawing::Size(this->containerPanel->ClientSize.Width / 2,
+				this->containerPanel->ClientSize.Height - this->mainPanel->ClientSize.Height);
+			newControl->Location = System::Drawing::Point(this->containerPanel->ClientSize.Width,
+				(this->containerPanel->ClientSize.Height - newControl->Height) / 2); // Xuất phát từ bên phải
+			newControl->Anchor = System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right | System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left;
+			containerPanel->Controls->Add(newControl);
+
+			// Cài đặt giá trị cho hiệu ứng
+			slidingControl = newControl;
+			targetX = (this->containerPanel->ClientSize.Width - newControl->Width); // Middle-Right
+
+			// Bắt đầu hiệu ứng
+			slideTimer->Start();
+		}
+
 };
 }
